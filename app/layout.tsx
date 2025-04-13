@@ -3,9 +3,9 @@ import "./globals.css";
 import "./assets/textures/paper-texture-refined.css";
 
 export const metadata: Metadata = {
-  title: "Skeuomorphic Sketchbook Gallery",
-  description: "An immersive image gallery with a realistic sketchbook aesthetic featuring photo collections, artwork showcases, and detailed image views.",
-  keywords: ["gallery", "sketchbook", "art", "photography", "portfolio", "skeuomorphic"],
+  title: "China Words Gallery",
+  description: "An elegant gallery showcasing Chinese culture, food, travel, and urban life through a collection of curated images.",
+  keywords: ["China", "gallery", "Chinese culture", "food", "travel", "photography", "urban China"],
 };
 
 export default function RootLayout({
