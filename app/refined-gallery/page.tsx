@@ -6,10 +6,10 @@ import { galleryImages, filterTabs } from '../data/refinedGalleryData';
 
 export default function RefinedGalleryPage() {
   return (
-    <RefinedGallery 
-      title="My Sketchbook Gallery" 
-      images={galleryImages} 
-      filters={filterTabs} 
+    <RefinedGallery
+      title="China Words"
+      images={galleryImages}
+      filters={filterTabs}
     />
   );
 }

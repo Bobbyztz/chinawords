@@ -57,13 +57,14 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
           {filteredImages.map(image => (
             <div key={image.id} className="image-card">
               <div className="tape-top"></div>
-              <div className="relative">
+              <div className="relative h-48 overflow-hidden">
                 <Image
                   src={image.src}
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: 'center' }}
                   priority
                 />
               </div>

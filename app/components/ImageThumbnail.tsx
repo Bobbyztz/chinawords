@@ -9,6 +9,8 @@ interface ImageThumbnailProps {
   onClick?: () => void;
   style?: 'tape' | 'paperclip' | 'corners';
   tapeColor?: 'blue' | 'yellow' | 'pink' | 'green';
+  date?: string;
+  description?: string;
 }
 
 const ImageThumbnail: React.FC<ImageThumbnailProps> = ({
@@ -18,7 +20,9 @@ const ImageThumbnail: React.FC<ImageThumbnailProps> = ({
   height,
   onClick,
   style = 'tape',
-  tapeColor = 'blue'
+  tapeColor = 'blue',
+  date,
+  description
 }) => {
   const getStyleClass = () => {
     switch (style) {
@@ -34,21 +38,23 @@ const ImageThumbnail: React.FC<ImageThumbnailProps> = ({
   };
 
   return (
-    <div 
-      className={`image-thumbnail relative inline-block m-4 bg-white p-2 shadow-md transform rotate-${Math.floor(Math.random() * 5) - 2} ${getStyleClass()}`}
+    <div
+      className={`image-thumbnail relative w-full bg-white p-3 shadow-md transform rotate-${Math.floor(Math.random() * 3) - 1} ${getStyleClass()}`}
       onClick={onClick}
     >
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden w-full h-48">
         <Image
           src={src}
           alt={alt}
           width={width}
           height={height}
-          className="magnify"
+          className="magnify w-full h-full object-cover"
+          style={{ objectPosition: 'center' }}
         />
       </div>
-      <div className="handwritten-caption mt-2 text-center">
-        {alt}
+      <div className="mt-3">
+        <h3 className="handwritten-title text-lg">{alt}</h3>
+        {date && <p className="handwritten-date text-sm">Created {date}</p>}
       </div>
     </div>
   );
