@@ -1,0 +1,116 @@
+/* Animations for sketchbook effects */
+
+@keyframes pageTurn {
+  0% {
+    transform: perspective(1200px) rotateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(-180deg);
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+  }
+}
+
+@keyframes pageReveal {
+  0% {
+    transform: perspective(1200px) rotateY(180deg);
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+}
+
+.page-turn {
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), 
+              box-shadow 0.8s cubic-bezier(0.645, 0.045, 0.355, 1),
+              z-index 0s 0.4s;
+}
+
+.page-turn.turning {
+  animation: pageTurn 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.page-turn.revealing {
+  animation: pageReveal 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.page-turn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes drawSketch {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.sketch-animation path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawSketch 2s ease-in-out forwards;
+}
+
+@keyframes magnifyIn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  }
+  100% {
+    transform: scale(1.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+}
+
+.magnify {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.magnify:hover {
+  animation: magnifyIn 0.3s ease-out forwards;
+  z-index: 100;
+}
+
+.magnify-glass {
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.magnify-glass::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.3s ease;
+  background-repeat: no-repeat;
+  z-index: 1000;
+}
+
+.magnify-glass:hover::after {
+  opacity: 1;
+}
