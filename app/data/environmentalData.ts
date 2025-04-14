@@ -15,7 +15,7 @@ export const heroData = {
   ctaLink: '/join',
   secondaryCtaText: '了解更多',
   secondaryCtaLink: '/about',
-  backgroundImage: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80'
+  backgroundImage: '/autumn.png'
 };
 
 export const initiativesData = {
