@@ -97,7 +97,7 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
                   <div className="corner corner-br"></div>
                 </>
               )}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative aspect-ratio-container overflow-hidden">
                 <Image
                   src={image.src}
                   alt={image.alt}
