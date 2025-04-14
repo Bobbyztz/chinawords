@@ -34,7 +34,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
   socialLinks = []
 }) => {
   return (
-    <footer className="bg-leaf-green text-white relative overflow-hidden">
+    <footer className="bg-[#3a6341] text-white relative overflow-hidden">
       {/* Organic shapes background */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -99,7 +99,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
                 <span className="text-xl font-semibold">Chinawords</span>
               </div>
             </Link>
-            <p className="text-white/80 mb-6 max-w-md">
+            <p className="text-white/90 mb-6 max-w-md">
               {description}
             </p>
 
@@ -111,7 +111,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-300"
+                  className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors duration-300"
                   aria-label={`Follow us on ${link.platform}`}
                 >
                   {link.iconType === 'twitter' && (
@@ -142,7 +142,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
           {/* Footer columns */}
           {columns.map((column, index) => (
             <div key={index}>
-              <h3 className="text-lg font-semibold mb-4 border-b border-white/20 pb-2">
+              <h3 className="text-lg font-semibold mb-4 border-b border-white/30 pb-2">
                 {column.title}
               </h3>
               <ul className="space-y-3">
@@ -150,7 +150,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
                   <li key={linkIndex}>
                     <Link
                       href={link.href}
-                      className="text-white/80 hover:text-white transition-colors duration-300 inline-block"
+                      className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
                     >
                       {link.label}
                     </Link>
@@ -161,18 +161,18 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/20 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/60 text-sm mb-4 md:mb-0">
+        <div className="mt-12 pt-6 border-t border-white/30 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-white/70 text-sm mb-4 md:mb-0">
             &copy; 2024 Chinawords 保留所有权利
           </p>
           <div className="flex space-x-6">
-            <Link href="/privacy" className="text-white/60 text-sm hover:text-white transition-colors duration-300">
+            <Link href="/privacy" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-white/60 text-sm hover:text-white transition-colors duration-300">
+            <Link href="/terms" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="text-white/60 text-sm hover:text-white transition-colors duration-300">
+            <Link href="/cookies" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
               Cookie Policy
             </Link>
           </div>
