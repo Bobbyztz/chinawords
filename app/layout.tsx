@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./assets/textures/paper-texture-refined.css";
+import "./assets/textures/chinese-frame.css";
 
 export const metadata: Metadata = {
   title: "China Words Gallery",

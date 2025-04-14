@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import FrameToggleIcon from './FrameToggleIcon';
 // CSS import is handled in the layout
 
 interface GalleryImage {
@@ -31,6 +32,24 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
   filters
 }) => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [frameEnabled, setFrameEnabled] = useState(true);
+
+  // Load frame preference from localStorage if available
+  useEffect(() => {
+    const savedPreference = localStorage.getItem('chinaword-frame-enabled');
+    if (savedPreference !== null) {
+      setFrameEnabled(savedPreference === 'true');
+    }
+  }, []);
+
+  // Save frame preference to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('chinaword-frame-enabled', frameEnabled.toString());
+  }, [frameEnabled]);
+
+  const toggleFrame = () => {
+    setFrameEnabled(prev => !prev);
+  };
 
   const filteredImages = activeFilter === 'all'
     ? images
@@ -38,6 +57,16 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
 
   return (
     <div className="min-h-screen paper-bg py-12 px-4">
+      {/* Frame toggle button */}
+      <button
+        className={`frame-toggle ${frameEnabled ? 'active' : ''}`}
+        onClick={toggleFrame}
+        title={frameEnabled ? 'Disable Chinese frames' : 'Enable Chinese frames'}
+        aria-label="Toggle Chinese frames"
+      >
+        <FrameToggleIcon isActive={frameEnabled} />
+      </button>
+
       <div className="max-w-6xl mx-auto">
         <h1 className="handwritten-title text-4xl text-center mb-8">{title}</h1>
 
@@ -55,8 +84,19 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredImages.map(image => (
-            <div key={image.id} className="image-card">
-              <div className="tape-top"></div>
+            <div
+              key={image.id}
+              className={frameEnabled ? 'chinese-frame' : 'image-card'}
+            >
+              {!frameEnabled && <div className="tape-top"></div>}
+              {frameEnabled && (
+                <>
+                  <div className="corner corner-tl"></div>
+                  <div className="corner corner-tr"></div>
+                  <div className="corner corner-bl"></div>
+                  <div className="corner corner-br"></div>
+                </>
+              )}
               <div className="relative h-48 overflow-hidden">
                 <Image
                   src={image.src}

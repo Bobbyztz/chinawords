@@ -1,0 +1,108 @@
+/* Chinese-style frame CSS */
+:root {
+  --frame-gold: #b8860b; /* 加深金色 */
+  --frame-red: #8b0000; /* 加深红色 */
+  --frame-black: #000000;
+  --frame-shadow: rgba(0, 0, 0, 0.4); /* 加深阴影 */
+}
+
+/* Chinese-style frame */
+.chinese-frame {
+  position: relative;
+  padding: 12px; /* 减少内边距，使相框更紧凑 */
+  background-color: var(--paper-white);
+  box-shadow: 0 2px 4px var(--shadow-light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chinese-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid var(--frame-gold); /* 将边框从8px减少到4px */
+  box-shadow: inset 0 0 6px var(--frame-shadow);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.chinese-frame::after {
+  content: '';
+  position: absolute;
+  top: 4px; /* 调整为适应新的外框宽度 */
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid var(--frame-red); /* 将边框从2px减少到1px */
+  box-shadow: inset 0 0 3px var(--frame-shadow);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Corner decorations */
+.chinese-frame .corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.chinese-frame .corner-tl {
+  top: 2px;
+  left: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M1,1 L1,8 Q1,12 5,12 L12,12' stroke='%238b0000' stroke-width='1.5' fill='none'/%3E%3Cpath d='M1,1 L1,8 Q1,12 5,12 L12,12' stroke='%23b8860b' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
+}
+
+.chinese-frame .corner-tr {
+  top: 2px;
+  right: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M23,1 L23,8 Q23,12 19,12 L12,12' stroke='%238b0000' stroke-width='1.5' fill='none'/%3E%3Cpath d='M23,1 L23,8 Q23,12 19,12 L12,12' stroke='%23b8860b' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
+}
+
+.chinese-frame .corner-bl {
+  bottom: 2px;
+  left: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M1,23 L1,16 Q1,12 5,12 L12,12' stroke='%238b0000' stroke-width='1.5' fill='none'/%3E%3Cpath d='M1,23 L1,16 Q1,12 5,12 L12,12' stroke='%23b8860b' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
+}
+
+.chinese-frame .corner-br {
+  bottom: 2px;
+  right: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M23,23 L23,16 Q23,12 19,12 L12,12' stroke='%238b0000' stroke-width='1.5' fill='none'/%3E%3Cpath d='M23,23 L23,16 Q23,12 19,12 L12,12' stroke='%23b8860b' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Frame toggle button */
+.frame-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--paper-white);
+  border: 1px solid var(--frame-gold); /* 更细的边框 */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 2px 5px var(--shadow-medium);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.frame-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px var(--shadow-medium);
+}
+
+.frame-toggle.active {
+  background-color: var(--frame-gold);
+}
+
+.frame-toggle svg {
+  width: 24px;
+  height: 24px;
+}
