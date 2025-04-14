@@ -89,7 +89,7 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-white relative overflow-hidden"
+      className="py-20 pt-32 bg-white relative overflow-hidden z-20"
     >
       {/* Organic background shape */}
       <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">

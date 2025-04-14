@@ -47,7 +47,7 @@ const ChinawordsInitiativesSection: React.FC<ChinawordsInitiativesSectionProps> 
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 ink-texture relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 pb-32 ink-texture relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-dark-gray font-serif-sc">{title}</h2>
@@ -56,8 +56,8 @@ const ChinawordsInitiativesSection: React.FC<ChinawordsInitiativesSectionProps> 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {initiatives.map((initiative, index) => (
-            <div 
-              key={initiative.id} 
+            <div
+              key={initiative.id}
               className="initiative-card opacity-0 translate-y-8 transition-all duration-700"
               style={{ transitionDelay: `${index * 100}ms` }}
             >

@@ -32,24 +32,24 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({
     const button = e.currentTarget;
     const circle = document.createElement('span');
     const diameter = Math.max(button.clientWidth, button.clientHeight);
-    
+
     circle.style.width = circle.style.height = `${diameter}px`;
     circle.style.left = `${e.clientX - button.getBoundingClientRect().left - diameter / 2}px`;
     circle.style.top = `${e.clientY - button.getBoundingClientRect().top - diameter / 2}px`;
     circle.classList.add('ripple');
-    
+
     const ripple = button.querySelector('.ripple');
     if (ripple) {
       ripple.remove();
     }
-    
+
     button.appendChild(circle);
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      className={`py-20 ${textureClass} relative overflow-hidden`}
+    <section
+      ref={sectionRef}
+      className={`py-20 pt-32 ${textureClass} relative overflow-hidden z-20`}
       style={{ backgroundColor: 'var(--color-background-alt)' }}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -60,7 +60,7 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {events.map((event) => (
-            <div 
+            <div
               key={event.id}
               className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 relative"
               onMouseDown={createRipple}

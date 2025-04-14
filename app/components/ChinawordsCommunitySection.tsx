@@ -23,8 +23,8 @@ const ChinawordsCommunitySection: React.FC<ChinawordsCommunitySectionProps> = ({
   events
 }) => {
   return (
-    <section 
-      className="py-20 relative overflow-hidden"
+    <section
+      className="py-20 pt-32 relative overflow-hidden z-20"
       style={{ backgroundColor: 'var(--color-ink-gray)' }}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -35,7 +35,7 @@ const ChinawordsCommunitySection: React.FC<ChinawordsCommunitySectionProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {events.map((event) => (
-            <div 
+            <div
               key={event.id}
               className="bg-porcelain-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
             >

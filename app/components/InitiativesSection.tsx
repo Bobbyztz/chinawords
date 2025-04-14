@@ -10,7 +10,7 @@ interface Initiative {
   imageSrc: string;
   imageAlt: string;
   link: string;
-  animationStyle?: 'sway' | 'ripple' | 'none' | string;
+  animationStyle?: 'sway' | 'ripple' | 'none';
 }
 
 interface InitiativesSectionProps {
@@ -48,7 +48,7 @@ const InitiativesSection: React.FC<InitiativesSectionProps> = ({
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 texture-subtle relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 pb-32 texture-subtle relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white/50 to-transparent"></div>
 
@@ -79,12 +79,12 @@ const InitiativesSection: React.FC<InitiativesSectionProps> = ({
       </div>
 
       {/* Organic shape divider */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden z-10">
         <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-[70px] md:h-[100px]"
+          className="w-full h-[70px] md:h-[100px] block"
         >
           <path
             d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"

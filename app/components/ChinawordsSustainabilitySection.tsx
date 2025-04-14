@@ -64,21 +64,21 @@ const ChinawordsSustainabilitySection: React.FC<ChinawordsSustainabilitySectionP
       const duration = 2000; // ms
       const frameDuration = 1000 / 60; // 60fps
       const totalFrames = Math.round(duration / frameDuration);
-      
+
       let frame = 0;
       const countTo = value;
-      
+
       const counter = setInterval(() => {
         frame++;
         const progress = frame / totalFrames;
         const currentCount = Math.round(countTo * progress);
-        
+
         if (countTo > 1000) {
           counterEl.textContent = currentCount.toLocaleString();
         } else {
           counterEl.textContent = currentCount.toString();
         }
-        
+
         if (frame === totalFrames) {
           clearInterval(counter);
         }
@@ -87,9 +87,9 @@ const ChinawordsSustainabilitySection: React.FC<ChinawordsSustainabilitySectionP
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="py-20 bg-porcelain-white relative overflow-hidden"
+    <section
+      ref={sectionRef}
+      className="py-20 pt-32 bg-porcelain-white relative overflow-hidden z-20"
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row items-center gap-12">
