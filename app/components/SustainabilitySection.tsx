@@ -117,24 +117,7 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
               </div>
             </div>
 
-            {/* Floating leaf elements */}
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute animate-sway"
-                style={{
-                  left: `${10 + Math.random() * 80}%`,
-                  top: `${10 + Math.random() * 80}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${3 + Math.random() * 4}s`,
-                  zIndex: 10,
-                }}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17.5 12C17.5 15.0376 15.0376 17.5 12 17.5C8.96243 17.5 6.5 15.0376 6.5 12C6.5 8.96243 8.96243 6.5 12 6.5C15.0376 6.5 17.5 8.96243 17.5 12Z" fill="var(--color-leaf-green)" fillOpacity="0.2" />
-                </svg>
-              </div>
-            ))}
+            {/* Floating leaf elements removed */}
           </div>
 
           {/* Content */}
