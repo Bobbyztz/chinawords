@@ -71,9 +71,10 @@
 
 .filter-tabs {
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 32px;
+  gap: 12px;
+  margin: 0;
+  white-space: nowrap;
+  flex-wrap: wrap;
 }
 
 .filter-tab {
@@ -83,18 +84,23 @@
   border-radius: 20px;
   font-family: 'Caveat', cursive;
   font-size: 1rem;
+  font-weight: 500;
   color: var(--ink-dark);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .filter-tab.active {
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 3px var(--shadow-light);
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 4px var(--shadow-medium);
+  transform: translateY(-1px);
 }
 
 .filter-tab:hover {
   background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px var(--shadow-light);
 }
 
 /* Washi tape styles */

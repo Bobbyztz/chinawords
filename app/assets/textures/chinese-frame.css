@@ -84,7 +84,7 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M23,23 L23,16 Q23,12 19,12 L12,12' stroke='%238b0000' stroke-width='1.5' fill='none'/%3E%3Cpath d='M23,23 L23,16 Q23,12 19,12 L12,12' stroke='%23b8860b' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
 }
 
-/* Frame toggle button */
+/* Frame toggle button - fixed position (legacy) */
 .frame-toggle {
   position: fixed;
   top: 20px;
@@ -113,6 +113,35 @@
 }
 
 .frame-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Header frame toggle button - inline position */
+.header-frame-toggle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--paper-white);
+  border: 1px solid var(--frame-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px var(--shadow-medium);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header-frame-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px var(--shadow-medium);
+}
+
+.header-frame-toggle.active {
+  background-color: var(--frame-gold);
+}
+
+.header-frame-toggle svg {
   width: 24px;
   height: 24px;
 }
