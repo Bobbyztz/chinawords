@@ -31,7 +31,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1614632536889-f0e94a4ec81a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '现代汉服时装设计',
       link: '/fashion/modern-hanfu',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-2',
@@ -40,7 +40,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1569562211093-4ed0d0758f12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '云南石屏豆腐制作',
       link: '/food/yunnan-tofu',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-3',
@@ -49,7 +49,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '上海杨树浦电厂改造',
       link: '/living/zero-carbon-community',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-4',
@@ -58,7 +58,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1570701123784-0a7cf6cd6d01?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '深圳无人驾驶公交',
       link: '/travel/autonomous-bus',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-5',
@@ -67,7 +67,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1528185025906-d8f64c3d8e62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '福建土楼精品酒店',
       link: '/living/tulou-hotel',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-6',
@@ -76,7 +76,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: '贵州梯田日出',
       link: '/travel/guizhou-terraces',
-      animationStyle: 'none' as 'none'
+      animationStyle: 'none' as const
     }
   ]
 };
@@ -118,7 +118,7 @@ export const sustainabilityData = {
 export const communityData = {
   title: '参与线上/线下活动',
   subtitle: '与同好一起，深入中国的城市与乡村。',
-  backgroundTexture: 'leaf' as 'leaf',
+  backgroundTexture: 'leaf' as const,
   events: [
     {
       id: 'event-1',
@@ -154,7 +154,7 @@ export const communityData = {
 export const newsletterData = {
   title: '订阅我们的通讯',
   subtitle: '获取最新的中国文化与生活方式资讯，每周精选内容直达您的邮箱。',
-  backgroundStyle: 'leaf' as 'leaf'
+  backgroundStyle: 'leaf' as const
 };
 
 export const footerData = {

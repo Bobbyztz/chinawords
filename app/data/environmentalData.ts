@@ -29,7 +29,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1518005068251-37900150dfca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Urban garden with native plants and flowers',
       link: '/initiatives/urban-rewilding',
-      animationStyle: 'sway'
+      animationStyle: 'sway' as const
     },
     {
       id: 'initiative-2',
@@ -38,7 +38,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Sustainable building with green roof and solar panels',
       link: '/initiatives/sustainable-design',
-      animationStyle: 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-3',
@@ -47,7 +47,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'People working together in a community garden',
       link: '/initiatives/community-gardens',
-      animationStyle: 'ripple'
+      animationStyle: 'ripple' as const
     },
     {
       id: 'initiative-4',
@@ -56,7 +56,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Children learning about plants in an outdoor classroom',
       link: '/initiatives/environmental-education',
-      animationStyle: 'none'
+      animationStyle: 'none' as const
     },
     {
       id: 'initiative-5',
@@ -65,7 +65,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1475738972911-5b44ce979c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Volunteers planting trees in a restoration area',
       link: '/initiatives/habitat-restoration',
-      animationStyle: 'sway'
+      animationStyle: 'sway' as const
     },
     {
       id: 'initiative-6',
@@ -74,7 +74,7 @@ export const initiativesData = {
       imageSrc: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Solar panels and wind turbines in a green field',
       link: '/initiatives/clean-energy',
-      animationStyle: 'none'
+      animationStyle: 'none' as const
     }
   ]
 };
@@ -116,7 +116,7 @@ export const sustainabilityData = {
 export const communityData = {
   title: '参与线上/线下活动',
   subtitle: '与同好一起，深入中国的城市与乡村',
-  backgroundTexture: 'leaf' as 'leaf',
+  backgroundTexture: 'leaf' as const,
   events: [
     {
       id: 'event-1',
@@ -152,7 +152,7 @@ export const communityData = {
 export const newsletterData = {
   title: '订阅我们的通讯',
   subtitle: '获取最新的中国文化与生活方式资讯，每周精选内容直达您的邮箱。',
-  backgroundStyle: 'leaf' as 'leaf'
+  backgroundStyle: 'leaf' as const
 };
 
 export const footerData = {

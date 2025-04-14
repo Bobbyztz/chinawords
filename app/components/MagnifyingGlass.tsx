@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface MagnifyingGlassProps {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ const MagnifyingGlass: React.FC<MagnifyingGlassProps> = ({
   };
 
   return (
-    <div 
+    <div
       className="magnifying-glass-container relative"
       ref={containerRef}
       onMouseEnter={() => setShowMagnifier(true)}
@@ -31,9 +31,9 @@ const MagnifyingGlass: React.FC<MagnifyingGlassProps> = ({
       onMouseMove={handleMouseMove}
     >
       {children}
-      
+
       {showMagnifier && (
-        <div 
+        <div
           className="magnifier absolute pointer-events-none"
           style={{
             left: `${position.x}px`,
@@ -48,7 +48,7 @@ const MagnifyingGlass: React.FC<MagnifyingGlassProps> = ({
             zIndex: 1000
           }}
         >
-          <div 
+          <div
             style={{
               width: '100%',
               height: '100%',

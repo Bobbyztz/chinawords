@@ -30,31 +30,6 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null);
   const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Animate numbers on scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounters();
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
   const animateCounters = () => {
     metrics.forEach((metric, index) => {
       const counterEl = counterRefs.current[index];
@@ -85,6 +60,32 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
       }, frameDuration);
     });
   };
+
+  // Animate numbers on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [animateCounters]);
 
   return (
     <section
@@ -157,7 +158,7 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
                     )}
                   </div>
                   <div className="text-3xl font-bold text-nature-heading mb-1">
-                    <span ref={el => counterRefs.current[index] = el}>0</span>
+                    <span ref={(el) => { counterRefs.current[index] = el; }}>0</span>
                     {metric.value.includes('%') && '%'}
                   </div>
                   <div className="text-sm text-nature-body">{metric.label}</div>

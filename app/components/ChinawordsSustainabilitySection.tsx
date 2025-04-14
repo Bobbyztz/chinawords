@@ -30,31 +30,6 @@ const ChinawordsSustainabilitySection: React.FC<ChinawordsSustainabilitySectionP
   const sectionRef = useRef<HTMLDivElement>(null);
   const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Animate numbers on scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounters();
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
   const animateCounters = () => {
     metrics.forEach((metric, index) => {
       const counterEl = counterRefs.current[index];
@@ -85,6 +60,34 @@ const ChinawordsSustainabilitySection: React.FC<ChinawordsSustainabilitySectionP
       }, frameDuration);
     });
   };
+
+  // Animate numbers on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [animateCounters]);
+
+
 
   return (
     <section
@@ -144,7 +147,7 @@ const ChinawordsSustainabilitySection: React.FC<ChinawordsSustainabilitySectionP
                     )}
                   </div>
                   <div className="text-3xl font-bold text-dark-gray mb-1 font-serif-sc">
-                    <span ref={el => counterRefs.current[index] = el}>0</span>
+                    <span ref={(el) => { counterRefs.current[index] = el; }}>0</span>
                     {metric.value.includes('%') && '%'}
                     {metric.value.includes('万') && '万'}
                   </div>
