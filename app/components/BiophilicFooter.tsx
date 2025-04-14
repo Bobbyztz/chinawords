@@ -27,7 +27,7 @@ interface BiophilicFooterProps {
 }
 
 const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
-  logo = '/eco-logo.svg',
+  logo = '/logo.png',
   logoAlt = 'Eco Biophilic Hub',
   description,
   columns,

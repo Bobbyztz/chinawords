@@ -27,7 +27,7 @@ interface ChinawordsFooterProps {
 }
 
 const ChinawordsFooter: React.FC<ChinawordsFooterProps> = ({
-  logo = '/chinawords-logo.svg',
+  logo = '/logo.png',
   logoAlt = 'Chinawords',
   description,
   columns,
@@ -56,7 +56,7 @@ const ChinawordsFooter: React.FC<ChinawordsFooterProps> = ({
             <p className="text-light-gray mb-6 max-w-md font-sans-sc">
               {description}
             </p>
-            
+
             {/* Social links */}
             <div className="flex space-x-4 mb-8">
               {socialLinks.map((link, index) => (

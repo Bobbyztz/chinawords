@@ -16,7 +16,7 @@ interface ChinawordsNavigationProps {
 }
 
 const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
-  logo = '/chinawords-logo.svg',
+  logo = '/logo.png',
   logoAlt = 'Chinawords',
   links
 }) => {

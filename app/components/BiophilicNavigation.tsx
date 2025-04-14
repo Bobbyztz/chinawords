@@ -16,7 +16,7 @@ interface BiophilicNavigationProps {
 }
 
 const BiophilicNavigation: React.FC<BiophilicNavigationProps> = ({
-  logo = '/eco-logo.svg',
+  logo = '/logo.png',
   logoAlt = 'Eco Biophilic Hub',
   links
 }) => {
