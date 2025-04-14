@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red seal background -->
+  <rect width="48" height="48" rx="4" fill="#C20F1E" fill-opacity="0.9"/>
+  
+  <!-- Chinese character "文" (wen/culture) in seal script style -->
+  <path d="M24 8C16.268 8 10 14.268 10 22C10 29.732 16.268 36 24 36C31.732 36 38 29.732 38 22C38 14.268 31.732 8 24 8ZM24 10C30.627 10 36 15.373 36 22C36 28.627 30.627 34 24 34C17.373 34 12 28.627 12 22C12 15.373 17.373 10 24 10Z" fill="white"/>
+  
+  <!-- Horizontal stroke -->
+  <rect x="16" y="18" width="16" height="2" rx="1" fill="white"/>
+  
+  <!-- Vertical stroke -->
+  <rect x="23" y="14" width="2" height="16" rx="1" fill="white"/>
+  
+  <!-- Bottom curve -->
+  <path d="M16 26C16 26 20 30 24 30C28 30 32 26 32 26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Seal mark details -->
+  <circle cx="14" cy="14" r="1.5" fill="white" fill-opacity="0.7"/>
+  <circle cx="34" cy="14" r="1.5" fill="white" fill-opacity="0.7"/>
+  <circle cx="14" cy="30" r="1.5" fill="white" fill-opacity="0.7"/>
+  <circle cx="34" cy="30" r="1.5" fill="white" fill-opacity="0.7"/>
+</svg>

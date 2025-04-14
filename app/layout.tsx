@@ -5,9 +5,9 @@ import "./assets/textures/chinese-frame.css";
 import "./assets/styles/biophilic-design.css";
 
 export const metadata: Metadata = {
-  title: "Eco Biophilic Hub",
-  description: "An environmental organization dedicated to creating sustainable, nature-inspired spaces that promote wellbeing and protect our planet.",
-  keywords: ["environment", "sustainability", "biophilic design", "nature", "eco-friendly", "community", "green initiatives"],
+  title: "Chinawords",
+  description: "从衣、食、住、行到历史人文，探索中国传统与创新的精彩故事",
+  keywords: ["中国文化", "中国生活方式", "中国传统", "中国创新", "衣食住行", "中国美学", "文化遗产"],
 };
 
 export default function RootLayout({

@@ -96,7 +96,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
                     className="object-contain"
                   />
                 </div>
-                <span className="text-xl font-semibold">Eco Biophilic Hub</span>
+                <span className="text-xl font-semibold">Chinawords</span>
               </div>
             </Link>
             <p className="text-white/80 mb-6 max-w-md">
@@ -163,7 +163,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
 
         <div className="mt-12 pt-6 border-t border-white/20 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/60 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Eco Biophilic Hub. All rights reserved.
+            &copy; 2024 Chinawords 保留所有权利
           </p>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-white/60 text-sm hover:text-white transition-colors duration-300">
