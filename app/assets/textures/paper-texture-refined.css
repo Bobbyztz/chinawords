@@ -43,7 +43,12 @@
   height: 15px;
   background-color: var(--tape-yellow);
   opacity: 0.9;
-  z-index: 10;
+  z-index: 20; /* Increased z-index to ensure it appears above the frame */
+}
+
+/* Adjust tape position when in a frame */
+.chinese-frame .tape-top {
+  top: -4px; /* Adjusted to work better with the frame */
 }
 
 .handwritten-title {

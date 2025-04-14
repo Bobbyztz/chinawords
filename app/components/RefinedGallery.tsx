@@ -88,7 +88,7 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
               key={image.id}
               className={frameEnabled ? 'chinese-frame' : 'image-card'}
             >
-              {!frameEnabled && <div className="tape-top"></div>}
+              <div className="tape-top"></div>
               {frameEnabled && (
                 <>
                   <div className="corner corner-tl"></div>
