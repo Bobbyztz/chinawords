@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./assets/textures/paper-texture-refined.css";
 import "./assets/textures/chinese-frame.css";
+import "./assets/styles/biophilic-design.css";
 
 export const metadata: Metadata = {
-  title: "China Words Gallery",
-  description: "An elegant gallery showcasing Chinese culture, food, travel, and urban life through a collection of curated images.",
-  keywords: ["China", "gallery", "Chinese culture", "food", "travel", "photography", "urban China"],
+  title: "Eco Biophilic Hub",
+  description: "An environmental organization dedicated to creating sustainable, nature-inspired spaces that promote wellbeing and protect our planet.",
+  keywords: ["environment", "sustainability", "biophilic design", "nature", "eco-friendly", "community", "green initiatives"],
 };
 
 export default function RootLayout({
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-amber-50">
+      <body className="antialiased bg-background">
         {children}
       </body>
     </html>
