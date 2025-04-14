@@ -11,8 +11,8 @@ export const navigationLinks = [
 ];
 
 export const heroData = {
-  title: '遇见当代中国之美',
-  subtitle: '从传统到创新，探寻衣、食、住、行背后的文化与可持续故事。',
+  title: '寰语 · 中国',
+  subtitle: '从历史人文到科技发展，探寻衣、食、住、行背后的文化与可持续故事。',
   ctaText: '开启探索',
   ctaLink: '/explore',
   secondaryCtaText: '关于我们',
