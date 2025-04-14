@@ -54,7 +54,7 @@ const BiophilicNavigation: React.FC<BiophilicNavigationProps> = ({
               className="object-contain"
             />
           </div>
-          <span className="text-lg font-medium text-nature-heading">Chinawords</span>
+          <span className="text-xl font-bold text-black">China Words</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -63,13 +63,13 @@ const BiophilicNavigation: React.FC<BiophilicNavigationProps> = ({
             <Link
               key={index}
               href={link.href}
-              className="nav-link text-sm font-medium hover:text-leaf-green relative overflow-hidden group"
+              className="nav-link font-medium hover:text-leaf-green relative overflow-hidden group"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-leaf-green transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
           ))}
-          <button className="btn-organic ml-4 text-sm">开始探索</button>
+          <button className="btn-organic ml-4">开始探索</button>
         </div>
 
         {/* Mobile Menu Button */}

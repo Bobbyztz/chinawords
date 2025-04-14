@@ -38,7 +38,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   };
 
   return (
-    <nav 
+    <nav
       className={`nav-chinawords fixed w-full z-50 transition-all duration-300 ${
         isScrolled ? 'py-3 shadow-md' : 'py-5'
       }`}
@@ -47,24 +47,24 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <div className="relative h-10 w-10 mr-2">
-            <Image 
-              src={logo} 
+            <Image
+              src={logo}
               alt={logoAlt}
               width={40}
               height={40}
               className="object-contain"
             />
           </div>
-          <span className="text-lg font-medium font-serif-sc text-film-red">Chinawords</span>
+          <span className="text-xl font-bold font-serif-sc text-black">China Words</span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
           {links.map((link, index) => (
-            <Link 
-              key={index} 
+            <Link
+              key={index}
               href={link.href}
-              className="nav-link text-sm font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
+              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -73,30 +73,30 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         </div>
 
         {/* Mobile Menu Button */}
-        <button 
+        <button
           className="md:hidden flex items-center"
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6 text-film-red" 
-            fill="none" 
-            viewBox="0 0 24 24" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-film-red"
+            fill="none"
+            viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
             />
           </svg>
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div 
+      <div
         className={`md:hidden absolute w-full bg-porcelain-white shadow-md transition-all duration-300 overflow-hidden ${
           isMobileMenuOpen ? 'max-h-96 py-4' : 'max-h-0'
         }`}
@@ -104,8 +104,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         <div className="container mx-auto px-4">
           <div className="flex flex-col space-y-3">
             {links.map((link, index) => (
-              <Link 
-                key={index} 
+              <Link
+                key={index}
                 href={link.href}
                 className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
                 onClick={() => setIsMobileMenuOpen(false)}

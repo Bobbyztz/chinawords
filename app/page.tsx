@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import BiophilicNavigation from './components/BiophilicNavigation';
+import ChinawordsNavigation from './components/ChinawordsNavigation';
 import HeroSection from './components/HeroSection';
 import InitiativesSection from './components/InitiativesSection';
 import SustainabilitySection from './components/SustainabilitySection';
@@ -22,7 +22,7 @@ import {
 export default function Home() {
   return (
     <div className="min-h-screen texture-subtle">
-      <BiophilicNavigation links={navigationLinks} />
+      <ChinawordsNavigation links={navigationLinks} />
 
       <main>
         <HeroSection
