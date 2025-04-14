@@ -45,8 +45,8 @@ const BiophilicNavigation: React.FC<BiophilicNavigationProps> = ({
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <div className="relative h-10 w-10 mr-2">
+        <Link href="/" className="flex items-center h-10">
+          <div className="relative h-10 w-10 mr-2 flex-shrink-0">
             <Image
               src={logo}
               alt={logoAlt}
@@ -54,7 +54,7 @@ const BiophilicNavigation: React.FC<BiophilicNavigationProps> = ({
               className="object-contain"
             />
           </div>
-          <span className="text-xl font-bold text-black">China Words</span>
+          <span className="font-bold text-black flex items-center h-full" style={{ fontSize: '1rem' }}>China Words</span>
         </Link>
 
         {/* Desktop Navigation */}

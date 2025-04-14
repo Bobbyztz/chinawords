@@ -45,8 +45,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <div className="relative h-10 w-10 mr-2">
+        <Link href="/" className="flex items-center h-10">
+          <div className="relative h-10 w-10 mr-2 flex-shrink-0">
             <Image
               src={logo}
               alt={logoAlt}
@@ -55,7 +55,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               className="object-contain"
             />
           </div>
-          <span className="text-xl font-bold font-serif-sc text-black">China Words</span>
+          <span className="font-bold font-serif-sc text-black flex items-center text-2xl h-full" >China Words</span>
         </Link>
 
         {/* Desktop Navigation */}
