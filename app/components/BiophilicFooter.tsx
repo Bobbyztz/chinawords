@@ -114,18 +114,41 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
               <h3 className="text-lg font-semibold mb-4 border-b border-white/30 pb-2">
                 {column.title}
               </h3>
-              <ul className="space-y-3">
-                {column.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link
-                      href={link.href}
-                      className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex flex-col md:flex-row md:space-x-8">
+                {/* Left column - max 4 items (衣食住行) */}
+                <div className="md:w-1/2">
+                  <ul className="space-y-3">
+                    {column.links.slice(0, 4).map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        <Link
+                          href={link.href}
+                          className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right column - remaining items */}
+                {column.links.length > 4 && (
+                  <div className="md:w-1/2 mt-4 md:mt-0">
+                    <ul className="space-y-3">
+                      {column.links.slice(4).map((link, linkIndex) => (
+                        <li key={linkIndex + 4}>
+                          <Link
+                            href={link.href}
+                            className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
