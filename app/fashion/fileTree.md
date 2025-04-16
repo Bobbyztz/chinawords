@@ -6,9 +6,6 @@ This directory contains the Fashion page and its subpages.
 
 - **page.tsx** - Fashion page component that renders the UnderConstruction component with title "衣·时尚传承"
 
-## Subdirectories
-
-- **modern-hanfu/** - Modern Hanfu page
 
 ## Component Usage
 

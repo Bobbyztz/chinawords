@@ -6,10 +6,6 @@ This directory contains the Travel page and its subpages.
 
 - **page.tsx** - Travel page component that renders the UnderConstruction component with title "行·绿色出行"
 
-## Subdirectories
-
-- **autonomous-bus/** - Autonomous Bus page
-- **guizhou-terraces/** - Guizhou Terraces page
 
 ## Component Usage
 

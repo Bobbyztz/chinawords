@@ -28,7 +28,7 @@ export const initiativesData = {
       description: '跨越时空的穿针引线',
       imageSrc: 'https://images.unsplash.com/photo-1518005068251-37900150dfca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Urban garden with native plants and flowers',
-      link: '/fashion/modern-hanfu',
+      link: '/fashion',
       animationStyle: 'sway' as const
     },
     {
@@ -37,7 +37,7 @@ export const initiativesData = {
       description: '八大菜系的味觉盛宴',
       imageSrc: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Sustainable building with green roof and solar panels',
-      link: '/food/yunnan-tofu',
+      link: '/food',
       animationStyle: 'none' as const
     },
     {
@@ -46,7 +46,7 @@ export const initiativesData = {
       description: '因地制宜，藏风聚气',
       imageSrc: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'People working together in a community garden',
-      link: '/living/zero-carbon-community',
+      link: '/living',
       animationStyle: 'ripple' as const
     },
     {
@@ -55,7 +55,7 @@ export const initiativesData = {
       description: '车马舟楫，行云踏水',
       imageSrc: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Children learning about plants in an outdoor classroom',
-      link: '/travel/autonomous-bus',
+      link: '/travel',
       animationStyle: 'none' as const
     },
     {
@@ -64,7 +64,7 @@ export const initiativesData = {
       description: '琴棋书画，数字繁花',
       imageSrc: 'https://images.unsplash.com/photo-1475738972911-5b44ce979c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Volunteers planting trees in a restoration area',
-      link: '/living/tulou-hotel',
+      link: '/entertainment',
       animationStyle: 'sway' as const
     },
     {
@@ -73,7 +73,7 @@ export const initiativesData = {
       description: '贵州梯田生态旅游',
       imageSrc: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Solar panels and wind turbines in a green field',
-      link: '/travel/guizhou-terraces',
+      link: '/travel',
       animationStyle: 'none' as const
     }
   ]

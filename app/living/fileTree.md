@@ -6,10 +6,6 @@ This directory contains the Living page and its subpages.
 
 - **page.tsx** - Living page component that renders the UnderConstruction component with title "住·空间美学"
 
-## Subdirectories
-
-- **tulou-hotel/** - Tulou Hotel page
-- **zero-carbon-community/** - Zero Carbon Community page
 
 ## Component Usage
 

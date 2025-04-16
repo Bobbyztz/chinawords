@@ -6,9 +6,6 @@ This directory contains the Food page and its subpages.
 
 - **page.tsx** - Food page component that renders the UnderConstruction component with title "食·味蕾中国"
 
-## Subdirectories
-
-- **yunnan-tofu/** - Yunnan Tofu page
 
 ## Component Usage
 
