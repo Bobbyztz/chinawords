@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface SustainabilityMetric {
   id: string;
@@ -166,7 +167,7 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
               ))}
             </div>
 
-            <button className="btn-organic">Learn About Our Impact</button>
+            <Link href="/about" className="btn-organic inline-block">Learn About Our Impact</Link>
           </div>
         </div>
       </div>

@@ -159,48 +159,48 @@ export const footerData = {
   description: 'Chinawords致力于记录和分享当代中国的生活方式与文化创新，从衣食住行到历史人文，展现中国故事的多元与魅力。',
   columns: [
     {
-      title: 'About Us',
+      title: '关于我们',
       links: [
-        { label: 'Our Mission', href: '/about#mission' },
-        { label: 'Our Team', href: '/about#team' },
-        { label: 'Partners', href: '/about#partners' },
-        { label: 'Careers', href: '/careers' }
+        { label: '我们的使命', href: '/about#mission' },
+        { label: '团队介绍', href: '/about#team' },
+        { label: '合作伙伴', href: '/about#partners' },
+        { label: '加入我们', href: '/careers' }
       ]
     },
     {
-      title: 'Initiatives',
+      title: '主题板块',
       links: [
-        { label: 'Urban Rewilding', href: '/initiatives/urban-rewilding' },
-        { label: 'Sustainable Design', href: '/initiatives/sustainable-design' },
-        { label: 'Community Gardens', href: '/initiatives/community-gardens' },
-        { label: 'Environmental Education', href: '/initiatives/environmental-education' }
+        { label: '衣·时尚传承', href: '/initiatives/urban-rewilding' },
+        { label: '食·味蕾中国', href: '/initiatives/sustainable-design' },
+        { label: '住·空间美学', href: '/initiatives/community-gardens' },
+        { label: '行·绿色出行', href: '/initiatives/environmental-education' }
       ]
     },
     {
-      title: 'Get Involved',
+      title: '参与互动',
       links: [
-        { label: 'Volunteer', href: '/get-involved/volunteer' },
-        { label: 'Donate', href: '/get-involved/donate' },
-        { label: 'Events', href: '/events' },
-        { label: 'Contact Us', href: '/contact' }
+        { label: '志愿者招募', href: '/get-involved/volunteer' },
+        { label: '支持我们', href: '/get-involved/donate' },
+        { label: '活动日历', href: '/events' },
+        { label: '联系我们', href: '/contact' }
       ]
     }
   ],
   socialLinks: [
     {
-      platform: 'Twitter',
-      href: 'https://twitter.com',
-      iconType: 'twitter'
+      platform: '微博',
+      href: 'https://weibo.com',
+      iconType: 'weibo'
     },
     {
-      platform: 'Instagram',
-      href: 'https://instagram.com',
-      iconType: 'instagram'
+      platform: '小红书',
+      href: 'https://xiaohongshu.com',
+      iconType: 'xiaohongshu'
     },
     {
-      platform: 'Facebook',
-      href: 'https://facebook.com',
-      iconType: 'facebook'
+      platform: '微信',
+      href: '#',
+      iconType: 'wechat'
     },
     {
       platform: 'YouTube',

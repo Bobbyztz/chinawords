@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CommunityEvent {
   id: string;
@@ -90,7 +91,7 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({
                     <span>{event.location}</span>
                   </div>
                   <div className="mt-auto">
-                    <button className="btn-organic text-sm py-2 px-4">Join Event</button>
+                    <Link href="/events" className="btn-organic text-sm py-2 px-4 inline-block">Join Event</Link>
                   </div>
                 </div>
               </div>
@@ -99,9 +100,9 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({
         </div>
 
         <div className="text-center mt-12">
-          <button className="btn-organic bg-leaf-green text-white px-6 py-3 rounded-full">
+          <Link href="/events" className="btn-organic bg-leaf-green text-white px-6 py-3 rounded-full inline-block">
             View All Community Events
-          </button>
+          </Link>
         </div>
       </div>
 

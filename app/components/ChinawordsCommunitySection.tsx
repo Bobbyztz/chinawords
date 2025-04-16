@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CommunityEvent {
   id: string;
@@ -64,7 +65,7 @@ const ChinawordsCommunitySection: React.FC<ChinawordsCommunitySectionProps> = ({
                     <span>{event.location}</span>
                   </div>
                   <div className="mt-auto">
-                    <button className="btn-primary text-sm py-2 px-4 font-sans-sc">报名参加</button>
+                    <Link href="/events" className="btn-primary text-sm py-2 px-4 font-sans-sc inline-block">报名参加</Link>
                   </div>
                 </div>
               </div>
@@ -73,9 +74,9 @@ const ChinawordsCommunitySection: React.FC<ChinawordsCommunitySectionProps> = ({
         </div>
 
         <div className="text-center mt-12">
-          <button className="btn-primary bg-jade-green text-white px-6 py-3 rounded-md font-sans-sc">
+          <Link href="/events" className="btn-primary bg-jade-green text-white px-6 py-3 rounded-md font-sans-sc inline-block">
             查看全部活动
-          </button>
+          </Link>
         </div>
       </div>
     </section>
