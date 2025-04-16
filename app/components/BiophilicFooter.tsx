@@ -136,13 +136,13 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
           </p>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
-              Privacy Policy
+              隐私政策
             </Link>
             <Link href="/terms" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
-              Terms of Service
+              服务条款
             </Link>
             <Link href="/cookies" className="text-white/70 text-sm hover:text-white transition-colors duration-300">
-              Cookie Policy
+              Cookie 政策
             </Link>
           </div>
         </div>

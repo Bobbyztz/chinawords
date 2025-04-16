@@ -12,7 +12,7 @@ export const heroData = {
   title: '寰语 · 中国',
   subtitle: '从历史人文到科技发展，探索中国传统与创新的精彩故事',
   ctaText: '开启探索',
-  ctaLink: '/join',
+  ctaLink: '/explore',
   secondaryCtaText: '了解更多',
   secondaryCtaLink: '/about',
   backgroundImage: '/autumn.png'
@@ -28,7 +28,7 @@ export const initiativesData = {
       description: '当代设计师如何复兴汉服元素',
       imageSrc: 'https://images.unsplash.com/photo-1518005068251-37900150dfca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Urban garden with native plants and flowers',
-      link: '/initiatives/urban-rewilding',
+      link: '/fashion/modern-hanfu',
       animationStyle: 'sway' as const
     },
     {
@@ -37,7 +37,7 @@ export const initiativesData = {
       description: '云南石屏豆腐的千年传承',
       imageSrc: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Sustainable building with green roof and solar panels',
-      link: '/initiatives/sustainable-design',
+      link: '/food/yunnan-tofu',
       animationStyle: 'none' as const
     },
     {
@@ -46,7 +46,7 @@ export const initiativesData = {
       description: '上海杨树浦电厂更新示范',
       imageSrc: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'People working together in a community garden',
-      link: '/initiatives/community-gardens',
+      link: '/living/zero-carbon-community',
       animationStyle: 'ripple' as const
     },
     {
@@ -55,7 +55,7 @@ export const initiativesData = {
       description: '深圳无人驾驶公交实践',
       imageSrc: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Children learning about plants in an outdoor classroom',
-      link: '/initiatives/environmental-education',
+      link: '/travel/autonomous-bus',
       animationStyle: 'none' as const
     },
     {
@@ -64,7 +64,7 @@ export const initiativesData = {
       description: '福建土楼改造的乡宿体验',
       imageSrc: 'https://images.unsplash.com/photo-1475738972911-5b44ce979c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Volunteers planting trees in a restoration area',
-      link: '/initiatives/habitat-restoration',
+      link: '/living/tulou-hotel',
       animationStyle: 'sway' as const
     },
     {
@@ -73,7 +73,7 @@ export const initiativesData = {
       description: '贵州梯田生态旅游',
       imageSrc: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
       imageAlt: 'Solar panels and wind turbines in a green field',
-      link: '/initiatives/clean-energy',
+      link: '/travel/guizhou-terraces',
       animationStyle: 'none' as const
     }
   ]
@@ -170,10 +170,10 @@ export const footerData = {
     {
       title: '主题板块',
       links: [
-        { label: '衣·时尚传承', href: '/initiatives/urban-rewilding' },
-        { label: '食·味蕾中国', href: '/initiatives/sustainable-design' },
-        { label: '住·空间美学', href: '/initiatives/community-gardens' },
-        { label: '行·绿色出行', href: '/initiatives/environmental-education' }
+        { label: '衣·时尚传承', href: '/fashion' },
+        { label: '食·味蕾中国', href: '/food' },
+        { label: '住·空间美学', href: '/living' },
+        { label: '行·绿色出行', href: '/travel' }
       ]
     },
     {
