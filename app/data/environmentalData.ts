@@ -188,19 +188,19 @@ export const footerData = {
   ],
   socialLinks: [
     {
-      platform: '微博',
-      href: 'https://weibo.com',
-      iconType: 'weibo'
-    },
-    {
       platform: '小红书',
       href: 'https://xiaohongshu.com',
       iconType: 'xiaohongshu'
     },
     {
-      platform: '微信',
-      href: '#',
-      iconType: 'wechat'
+      platform: 'Twitter',
+      href: 'https://twitter.com',
+      iconType: 'x'
+    },
+    {
+      platform: 'TikTok',
+      href: 'https://tiktok.com',
+      iconType: 'tiktok'
     },
     {
       platform: 'YouTube',
