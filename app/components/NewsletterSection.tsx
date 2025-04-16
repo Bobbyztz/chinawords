@@ -29,48 +29,37 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
     }, 1500);
   };
 
-  let bgClass = '';
+  // Get accent color based on background style for title and button
+  let accentColor = '';
 
   switch (backgroundStyle) {
     case 'leaf':
-      bgClass = 'bg-[#3e6b44]'; // Slightly darker leaf-green
+      accentColor = 'text-[#2E8B57]'; // Jade green
       break;
     case 'water':
-      bgClass = 'bg-[#5a8aa8]'; // Slightly darker water-blue
+      accentColor = 'text-[#5a8aa8]'; // Water blue
       break;
     case 'earth':
-      bgClass = 'bg-[#775c41]'; // Slightly darker earth-brown
+      accentColor = 'text-[#775c41]'; // Earth brown
       break;
     default:
-      bgClass = 'bg-[#3e6b44]'; // Slightly darker leaf-green
+      accentColor = 'text-[#2E8B57]'; // Jade green
   }
 
   return (
-    <section className={`py-16 ${bgClass} relative overflow-hidden`}>
-      {/* Animated background elements */}
+    <section className="py-16 bg-white relative overflow-hidden border-t border-gray-100">
+      {/* Linear background elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-drift opacity-10"
-            style={{
-              left: `-100px`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${60 + Math.random() * 40}s`,
-              animationDelay: `${Math.random() * 10}s`,
-            }}
-          >
-            <svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 50C20 36.19 31.19 25 45 25H155C168.81 25 180 36.19 180 50C180 63.81 168.81 75 155 75H45C31.19 75 20 63.81 20 50Z" fill="#F5F5F5" />
-            </svg>
-          </div>
-        ))}
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        <div className="absolute top-0 left-8 w-[1px] h-full bg-gradient-to-b from-transparent via-gray-200 to-transparent"></div>
+        <div className="absolute top-0 right-8 w-[1px] h-full bg-gradient-to-b from-transparent via-gray-200 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="max-w-3xl mx-auto text-center text-porcelain-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif-sc">{title}</h2>
-          <p className="text-porcelain-white/80 mb-8 text-lg font-sans-sc">{subtitle}</p>
+        <div className="max-w-3xl mx-auto text-center border border-gray-100 rounded-lg shadow-sm p-8 bg-white relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-[#2E8B57] rounded-t-lg"></div>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-6 font-serif-sc ${accentColor}`}>{title}</h2>
+          <p className="text-gray-700 mb-8 text-lg font-sans-sc">{subtitle}</p>
 
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -81,12 +70,12 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="您的邮箱地址"
                   required
-                  className="flex-grow px-4 py-3 rounded-full text-dark-gray focus:outline-none focus:ring-2 focus:ring-jade-green/50 font-sans-sc"
+                  className="flex-grow px-4 py-3 rounded-md border border-gray-300 text-dark-gray focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green font-sans-sc shadow-sm"
                 />
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="btn-organic bg-[#f0f0f0] text-[#3e6b44] hover:bg-[#e5e5e5] px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center justify-center font-sans-sc"
+                  className={`px-6 py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center font-sans-sc bg-[#2E8B57] text-white hover:bg-[#267349] shadow-sm`}
                 >
                   {isLoading ? (
                     <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -98,17 +87,19 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
                   )}
                 </button>
               </div>
-              <p className="text-porcelain-white/60 text-sm mt-3 font-sans-sc">
+              <p className="text-gray-500 text-sm mt-3 font-sans-sc">
                 我们尊重您的隐私，您可以随时取消订阅。
               </p>
             </form>
           ) : (
-            <div className="bg-porcelain-white/10 rounded-lg p-6 backdrop-blur-sm border border-porcelain-white/20 max-w-md mx-auto">
-              <svg className="w-12 h-12 text-porcelain-white mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h3 className="text-xl font-semibold mb-2 font-serif-sc">感谢您的订阅！</h3>
-              <p className="text-porcelain-white/80 font-sans-sc">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 max-w-md mx-auto">
+              <div className="w-16 h-16 rounded-full bg-[#2E8B57]/10 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-[#2E8B57]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 font-serif-sc text-gray-800">感谢您的订阅！</h3>
+              <p className="text-gray-600 font-sans-sc">
                 您已成功订阅我们的通讯。我们将定期为您发送中国文化与生活方式的最新资讯。
               </p>
             </div>
@@ -116,20 +107,7 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
         </div>
       </div>
 
-      {/* Organic shape divider */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-        <svg
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-[70px]"
-          style={{ fill: '#4b7f52' }}
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-          />
-        </svg>
-      </div>
+
     </section>
   );
 };
