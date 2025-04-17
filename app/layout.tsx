@@ -4,12 +4,20 @@ import "./assets/textures/paper-texture-refined.css";
 import "./assets/textures/chinese-frame.css";
 import "./assets/styles/biophilic-design.css";
 import "./assets/styles/chinawords-design.css";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Chinawords",
   description: "从衣、食、住、行到历史人文，探索中国传统与创新的精彩故事",
-  keywords: ["中国文化", "中国生活方式", "中国传统", "中国创新", "衣食住行", "中国美学", "文化遗产"],
+  keywords: [
+    "中国文化",
+    "中国生活方式",
+    "中国传统",
+    "中国创新",
+    "衣食住行",
+    "中国美学",
+    "文化遗产",
+  ],
 };
 
 export default function RootLayout({
@@ -21,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased bg-background">
         {children}
+        <Analytics />
       </body>
     </html>
   );
