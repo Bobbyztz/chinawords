@@ -26,7 +26,7 @@ export const initiativesData = {
       id: 'initiative-1',
       title: '衣·时尚传承',
       description: '跨越时空的穿针引线',
-      imageSrc: 'https://images.unsplash.com/photo-1518005068251-37900150dfca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1506510836840-2c12db408d5d?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'Urban garden with native plants and flowers',
       link: '/fashion',
       animationStyle: 'sway' as const
@@ -35,7 +35,7 @@ export const initiativesData = {
       id: 'initiative-2',
       title: '食·味蕾中国',
       description: '八大菜系的味觉盛宴',
-      imageSrc: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1664138788119-bd4f073259d5?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'Sustainable building with green roof and solar panels',
       link: '/food',
       animationStyle: 'none' as const
@@ -44,7 +44,7 @@ export const initiativesData = {
       id: 'initiative-3',
       title: '住·空间美学',
       description: '因地制宜，藏风聚气',
-      imageSrc: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1573295918221-c650d1990fc3?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'People working together in a community garden',
       link: '/living',
       animationStyle: 'ripple' as const
@@ -53,7 +53,7 @@ export const initiativesData = {
       id: 'initiative-4',
       title: '行·绿色出行',
       description: '车马舟楫，行云踏水',
-      imageSrc: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1630999050065-b2d2377c2928?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'Children learning about plants in an outdoor classroom',
       link: '/travel',
       animationStyle: 'none' as const
@@ -62,7 +62,7 @@ export const initiativesData = {
       id: 'initiative-5',
       title: '娱乐·悦心时光',
       description: '琴棋书画，数字繁花',
-      imageSrc: 'https://images.unsplash.com/photo-1475738972911-5b44ce979c37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1502099530544-2b61cbaed85c?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'Volunteers planting trees in a restoration area',
       link: '/entertainment',
       animationStyle: 'sway' as const
@@ -70,10 +70,10 @@ export const initiativesData = {
     {
       id: 'initiative-6',
       title: '更多板块',
-      description: '贵州梯田生态旅游',
-      imageSrc: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+      description: '',
+      imageSrc: 'https://images.unsplash.com/photo-1443891238287-325a8fddd0f7?q=80&w=3910&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: 'Solar panels and wind turbines in a green field',
-      link: '/travel',
+      link: '/',
       animationStyle: 'none' as const
     }
   ]

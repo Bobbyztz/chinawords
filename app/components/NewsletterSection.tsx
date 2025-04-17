@@ -58,8 +58,8 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center border border-gray-100 rounded-lg shadow-sm p-8 bg-white relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-[#2E8B57] rounded-t-lg"></div>
-          <h2 className={`text-3xl md:text-4xl font-bold mb-6 font-serif-sc ${accentColor}`}>{title}</h2>
-          <p className="text-gray-700 mb-8 text-lg font-sans-sc">{subtitle}</p>
+          <h2 className={`text-2xl md:text-2xl font-bold mt-3 mb-6 font-serif-sc ${accentColor}`}>{title}</h2>
+          <p className="text-gray-700 mb-8 text-sm font-sans-sc">{subtitle}</p>
 
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
