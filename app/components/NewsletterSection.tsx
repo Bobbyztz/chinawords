@@ -47,7 +47,7 @@ const NewsletterSection: React.FC<NewsletterSectionProps> = ({
   }
 
   return (
-    <section className="py-16 bg-white relative overflow-hidden border-t border-gray-100">
+    <section className="pt-14 pb-20 bg-white relative overflow-hidden border-t border-gray-100">
       {/* Linear background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>

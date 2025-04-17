@@ -44,7 +44,7 @@ const NatureCard: React.FC<NatureCardProps> = ({
         <p className="text-nature-body text-sm flex-grow">{description}</p>
         {link && (
           <div className="mt-4 pt-2 border-t border-gray-100">
-            <span className="inline-flex items-center text-leaf-green text-sm font-medium">
+            <span className="inline-flex items-center text-gray-500 hover:text-leaf-green transition-colors duration-300 text-sm font-medium">
               Learn more
               <svg
                 className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
