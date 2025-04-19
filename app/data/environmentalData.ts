@@ -168,12 +168,17 @@ export const footerData = {
       ]
     },
     {
-      title: '主题板块',
+      title: '基础板块',
       links: [
         { label: '衣·时尚传承', href: '/fashion' },
         { label: '食·味蕾中国', href: '/food' },
         { label: '住·空间美学', href: '/living' },
-        { label: '行·绿色出行', href: '/travel' },
+        { label: '行·绿色出行', href: '/travel' }
+      ]
+    },
+    {
+      title: '进阶板块',
+      links: [
         { label: '娱乐·悦心时光', href: '/entertainment' }
       ]
     },

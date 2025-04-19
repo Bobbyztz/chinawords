@@ -37,7 +37,7 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
     <footer className="bg-[#3a6341] text-white relative overflow-hidden">
 
       <div className="container mx-auto px-4 md:px-6 pt-12 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Logo and description */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
@@ -106,45 +106,22 @@ const BiophilicFooter: React.FC<BiophilicFooterProps> = ({
 
           {/* Footer columns */}
           {columns.map((column, index) => (
-            <div key={index}>
+            <div key={index} className="lg:col-span-1">
               <h3 className="text-lg font-semibold mb-4 border-b border-white/30 pb-2">
                 {column.title}
               </h3>
-              <div className="flex flex-col md:flex-row md:space-x-8">
-                {/* Left column - max 4 items (衣食住行) */}
-                <div className="md:w-1/2">
-                  <ul className="space-y-3">
-                    {column.links.slice(0, 4).map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <Link
-                          href={link.href}
-                          className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Right column - remaining items */}
-                {column.links.length > 4 && (
-                  <div className="md:w-1/2 mt-4 md:mt-0">
-                    <ul className="space-y-3">
-                      {column.links.slice(4).map((link, linkIndex) => (
-                        <li key={linkIndex + 4}>
-                          <Link
-                            href={link.href}
-                            className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+              <ul className="space-y-3">
+                {column.links.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <Link
+                      href={link.href}
+                      className="text-white/90 hover:text-white transition-colors duration-300 inline-block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
