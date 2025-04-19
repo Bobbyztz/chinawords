@@ -6,6 +6,9 @@ This directory contains the Food page and its subpages.
 
 - **page.tsx** - Food page component that renders the UnderConstruction component with title "食·味蕾中国"
 
+## Subdirectories
+
+- **plugin/** - Contains the Food Plugin page and its subpages, including the privacy policy
 
 ## Component Usage
 
