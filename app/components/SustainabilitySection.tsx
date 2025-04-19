@@ -31,39 +31,39 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null);
   const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  const animateCounters = () => {
-    metrics.forEach((metric, index) => {
-      const counterEl = counterRefs.current[index];
-      if (!counterEl) return;
-
-      const value = parseInt(metric.value.replace(/,/g, ''));
-      const duration = 2000; // ms
-      const frameDuration = 1000 / 60; // 60fps
-      const totalFrames = Math.round(duration / frameDuration);
-
-      let frame = 0;
-      const countTo = value;
-
-      const counter = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        const currentCount = Math.round(countTo * progress);
-
-        if (countTo > 1000) {
-          counterEl.textContent = currentCount.toLocaleString();
-        } else {
-          counterEl.textContent = currentCount.toString();
-        }
-
-        if (frame === totalFrames) {
-          clearInterval(counter);
-        }
-      }, frameDuration);
-    });
-  };
-
   // Animate numbers on scroll
   useEffect(() => {
+    const animateCounters = () => {
+      metrics.forEach((metric, index) => {
+        const counterEl = counterRefs.current[index];
+        if (!counterEl) return;
+
+        const value = parseInt(metric.value.replace(/,/g, ''));
+        const duration = 2000; // ms
+        const frameDuration = 1000 / 60; // 60fps
+        const totalFrames = Math.round(duration / frameDuration);
+
+        let frame = 0;
+        const countTo = value;
+
+        const counter = setInterval(() => {
+          frame++;
+          const progress = frame / totalFrames;
+          const currentCount = Math.round(countTo * progress);
+
+          if (countTo > 1000) {
+            counterEl.textContent = currentCount.toLocaleString();
+          } else {
+            counterEl.textContent = currentCount.toString();
+          }
+
+          if (frame === totalFrames) {
+            clearInterval(counter);
+          }
+        }, frameDuration);
+      });
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -86,7 +86,7 @@ const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({
         observer.unobserve(currentRef);
       }
     };
-  }, [animateCounters]);
+  }, [metrics]);
 
   return (
     <section

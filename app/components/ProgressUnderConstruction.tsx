@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import ChinawordsNavigation from './ChinawordsNavigation';
 import BiophilicFooter from './BiophilicFooter';
 import { navigationLinks, footerData } from '../data/environmentalData';
@@ -14,16 +13,16 @@ const ProgressUnderConstruction: React.FC<ProgressUnderConstructionProps> = ({ t
   return (
     <div className="min-h-screen flex flex-col texture-subtle">
       <ChinawordsNavigation links={navigationLinks} />
-      
+
       <main className="flex-grow flex items-center justify-center py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-black mb-6 font-serif-sc">{title}</h1>
-          
+
           {/* GitHub Link */}
           <div className="flex justify-center items-center mb-8">
-            <a 
-              href="https://github.com/Bobbyztz" 
-              target="_blank" 
+            <a
+              href="https://github.com/Bobbyztz"
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center bg-white/90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
             >
@@ -33,10 +32,10 @@ const ProgressUnderConstruction: React.FC<ProgressUnderConstructionProps> = ({ t
               <span className="font-sans-sc text-black text-md">访问 Bobbyztz 的 GitHub</span>
             </a>
           </div>
-        
+
         </div>
       </main>
-      
+
       <BiophilicFooter
         description={footerData.description}
         columns={footerData.columns}
