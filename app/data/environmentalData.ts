@@ -19,7 +19,7 @@ export const heroData = {
 };
 
 export const initiativesData = {
-  title: '五大主题速览',
+  title: '主题板块速览',
   subtitle: '精选案例，快速了解中国生活方式的多彩面貌',
   initiatives: [
     {
@@ -69,10 +69,19 @@ export const initiativesData = {
     },
     {
       id: 'initiative-6',
+      title: '省市·山河印象',
+      description: '城市与自然的交融之美',
+      imageSrc: 'https://images.unsplash.com/photo-1443891238287-325a8fddd0f7?q=80&w=3910&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '中国城市与自然风光',
+      link: '/city-landscape',
+      animationStyle: 'ripple' as const
+    },
+    {
+      id: 'initiative-7',
       title: '更多板块',
       description: '',
-      imageSrc: 'https://images.unsplash.com/photo-1443891238287-325a8fddd0f7?q=80&w=3910&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      imageAlt: 'Solar panels and wind turbines in a green field',
+      imageSrc: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=3975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '更多中国文化板块',
       link: '/',
       animationStyle: 'none' as const
     }
@@ -179,7 +188,8 @@ export const footerData = {
     {
       title: '进阶板块',
       links: [
-        { label: '娱乐·悦心时光', href: '/entertainment' }
+        { label: '娱乐·悦心时光', href: '/entertainment' },
+        { label: '省市·山河印象', href: '/city-landscape' }
       ]
     },
     {
