@@ -26,6 +26,7 @@ This directory contains reusable UI components used throughout the application.
 - **MagnifyingGlass.tsx** - Magnifying glass effect component
 - **NatureCard.tsx** - Card component for displaying nature-related content
 - **UnderConstruction.tsx** - Component used for pages that are under construction
+- **ProgressUnderConstruction.tsx** - Specialized version of UnderConstruction with GitHub link for the Project Progress page
 
 ## Component Usage
 
