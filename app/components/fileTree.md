@@ -5,8 +5,7 @@ This directory contains reusable UI components used throughout the application.
 ## Navigation and Layout Components
 
 - **BiophilicFooter.tsx** - Footer component used on all pages
-- **BiophilicNavigation.tsx** - Alternative navigation component
-- **ChinawordsNavigation.tsx** - Main navigation component used on most pages
+- **ChinawordsNavigation.tsx** - Main navigation component used on all pages
 
 ## Section Components (Used on Homepage)
 
