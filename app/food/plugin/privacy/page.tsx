@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
                 <li>GitHub: <a href="https://github.com/Bobbyztz/china-words-food" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://github.com/Bobbyztz/china-words-food</a> (will be open-source in two weeks)</li>
               </ul>
               
-              <p className="mt-8 text-sm text-black">Last updated: Apr 2025</p>
+              <p className="mt-8 text-sm text-black">Last updated: Apr 2025, Chinawords group</p>
             </div>
           </div>
         </div>
