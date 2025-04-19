@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
       
       <main className="flex-grow py-20 mt-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-center">隐私政策</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-black text-center">Privacy Policy</h1>
           
           <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm rounded-lg p-8 shadow-lg">
             <div className="prose prose-lg max-w-none text-black prose-headings:text-black prose-p:text-black prose-strong:text-black prose-li:text-black prose-a:text-blue-600">
