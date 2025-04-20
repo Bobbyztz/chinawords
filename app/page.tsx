@@ -4,6 +4,7 @@ import React from 'react';
 import ChinawordsNavigation from './components/ChinawordsNavigation';
 import HeroSection from './components/HeroSection';
 import InitiativesSection from './components/InitiativesSection';
+import CityOverviewSection from './components/CityOverviewSection';
 import SustainabilitySection from './components/SustainabilitySection';
 import CommunitySection from './components/CommunitySection';
 import NewsletterSection from './components/NewsletterSection';
@@ -13,6 +14,7 @@ import {
   navigationLinks,
   heroData,
   initiativesData,
+  cityOverviewData,
   sustainabilityData,
   communityData,
   newsletterData,
@@ -39,6 +41,11 @@ export default function Home() {
           title={initiativesData.title}
           subtitle={initiativesData.subtitle}
           initiatives={initiativesData.initiatives}
+        />
+
+        <CityOverviewSection
+          title={cityOverviewData.title}
+          subtitle={cityOverviewData.subtitle}
         />
 
         <SustainabilitySection

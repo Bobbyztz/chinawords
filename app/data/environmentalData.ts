@@ -88,6 +88,11 @@ export const initiativesData = {
   ]
 };
 
+export const cityOverviewData = {
+  title: '城市速览',
+  subtitle: '探索中国各省市的城市风貌与美食文化'
+};
+
 export const sustainabilityData = {
   title: '我们的记录',
   subtitle: '',
