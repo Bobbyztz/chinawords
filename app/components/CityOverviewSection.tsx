@@ -13,19 +13,20 @@ interface CityImage {
 interface CityOverviewSectionProps {
   title: string;
   subtitle: string;
+  viewAllLink?: string;
 }
 
 const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
   title,
-  subtitle
+  subtitle,
+  viewAllLink
 }) => {
   const [images, setImages] = useState<CityImage[]>([]);
 
-  // Generate random images on component mount
-  useEffect(() => {
-    const generateRandomImages = () => {
-      // List of available 3D city images
-      const cityImages3D = [
+  // Function to generate random images
+  const generateRandomImages = () => {
+    // List of available 3D city images
+    const cityImages3D = [
         { file: '上海.png', name: '上海' },
         { file: '南京.png', name: '南京' },
         { file: '南昌.png', name: '南昌' },
@@ -117,8 +118,10 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       // Combine and shuffle all images
       const allImages = [...images3D, ...imagesFood].sort(() => 0.5 - Math.random());
       setImages(allImages);
-    };
+  };
 
+  // Generate random images on component mount
+  useEffect(() => {
     generateRandomImages();
   }, []);
 
@@ -130,11 +133,46 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white/50 to-transparent"></div>
 
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center mb-16">
-          <div className="text-center max-w-2xl">
+        <div className="mb-16 relative">
+          <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-nature-heading">{title}</h2>
             <p className="text-lg text-nature-body">{subtitle}</p>
           </div>
+
+          {viewAllLink && (
+            <div className="absolute right-4 top-[60px] hidden md:flex rounded-full overflow-hidden border border-[#2E8B57] shadow-sm">
+              <a
+                href={viewAllLink}
+                className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
+              >
+                浏览所有
+              </a>
+              <button
+                onClick={() => generateRandomImages()}
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57]"
+              >
+                换一批
+              </button>
+            </div>
+          )}
+
+          {/* 移动端显示的按钮 */}
+          {viewAllLink && (
+            <div className="flex md:hidden justify-center mt-4 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
+              <a
+                href={viewAllLink}
+                className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
+              >
+                浏览所有
+              </a>
+              <button
+                onClick={() => generateRandomImages()}
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57]"
+              >
+                换一批
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Photo wall */}

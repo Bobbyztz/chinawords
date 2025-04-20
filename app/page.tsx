@@ -46,6 +46,7 @@ export default function Home() {
         <CityOverviewSection
           title={cityOverviewData.title}
           subtitle={cityOverviewData.subtitle}
+          viewAllLink={cityOverviewData.viewAllLink}
         />
 
         <SustainabilitySection
