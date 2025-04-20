@@ -22,9 +22,14 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
   viewAllLink
 }) => {
   const [images, setImages] = useState<CityImage[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [refreshKey, setRefreshKey] = useState<number>(0); // Key to force re-render of images
 
   // Function to generate random images
   const generateRandomImages = () => {
+    console.log('Generating new random images...');
+    setIsLoading(true);
+
     // List of available 3D city images
     const cityImages3D = [
         { file: '上海.png', name: '上海' },
@@ -118,6 +123,12 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       // Combine and shuffle all images
       const allImages = [...images3D, ...imagesFood].sort(() => 0.5 - Math.random());
       setImages(allImages);
+
+      // Set loading state back to false and increment refresh key
+      setTimeout(() => {
+        setRefreshKey(prevKey => prevKey + 1); // Increment key to force re-render
+        setIsLoading(false);
+      }, 300); // Small delay to ensure UI updates properly
   };
 
   // Generate random images on component mount
@@ -149,9 +160,22 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
               </a>
               <button
                 onClick={() => generateRandomImages()}
-                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57]"
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57] relative"
+                disabled={isLoading}
               >
-                换一批
+                {isLoading ? (
+                  <>
+                    <span className="opacity-0">换一批</span>
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                  </>
+                ) : (
+                  "换一批"
+                )}
               </button>
             </div>
           )}
@@ -167,16 +191,29 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
               </a>
               <button
                 onClick={() => generateRandomImages()}
-                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57]"
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57] relative"
+                disabled={isLoading}
               >
-                换一批
+                {isLoading ? (
+                  <>
+                    <span className="opacity-0">换一批</span>
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                  </>
+                ) : (
+                  "换一批"
+                )}
               </button>
             </div>
           )}
         </div>
 
         {/* Photo wall */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
+        <div key={refreshKey} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
           {images.map((image) => (
             <div
               key={image.id}
@@ -229,6 +266,12 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           display: flex;
           flex-direction: column;
           width: 100%;
+          animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+          0% { opacity: 0; transform: scale(0.95); }
+          100% { opacity: 1; transform: scale(1); }
         }
 
         .image-card:hover {
