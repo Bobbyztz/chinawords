@@ -130,8 +130,8 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white/50 to-transparent"></div>
 
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-16">
-          <div className="text-left max-w-2xl">
+        <div className="flex flex-col items-center justify-center mb-16">
+          <div className="text-center max-w-2xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-nature-heading">{title}</h2>
             <p className="text-lg text-nature-body">{subtitle}</p>
           </div>
