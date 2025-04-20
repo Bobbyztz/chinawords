@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 interface CityImage {
   id: string;
@@ -30,6 +29,14 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
     console.log('Generating new random images...');
     setIsLoading(true);
 
+    // Add a small delay to show the blur effect before generating new images
+    setTimeout(() => {
+      generateAndSetNewImages();
+    }, 300);
+  };
+
+  // Function to actually generate the new images
+  const generateAndSetNewImages = () => {
     // List of available 3D city images
     const cityImages3D = [
         { file: '上海.png', name: '上海' },
@@ -122,18 +129,37 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
 
       // Combine and shuffle all images
       const allImages = [...images3D, ...imagesFood].sort(() => 0.5 - Math.random());
-      setImages(allImages);
 
-      // Set loading state back to false and increment refresh key
-      setTimeout(() => {
+      // Preload images before showing them
+      const preloadImages = async () => {
+        const promises = allImages.map(img => {
+          return new Promise<boolean>((resolve) => {
+            const image = new window.Image();
+            image.onload = () => resolve(true);
+            image.onerror = () => resolve(false);
+            image.src = img.src;
+          });
+        });
+
+        // Wait for all images to preload or timeout after 2 seconds
+        await Promise.race([
+          Promise.all(promises),
+          new Promise(resolve => setTimeout(resolve, 2000))
+        ]);
+
+        // Set images and finish loading
+        setImages(allImages);
         setRefreshKey(prevKey => prevKey + 1); // Increment key to force re-render
         setIsLoading(false);
-      }, 300); // Small delay to ensure UI updates properly
+      };
+
+      // Start preloading
+      preloadImages();
   };
 
   // Generate random images on component mount
   useEffect(() => {
-    generateRandomImages();
+    generateAndSetNewImages();
   }, []);
 
 
@@ -213,7 +239,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
         </div>
 
         {/* Photo wall */}
-        <div key={refreshKey} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
+        <div key={refreshKey} className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 transition-all duration-300 ${isLoading ? 'blur-effect' : ''}`}>
           {images.map((image) => (
             <div
               key={image.id}
@@ -266,12 +292,20 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           display: flex;
           flex-direction: column;
           width: 100%;
-          animation: fadeIn 0.5s ease-in-out;
+          animation: fadeIn 0.6s cubic-bezier(0.26, 0.53, 0.74, 1.48);
         }
 
         @keyframes fadeIn {
           0% { opacity: 0; transform: scale(0.95); }
           100% { opacity: 1; transform: scale(1); }
+        }
+
+        .blur-effect {
+          filter: blur(10px) saturate(0.8);
+          opacity: 0.7;
+          pointer-events: none;
+          transform: scale(0.98);
+          transition: all 0.3s ease-in-out;
         }
 
         .image-card:hover {
