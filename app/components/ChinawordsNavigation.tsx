@@ -63,7 +63,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-1">
+        <div className="hidden md:flex items-center space-x-2">
           {links.filter(link => link.label !== '注册/登录').map((link, index) => (
             <Link
               key={index}
