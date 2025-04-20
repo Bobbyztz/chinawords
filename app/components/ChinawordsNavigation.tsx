@@ -64,7 +64,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
-          {links.map((link, index) => (
+          {links.filter(link => link.label !== '注册/登录').map((link, index) => (
             <Link
               key={index}
               href={link.href}
@@ -83,6 +83,17 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
             项目进度
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </Link>
+
+          {/* Login/Register Link */}
+          {links.find(link => link.label === '注册/登录') && (
+            <Link
+              href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group ml-2"
+            >
+              注册/登录
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -116,7 +127,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       >
         <div className="container mx-auto px-4">
           <div className="flex flex-col space-y-3">
-            {links.map((link, index) => (
+            {links.filter(link => link.label !== '注册/登录').map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
@@ -135,6 +146,17 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
             >
               项目进度
             </Link>
+
+            {/* Login/Register Link (Mobile) */}
+            {links.find(link => link.label === '注册/登录') && (
+              <Link
+                href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+                className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                注册/登录
+              </Link>
+            )}
           </div>
         </div>
       </div>

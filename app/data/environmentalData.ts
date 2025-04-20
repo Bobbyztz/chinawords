@@ -5,7 +5,7 @@ export const navigationLinks = [
   { label: '关于我们', href: '/about' },
   { label: '主题案例', href: '/initiatives' },
   { label: '活动社区', href: '/community' },
-  { label: '合作联系', href: '/contact' }
+  { label: '注册/登录', href: '/login' }
 ];
 
 export const heroData = {
