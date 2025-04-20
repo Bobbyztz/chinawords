@@ -5,6 +5,6 @@ import UnderConstruction from '../components/UnderConstruction';
 
 export default function InitiativesPage() {
   return (
-    <UnderConstruction title="主题案例" />
+    <UnderConstruction title="经典案例" />
   );
 }

@@ -3,7 +3,7 @@
 export const navigationLinks = [
   { label: '首页', href: '/' },
   { label: '关于我们', href: '/about' },
-  { label: '主题案例', href: '/initiatives' },
+  { label: '经典案例', href: '/initiatives' },
   { label: '活动社区', href: '/community' },
   { label: '注册/登录', href: '/login' }
 ];
