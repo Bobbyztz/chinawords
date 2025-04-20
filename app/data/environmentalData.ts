@@ -90,7 +90,7 @@ export const initiativesData = {
 
 export const sustainabilityData = {
   title: '我们的记录',
-  subtitle: '数据见证',
+  subtitle: '',
   description: '用数据见证文化与创新的影响力',
   imageSrc: 'https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
   imageAlt: 'Person holding a small plant in soil',
