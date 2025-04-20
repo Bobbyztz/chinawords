@@ -214,7 +214,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
               </a>
               <button
                 onClick={() => generateRandomImages()}
-                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57] relative"
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -245,7 +245,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
               </a>
               <button
                 onClick={() => generateRandomImages()}
-                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-gray-50 transition-colors duration-300 border-l border-[#2E8B57] relative"
+                className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -313,6 +313,30 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       </div>
 
       <style jsx>{`
+        /* Button hover effect */
+        button:not(:disabled):hover {
+          box-shadow: 0 1px 3px rgba(46, 139, 87, 0.2);
+        }
+
+        /* Refresh button animation */
+        @keyframes subtlePulse {
+          0% { opacity: 0.7; }
+          50% { opacity: 1; }
+          100% { opacity: 0.7; }
+        }
+
+        button:not(:disabled):hover::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: rgba(46, 139, 87, 0.05);
+          animation: subtlePulse 2s infinite ease-in-out;
+          pointer-events: none;
+        }
+
         .image-card {
           position: relative;
           background-color: white;
