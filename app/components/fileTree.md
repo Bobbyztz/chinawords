@@ -15,11 +15,6 @@ This directory contains reusable UI components used throughout the application.
 - **CommunitySection.tsx** - Community section for the homepage
 - **NewsletterSection.tsx** - Newsletter section for the homepage
 
-## Gallery Components
-
-- **RefinedGallery.tsx** - Gallery component used on the gallery page
-- **FrameToggleIcon.tsx** - Toggle icon for enabling/disabling Chinese-style frames in the gallery
-
 ## Utility Components
 
 - **MagnifyingGlass.tsx** - Magnifying glass effect component
@@ -30,7 +25,6 @@ This directory contains reusable UI components used throughout the application.
 ## Component Usage
 
 - **UnderConstruction.tsx** is used by most page components as they are currently placeholders
-- **RefinedGallery.tsx** is used by the gallery page (`app/gallery/page.tsx`)
 - The homepage (`app/page.tsx`) uses multiple section components:
   - ChinawordsNavigation
   - HeroSection

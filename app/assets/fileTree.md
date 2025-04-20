@@ -16,7 +16,7 @@ This directory contains various assets used throughout the application, organize
 ## Textures
 
 - **animations.css** - CSS animations for various effects
-- **chinese-frame.css** - Styles for Chinese-style frames used in the gallery
+- **chinese-frame.css** - Styles for Chinese-style frames used for images
 - **paper-texture.css** - Styles for paper texture effects
 - **paper-texture-refined.css** - Refined version of paper texture styles
 
@@ -31,6 +31,6 @@ These assets are imported in various places:
   - "./assets/styles/biophilic-design.css"
   - "./assets/styles/chinawords-design.css"
 
-- The Chinese frame styles are used by the gallery components
+- The Chinese frame styles are used by components that display images with frame effects
 - The texture styles provide the paper-like background effects throughout the site
 - The animation styles are used for various UI animations
