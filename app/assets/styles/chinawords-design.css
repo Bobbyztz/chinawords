@@ -112,6 +112,7 @@
   transition: color var(--transition-medium);
   font-family: 'Noto Sans SC', sans-serif;
   font-size: 1.125rem; /* 增加导航文字大小 */
+  white-space: nowrap;
 }
 
 .nav-link::after {

@@ -78,7 +78,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {/* Project Progress Link */}
           <Link
             href="/progress"
-            className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group ml-2"
+            className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
           >
             项目进度
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -88,7 +88,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {links.find(link => link.label === '注册/登录') && (
             <Link
               href={links.find(link => link.label === '注册/登录')?.href || '/login'}
-              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group ml-2"
+              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
             >
               注册/登录
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
