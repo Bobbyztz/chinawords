@@ -29,14 +29,41 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
     console.log('Generating new random images...');
     setIsLoading(true);
 
+    // Generate a random seed for better randomization
+    const randomSeed = Date.now() + Math.floor(Math.random() * 1000);
+    console.log(`Random seed: ${randomSeed}`);
+
     // Add a small delay to show the blur effect before generating new images
     setTimeout(() => {
-      generateAndSetNewImages();
+      generateAndSetNewImages(randomSeed);
     }, 300);
   };
 
+  // Function to shuffle an array using Fisher-Yates algorithm with optional seed
+  const shuffleArray = <T,>(array: T[], seed?: number): T[] => {
+    const shuffled = [...array];
+
+    // Create a seeded random number generator if seed is provided
+    let seedValue = seed;
+    const getRandom = seedValue !== undefined
+      ? () => {
+          // Simple seeded random number generator
+          seedValue = (seedValue! * 9301 + 49297) % 233280;
+          return seedValue! / 233280;
+        }
+      : Math.random;
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      // Generate a random index from 0 to i
+      const j = Math.floor(getRandom() * (i + 1));
+      // Swap elements at i and j
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   // Function to actually generate the new images
-  const generateAndSetNewImages = () => {
+  const generateAndSetNewImages = (seed?: number) => {
     // List of available 3D city images
     const cityImages3D = [
         { file: '上海.png', name: '上海' },
@@ -109,8 +136,8 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       ];
 
       // Shuffle and select 15 images from each category
-      const shuffled3D = [...cityImages3D].sort(() => 0.5 - Math.random()).slice(0, 15);
-      const shuffledFood = [...foodImages].sort(() => 0.5 - Math.random()).slice(0, 15);
+      const shuffled3D = shuffleArray(cityImages3D, seed).slice(0, 15);
+      const shuffledFood = shuffleArray(foodImages, seed).slice(0, 15);
 
       // Create image objects
       const images3D = shuffled3D.map((img, index) => ({
@@ -128,7 +155,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       }));
 
       // Combine and shuffle all images
-      const allImages = [...images3D, ...imagesFood].sort(() => 0.5 - Math.random());
+      const allImages = shuffleArray([...images3D, ...imagesFood], seed);
 
       // Preload images before showing them
       const preloadImages = async () => {
