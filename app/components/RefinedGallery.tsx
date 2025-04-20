@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import FrameToggleIcon from './FrameToggleIcon';
 // CSS import is handled in the layout
 
 interface GalleryImage {
@@ -32,24 +31,6 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
   filters
 }) => {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [frameEnabled, setFrameEnabled] = useState(true);
-
-  // Load frame preference from localStorage if available
-  useEffect(() => {
-    const savedPreference = localStorage.getItem('chinaword-frame-enabled');
-    if (savedPreference !== null) {
-      setFrameEnabled(savedPreference === 'true');
-    }
-  }, []);
-
-  // Save frame preference to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem('chinaword-frame-enabled', frameEnabled.toString());
-  }, [frameEnabled]);
-
-  const toggleFrame = () => {
-    setFrameEnabled(prev => !prev);
-  };
 
   const filteredImages = activeFilter === 'all'
     ? images
@@ -85,18 +66,6 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
                   </button>
                 ))}
               </div>
-
-              {/* Frame toggle */}
-              <div className="flex">
-                <button
-                  className={`header-frame-toggle ${frameEnabled ? 'active' : ''}`}
-                  onClick={toggleFrame}
-                  title={frameEnabled ? 'Disable Chinese frames' : 'Enable Chinese frames'}
-                  aria-label="Toggle Chinese frames"
-                >
-                  <FrameToggleIcon isActive={frameEnabled} />
-                </button>
-              </div>
             </div>
 
             {/* Gallery section */}
@@ -104,17 +73,15 @@ const RefinedGallery: React.FC<RefinedGalleryProps> = ({
               {filteredImages.map(image => (
                 <div
                   key={image.id}
-                  className={frameEnabled ? 'chinese-frame' : 'image-card'}
+                  className="image-card hover-frame-effect"
                 >
                   <div className="tape-top"></div>
-                  {frameEnabled && (
-                    <>
-                      <div className="corner corner-tl"></div>
-                      <div className="corner corner-tr"></div>
-                      <div className="corner corner-bl"></div>
-                      <div className="corner corner-br"></div>
-                    </>
-                  )}
+                  <div className="frame-corners">
+                    <div className="corner corner-tl"></div>
+                    <div className="corner corner-tr"></div>
+                    <div className="corner corner-bl"></div>
+                    <div className="corner corner-br"></div>
+                  </div>
                   <div className="relative aspect-ratio-container overflow-hidden">
                     <Image
                       src={image.src}

@@ -117,31 +117,60 @@
   height: 24px;
 }
 
-/* Header frame toggle button - inline position */
-.header-frame-toggle {
-  width: 40px;
-  height: 40px;
+/* Hover frame effect */
+.hover-frame-effect {
+  position: relative;
+}
+
+.hover-frame-effect:hover {
   background-color: var(--paper-white);
   border: 1px solid var(--frame-gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 5px var(--shadow-medium);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 12px;
+  box-shadow: 0 4px 8px var(--shadow-medium);
 }
 
-.header-frame-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 3px 8px var(--shadow-medium);
+.frame-corners {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-.header-frame-toggle.active {
-  background-color: var(--frame-gold);
+.hover-frame-effect:hover .frame-corners {
+  opacity: 1;
 }
 
-.header-frame-toggle svg {
-  width: 24px;
-  height: 24px;
+.hover-frame-effect .corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--frame-gold);
+  z-index: 1;
+}
+
+.hover-frame-effect .corner-tl {
+  top: 4px;
+  left: 4px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.hover-frame-effect .corner-tr {
+  top: 4px;
+  right: 4px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.hover-frame-effect .corner-bl {
+  bottom: 4px;
+  left: 4px;
+  border-right: none;
+  border-top: none;
+}
+
+.hover-frame-effect .corner-br {
+  bottom: 4px;
+  right: 4px;
+  border-left: none;
+  border-top: none;
 }

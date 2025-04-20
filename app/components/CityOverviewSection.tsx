@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import FrameToggleIcon from './FrameToggleIcon';
 
 interface CityImage {
   id: string;
@@ -20,21 +19,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
   title,
   subtitle
 }) => {
-  const [frameEnabled, setFrameEnabled] = useState(true);
   const [images, setImages] = useState<CityImage[]>([]);
-
-  // Load frame preference from localStorage if available
-  useEffect(() => {
-    const savedPreference = localStorage.getItem('chinaword-frame-enabled');
-    if (savedPreference !== null) {
-      setFrameEnabled(savedPreference === 'true');
-    }
-  }, []);
-
-  // Save frame preference to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem('chinaword-frame-enabled', frameEnabled.toString());
-  }, [frameEnabled]);
 
   // Generate random images on component mount
   useEffect(() => {
@@ -137,9 +122,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
     generateRandomImages();
   }, []);
 
-  const toggleFrame = () => {
-    setFrameEnabled(prev => !prev);
-  };
+
 
   return (
     <section className="py-20 texture-subtle relative overflow-hidden">
@@ -152,18 +135,6 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-nature-heading">{title}</h2>
             <p className="text-lg text-nature-body">{subtitle}</p>
           </div>
-
-          {/* Header with frame toggle */}
-          <div className="mt-4 md:mt-0">
-            <button
-              className={`header-frame-toggle ${frameEnabled ? 'active' : ''}`}
-              onClick={toggleFrame}
-              title={frameEnabled ? 'Disable Chinese frames' : 'Enable Chinese frames'}
-              aria-label="Toggle Chinese frames"
-            >
-              <FrameToggleIcon isActive={frameEnabled} />
-            </button>
-          </div>
         </div>
 
         {/* Photo wall */}
@@ -171,17 +142,15 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           {images.map((image) => (
             <div
               key={image.id}
-              className={frameEnabled ? 'chinese-frame' : 'image-card'}
+              className="image-card hover-frame-effect"
             >
               <div className="tape-top"></div>
-              {frameEnabled && (
-                <>
-                  <div className="corner corner-tl"></div>
-                  <div className="corner corner-tr"></div>
-                  <div className="corner corner-bl"></div>
-                  <div className="corner corner-br"></div>
-                </>
-              )}
+              <div className="frame-corners">
+                <div className="corner corner-tl"></div>
+                <div className="corner corner-tr"></div>
+                <div className="corner corner-bl"></div>
+                <div className="corner corner-br"></div>
+              </div>
               <div className="relative aspect-ratio-container overflow-hidden">
                 <img
                   src={image.src}
@@ -216,18 +185,39 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
       </div>
 
       <style jsx>{`
-        .chinese-frame {
+        .image-card {
           position: relative;
-          padding: 12px;
-          background-color: #f8f4e6;
-          border: 1px solid #8b4513;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background-color: white;
+          padding: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           margin-bottom: 24px;
-          transition: transform 0.3s ease;
+          transition: all 0.3s ease;
         }
 
-        .chinese-frame:hover {
+        .image-card:hover {
           transform: translateY(-5px);
+        }
+
+        /* Hover frame effect */
+        .hover-frame-effect {
+          position: relative;
+        }
+
+        .hover-frame-effect:hover {
+          background-color: #f8f4e6;
+          border: 1px solid #8b4513;
+          padding: 12px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .frame-corners {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        .hover-frame-effect:hover .frame-corners {
+          opacity: 1;
         }
 
         .corner {
@@ -278,19 +268,6 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
         }
 
-        .image-card {
-          position: relative;
-          background-color: white;
-          padding: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin-bottom: 24px;
-          transition: transform 0.3s ease;
-        }
-
-        .image-card:hover {
-          transform: translateY(-5px);
-        }
-
         .aspect-ratio-container {
           position: relative;
           width: 100%;
@@ -312,24 +289,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           text-align: center;
         }
 
-        .header-frame-toggle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 8px;
-          border-radius: 50%;
-          background-color: white;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: all 0.3s ease;
-        }
 
-        .header-frame-toggle.active {
-          background-color: #f0f7ff;
-        }
-
-        .header-frame-toggle:hover {
-          transform: scale(1.1);
-        }
       `}</style>
     </section>
   );
