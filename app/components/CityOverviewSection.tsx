@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 interface CityImage {
   id: string;
@@ -63,7 +64,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
   };
 
   // Function to actually generate the new images
-  const generateAndSetNewImages = (seed?: number) => {
+  const generateAndSetNewImages = useCallback((seed?: number) => {
     // List of available 3D city images
     const cityImages3D = [
         { file: '上海.png', name: '上海' },
@@ -182,12 +183,12 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
 
       // Start preloading
       preloadImages();
-  };
+  }, []);
 
   // Generate random images on component mount
   useEffect(() => {
     generateAndSetNewImages();
-  }, []);
+  }, [generateAndSetNewImages]);
 
 
 
@@ -280,11 +281,14 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
                 <div className="corner corner-br"></div>
               </div>
               <div className="relative aspect-ratio-container overflow-hidden">
-                <img
+                <Image
                   src={image.src}
                   alt={image.alt}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                  className="object-cover"
                   style={{ objectPosition: 'center' }}
-                  loading={image.id.includes('0') ? 'eager' : 'lazy'} // Prioritize loading for first few images
+                  priority={image.id.includes('0')} // Prioritize loading for first few images
                 />
               </div>
 
