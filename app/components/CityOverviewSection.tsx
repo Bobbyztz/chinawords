@@ -39,23 +39,22 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
   // Generate random images on component mount
   useEffect(() => {
     const generateRandomImages = () => {
-      // List of available 3D city images with their display names
+      // List of available 3D city images
       const cityImages3D = [
-        { file: '上海-twi.png', name: '上海' },
-        { file: '南京-twi.png', name: '南京' },
-        { file: '南昌-twi.png', name: '南昌' },
-        { file: '合肥-twi.png', name: '合肥' },
-        { file: '天津-twi.png', name: '天津' },
-        { file: '太原-twi.png', name: '太原' },
-        { file: '杭州-twi.png', name: '杭州' },
-        { file: '澳门-twi.png', name: '澳门' },
-        { file: '福州-twi.png', name: '福州' },
-        { file: '石家庄-twi.png', name: '石家庄' },
-        { file: '重庆-twi.png', name: '重庆' },
-        { file: '长春-twi.png', name: '长春' },
-        { file: '香港-twi.png', name: '香港' },
-        { file: '哈尔滨-twi.png', name: '哈尔滨' },
-        // Non-twi images
+        { file: '上海.png', name: '上海' },
+        { file: '南京.png', name: '南京' },
+        { file: '南昌.png', name: '南昌' },
+        { file: '合肥.png', name: '合肥' },
+        { file: '天津.png', name: '天津' },
+        { file: '太原.png', name: '太原' },
+        { file: '杭州.png', name: '杭州' },
+        { file: '澳门.png', name: '澳门' },
+        { file: '福州.png', name: '福州' },
+        { file: '石家庄.png', name: '石家庄' },
+        { file: '重庆.png', name: '重庆' },
+        { file: '长春.png', name: '长春' },
+        { file: '香港.png', name: '香港' },
+        { file: '哈尔滨.png', name: '哈尔滨' },
         { file: '兰州.png', name: '兰州' },
         { file: '南宁.png', name: '南宁' },
         { file: '台北.png', name: '台北' },
