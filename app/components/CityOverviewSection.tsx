@@ -138,7 +138,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
         </div>
 
         {/* Photo wall */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
           {images.map((image) => (
             <div
               key={image.id}
@@ -155,15 +155,11 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-full object-cover"
                   style={{ objectPosition: 'center' }}
                   loading={image.id.includes('0') ? 'eager' : 'lazy'} // Prioritize loading for first few images
                 />
               </div>
-              <div className="mt-3 text-center">
-                <h3 className="handwritten-title font-bold">{image.alt}</h3>
-                <p className="handwritten-date text-sm">{image.type === '3d' ? '城市印象' : '美食印象'}</p>
-              </div>
+
             </div>
           ))}
         </div>
@@ -190,8 +186,11 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
           background-color: white;
           padding: 8px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin-bottom: 24px;
+          margin-bottom: 20px;
           transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
         }
 
         .image-card:hover {
@@ -206,7 +205,7 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
         .hover-frame-effect:hover {
           background-color: #f8f4e6;
           border: 1px solid #8b4513;
-          padding: 12px;
+          padding: 10px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -271,22 +270,17 @@ const CityOverviewSection: React.FC<CityOverviewSectionProps> = ({
         .aspect-ratio-container {
           position: relative;
           width: 100%;
-          height: 200px; /* Fixed height instead of aspect ratio */
+          padding-bottom: 100%; /* This creates a perfect square */
+          overflow: hidden;
         }
 
-        .handwritten-title {
-          font-family: 'Noto Serif SC', serif;
-          font-size: 1rem;
-          color: #333;
-          margin-bottom: 4px;
-          text-align: center;
-        }
-
-        .handwritten-date {
-          font-family: 'Noto Sans SC', sans-serif;
-          font-size: 0.8rem;
-          color: #666;
-          text-align: center;
+        .aspect-ratio-container img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
 
