@@ -1,0 +1,33 @@
+// Prisma schema for MVP: User & Asset
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  assets       Asset[]
+}
+
+model Asset {
+  id        Int      @id @default(autoincrement())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  title     String
+  prompt    String?
+  mediaType Int      // 0 = image, 1 = video
+  fileUri   String
+  createdAt DateTime @default(now())
+
+  @@index([ownerId, createdAt])
+  @@index([mediaType, createdAt])
+}
