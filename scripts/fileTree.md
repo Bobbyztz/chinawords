@@ -14,9 +14,18 @@ This directory contains utility scripts for development and maintenance tasks.
   - Creates properly formatted `DATABASE_URL` and `DIRECT_URL` for .env file
   - Helps developers correctly configure Prisma with Neon in both development and production
 
+## Root Directory Scripts
+
+In addition to the scripts in this directory, there are utility scripts in the root directory:
+
+- **rename-files.sh** - Bash script for batch renaming files
+  - Located in the project root directory
+  - Removes the "-twi" suffix from PNG files in the "public/34个省级行政区-3d" directory
+  - Used for cleaning up file names in the 3D province models collection
+
 ## Usage
 
-Run these scripts using Node.js:
+Run these scripts using Node.js or Bash:
 
 ```bash
 # Check environment variables
@@ -24,6 +33,9 @@ node scripts/check-env.js
 
 # Generate Neon connection strings
 node scripts/generate-neon-urls.js
+
+# Rename files (from project root)
+./rename-files.sh
 ```
 
 ## Dependencies
@@ -31,3 +43,4 @@ node scripts/generate-neon-urls.js
 These scripts depend on:
 - `dotenv` - For loading environment variables from .env file
 - Node.js built-in modules (readline, etc.)
+- Bash shell (for rename-files.sh)
