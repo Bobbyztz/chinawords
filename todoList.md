@@ -4,22 +4,22 @@
 
 ## 阶段 0：环境初始化 (0.5天)
 
-- [ ] 确认 Next.js 15 App Router 项目结构已完成
-- [ ] 配置 TypeScript
-- [ ] 创建并配置 .env.local 文件
-- [ ] 使用 `vercel link` 创建 Vercel 项目
+- [x] 确认 Next.js 15 App Router 项目结构已完成
+- [x] 配置 TypeScript
+- [x] 创建并配置 .env.local 文件
+- [x] 使用 `vercel link` 创建 Vercel 项目
 
 ## 阶段 1：数据库设置 (1天)
 
-- [ ] 在 Vercel Dashboard 创建 Postgres 数据库
-- [ ] 获取并配置 `POSTGRES_URL` 环境变量
-- [ ] 安装 Prisma: `pnpm add -D prisma`
-- [ ] 初始化 Prisma: `npx prisma init`
-- [ ] 配置 schema.prisma 文件指定 PostgreSQL 提供者
+- [x] 在 Vercel Dashboard 创建 Postgres 数据库
+- [x] 获取并配置 `POSTGRES_URL` 环境变量
+- [x] 安装 Prisma: `pnpm add -D prisma`
+- [x] 初始化 Prisma: `npx prisma init`
+- [x] 配置 schema.prisma 文件指定 PostgreSQL 提供者
 
 ## 阶段 2：定义数据模型 (0.5天)
 
-- [ ] 在 schema.prisma 中创建 User 模型:
+- [x] 在 schema.prisma 中创建 User 模型:
   ```
   model User {
     id            Int      @id @default(autoincrement())
@@ -29,7 +29,7 @@
     assets        Asset[]
   }
   ```
-- [ ] 在 schema.prisma 中创建 Asset 模型:
+- [x] 在 schema.prisma 中创建 Asset 模型:
   ```
   model Asset {
     id         Int      @id @default(autoincrement())
@@ -42,24 +42,24 @@
     createdAt  DateTime @default(now())
   }
   ```
-- [ ] 创建必要的索引:
+- [x] 创建必要的索引:
   ```
   // User 索引
   @@index([username])
   @@index([createdAt(sort: Desc)])
-  
+
   // Asset 索引
   @@index([ownerId])
   @@index([mediaType])
   @@index([createdAt(sort: Desc)])
   ```
-- [ ] 执行初始迁移: `npx prisma migrate dev -n init`
+- [x] 执行初始迁移: `npx prisma migrate dev -n init`
 
 ## 阶段 3：接入 Prisma Client (0.2天)
 
-- [ ] 安装 Prisma Client: `pnpm add @prisma/client`
-- [ ] 创建 `/lib/prisma.ts` 单例
-- [ ] 配置 Prisma 与 Serverless 环境的适配 (使用 `@prisma/adapter-neon`)
+- [x] 安装 Prisma Client: `pnpm add @prisma/client`
+- [x] 创建 `/lib/prisma.ts` 单例
+- [x] 配置 Prisma 与 Serverless 环境的适配 (使用 `@prisma/adapter-neon`)
 
 ## 阶段 4：用户认证 (1天)
 
