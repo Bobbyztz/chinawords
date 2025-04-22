@@ -4,15 +4,18 @@ This directory contains the main application code using Next.js App Router struc
 
 ## Key Files
 
-- **layout.tsx** - Root layout that wraps all pages
+- **layout.tsx** - Root layout that wraps all pages with SessionProvider
 - **page.tsx** - Homepage component
 - **globals.css** - Global CSS styles
+- **providers.tsx** - React context providers including SessionProvider for authentication
 
 ## Main Subdirectories
 
+- **api/** - API routes for server-side functionality including authentication
 - **assets/** - Contains styles, textures, and decorations
 - **components/** - Reusable UI components
 - **data/** - Data files for the application
+- **types/** - TypeScript type definitions
 
 ## Page Directories
 
@@ -34,6 +37,7 @@ Each of these directories represents a route in the application and contains a `
 - **initiatives/** - Initiatives page and subpages
 - **join/** - Join page
 - **living/** - Living page and subpages
+- **login/** - Login and registration page
 - **privacy/** - Privacy Policy page
 - **terms/** - Terms of Service page
 - **travel/** - Travel page and subpages

@@ -20,6 +20,10 @@ module.exports = {
         'berry': 'var(--color-berry)',
         'background': 'var(--color-background)',
         'background-alt': 'var(--color-background-alt)',
+        'film-red': 'var(--color-film-red)',
+        'jade-green': 'var(--color-jade-green)',
+        'ink-gray': 'var(--color-ink-gray)',
+        'porcelain-white': 'var(--color-porcelain-white)',
       },
       boxShadow: {
         'soft': 'var(--shadow-soft)',

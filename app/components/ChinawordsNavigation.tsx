@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession, signOut } from 'next-auth/react';
 
 interface NavLink {
   label: string;
@@ -20,8 +21,10 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   logoAlt = 'Chinawords',
   links
 }) => {
+  const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   // Handle scroll effect for transparent to solid background
   useEffect(() => {
@@ -35,6 +38,15 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    window.location.href = '/';
   };
 
   return (
@@ -84,15 +96,67 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </Link>
 
-          {/* Login/Register Link */}
-          {links.find(link => link.label === '注册/登录') && (
-            <Link
-              href={links.find(link => link.label === '注册/登录')?.href || '/login'}
-              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
-            >
-              注册/登录
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </Link>
+          {/* User Menu or Login/Register Link */}
+          {session ? (
+            <div className="relative">
+              <button
+                onClick={toggleUserMenu}
+                className="nav-link font-medium font-sans-sc hover:text-film-red flex items-center gap-1 relative overflow-hidden group"
+              >
+                <span>{session.user.username}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={isUserMenuOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+                  />
+                </svg>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </button>
+
+              {/* User Dropdown Menu */}
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    个人资料
+                  </Link>
+                  <Link
+                    href="/upload"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    上传内容
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                  >
+                    退出登录
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            links.find(link => link.label === '注册/登录') && (
+              <Link
+                href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+                className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
+              >
+                注册/登录
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+            )
           )}
         </div>
 
@@ -147,15 +211,43 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               项目进度
             </Link>
 
-            {/* Login/Register Link (Mobile) */}
-            {links.find(link => link.label === '注册/登录') && (
-              <Link
-                href={links.find(link => link.label === '注册/登录')?.href || '/login'}
-                className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                注册/登录
-              </Link>
+            {/* User Menu or Login/Register Link (Mobile) */}
+            {session ? (
+              <>
+                <Link
+                  href="/profile"
+                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  个人资料
+                </Link>
+                <Link
+                  href="/upload"
+                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  上传内容
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleSignOut();
+                  }}
+                  className="w-full text-left py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                >
+                  退出登录
+                </button>
+              </>
+            ) : (
+              links.find(link => link.label === '注册/登录') && (
+                <Link
+                  href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  注册/登录
+                </Link>
+              )
             )}
           </div>
         </div>

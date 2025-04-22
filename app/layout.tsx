@@ -5,6 +5,7 @@ import "./assets/textures/chinese-frame.css";
 import "./assets/styles/biophilic-design.css";
 import "./assets/styles/chinawords-design.css";
 import { Analytics } from "@vercel/analytics/next";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "寰语·中国 | Chinawords - 探索中国传统与创新的生活方式",
@@ -83,8 +84,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased bg-background">
-        {children}
-        <Analytics />
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );

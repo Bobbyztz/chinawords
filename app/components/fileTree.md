@@ -15,6 +15,11 @@ This directory contains reusable UI components used throughout the application.
 - **CommunitySection.tsx** - Community section for the homepage
 - **NewsletterSection.tsx** - Newsletter section for the homepage
 
+## Authentication Components
+
+- **auth/LoginForm.tsx** - Form component for user login with validation and error handling
+- **auth/RegisterForm.tsx** - Form component for user registration with validation and error handling
+
 ## Utility Components
 
 - **MagnifyingGlass.tsx** - Magnifying glass effect component

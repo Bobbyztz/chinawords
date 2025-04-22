@@ -121,6 +121,36 @@ section > div.absolute {
   animation: drawSketch 2s ease-in-out forwards;
 }
 
+/* Form styles - improve placeholder visibility */
+::placeholder {
+  color: #6B7280 !important;
+  opacity: 1 !important;
+}
+
+/* Auth button styles */
+.auth-button {
+  display: block;
+  width: 100%;
+  background-color: #C20F1E;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #A00D19;
+}
+
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 /* Image display consistency */
 .image-thumbnail .relative,
 .image-card .relative,

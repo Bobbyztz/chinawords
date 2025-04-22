@@ -63,18 +63,18 @@
 
 ## 阶段 4：用户认证 (1天)
 
-- [ ] 安装 Auth.js: `pnpm add next-auth`
-- [ ] 创建 `/app/api/auth/[...nextauth]/route.ts` 文件
-- [ ] 配置 Credentials Provider
-- [ ] 实现密码验证逻辑
-- [ ] 配置 JWT 会话策略
-- [ ] 创建登录页面 `/app/login/page.tsx`
+- [x] 安装 Auth.js: `pnpm add next-auth`
+- [x] 创建 `/app/api/auth/[...nextauth]/route.ts` 文件
+- [x] 配置 Credentials Provider
+- [x] 实现密码验证逻辑
+- [x] 配置 JWT 会话策略
+- [x] 创建登录页面 `/app/login/page.tsx`
 
 ## 阶段 5：浏览器插件共享登录 (0.5天)
 
-- [ ] 在登录成功响应中返回 accessToken
-- [ ] 创建 `/app/api/auth/token/route.ts` 用于验证 cookie 并返回 token
-- [ ] 为 Chrome 插件提供 fetch API 示例代码
+- [x] 在登录成功响应中返回 accessToken
+- [x] 创建 `/app/api/auth/token/route.ts` 用于验证 cookie 并返回 token
+- [x] 为 Chrome 插件提供 fetch API 示例代码
 
 ## 阶段 6：文件上传 (1天)
 

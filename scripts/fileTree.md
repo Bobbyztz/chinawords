@@ -14,6 +14,11 @@ This directory contains utility scripts for development and maintenance tasks.
   - Creates properly formatted `DATABASE_URL` and `DIRECT_URL` for .env file
   - Helps developers correctly configure Prisma with Neon in both development and production
 
+- **create-test-user.js** - Script to create a test user for development
+  - Creates a user with username 'testuser' and password 'password123'
+  - Hashes the password using bcrypt before storing in the database
+  - Checks if the user already exists to prevent duplicates
+
 ## Root Directory Scripts
 
 In addition to the scripts in this directory, there are utility scripts in the root directory:
@@ -33,6 +38,9 @@ node scripts/check-env.js
 
 # Generate Neon connection strings
 node scripts/generate-neon-urls.js
+
+# Create test user
+node scripts/create-test-user.js
 
 # Rename files (from project root)
 ./rename-files.sh
