@@ -5,9 +5,8 @@ This document provides an overview of the project structure for the Chinawords w
 ## Root Directory Structure
 
 - **app/** - Main application code using Next.js App Router
-- **docs/** - Project documentation and technical guides
 - **lib/** - Shared utilities and library code
-- **prisma/** - Database schema and migrations using Prisma ORM
+- **prisma/** - Database schema, migrations, and documentation using Prisma ORM
 - **public/** - Static assets like images and icons
 - **scripts/** - Utility scripts for development and maintenance
 - **node_modules/** - External dependencies (not tracked in version control)
