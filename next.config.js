@@ -22,6 +22,13 @@ const nextConfig = {
     ],
     unoptimized: true, // Allow unoptimized images for local files
   },
+  // Disable webpack cache to prevent file system errors
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
 };
 
 // Merge MDX config with Next.js config
