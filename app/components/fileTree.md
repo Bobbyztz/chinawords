@@ -26,10 +26,12 @@ This directory contains reusable UI components used throughout the application.
 - **NatureCard.tsx** - Card component for displaying nature-related content
 - **UnderConstruction.tsx** - Component used for pages that are under construction
 - **ProgressUnderConstruction.tsx** - Specialized version of UnderConstruction with GitHub link for the Project Progress page
+- **TabComponent.tsx** - Interactive tab component with curved tab interface for displaying content in tabs, using hover to switch between tabs
 
 ## Component Usage
 
 - **UnderConstruction.tsx** is used by most page components as they are currently placeholders
+- **TabComponent.tsx** is used by the Food page (`app/food/page.tsx`) to display content in tabs
 - The homepage (`app/page.tsx`) uses multiple section components:
   - ChinawordsNavigation
   - HeroSection
