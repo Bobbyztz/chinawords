@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation'; // <-- Add this import
 
 interface NavLink {
   label: string;
@@ -22,9 +23,18 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   links
 }) => {
   const { data: session } = useSession();
+  const pathname = usePathname(); // <-- Get the pathname
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  // Process pathname for title
+  const segments = pathname.split('/').filter(Boolean);
+  const firstSegment = segments[0];
+  const titleSuffix = firstSegment
+    ? ` - ${firstSegment.charAt(0).toUpperCase() + firstSegment.slice(1)}`
+    : '';
+  const dynamicTitle = `China Words${titleSuffix}`;
 
   // Handle scroll effect for transparent to solid background
   useEffect(() => {
@@ -69,7 +79,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           </div>
           <div className="flex items-center h-10">
             <span className="font-bold font-serif-sc text-black text-2xl translate-y-[5px]">
-              China Words
+              {dynamicTitle}
             </span>
           </div>
         </Link>
