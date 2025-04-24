@@ -65,8 +65,8 @@ export default function FoodPage() {
     <div className="min-h-screen flex flex-col texture-subtle">
       <ChinawordsNavigation links={navigationLinks} />
 
-      <main className="flex-grow py-12 mt-16">
-        <div className="">
+      <main className="flex-grow pt-12 mt-16">
+        <div>
           <div className="flex flex-col gap-y-6">
             <TabComponent tabs={tabs} />
           </div>

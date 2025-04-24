@@ -43,13 +43,13 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       </div>
 
       {/* Tab Content */}
-      <div className="relative flex-grow bg-gray-200 shadow-md p-5 min-h-[500px]">
+      <div className="relative flex-grow bg-white shadow-md p-5 min-h-[500px]">
         {/* Status indicators - curved background for active tab */}
         <ul className="absolute left-[-160px] top-0 w-40">
           {tabs.map((_, index) => (
             <li
               key={index}
-              className="relative w-40 h-9 rounded-l-lg bg-gray-200 transition-opacity duration-300"
+              className="relative w-40 h-9 rounded-l-lg bg-white transition-opacity duration-300"
               style={{
                 opacity: activeTab === index ? 1 : 0,
                 pointerEvents: 'none' // Prevent interference with hover events
@@ -60,7 +60,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
                 <div
                   className="absolute right-0 top-[-20px] w-5 h-5"
                   style={{
-                    background: 'radial-gradient(circle at 0 0, transparent, transparent 19.5px, #e5e7eb 20px, #e5e7eb)'
+                    background: 'radial-gradient(circle at 0 0, transparent, transparent 19.5px, #fff 20px, #fff)'
                   }}
                 ></div>
               )}
@@ -69,7 +69,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               <div
                 className="absolute right-0 bottom-[-20px] w-5 h-5"
                 style={{
-                  background: 'radial-gradient(circle at 0 100%, transparent, transparent 19.5px, #e5e7eb 20px, #e5e7eb)'
+                  background: 'radial-gradient(circle at 0 100%, transparent, transparent 19.5px, #fff 20px, #fff)'
                 }}
               ></div>
             </li>
