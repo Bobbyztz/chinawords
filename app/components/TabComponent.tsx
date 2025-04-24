@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 interface TabItem {
   title: string;
@@ -18,12 +18,12 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
   // Measure content heights on initial render
   useEffect(() => {
-    const heights = contentRefs.current.map(ref => ref?.scrollHeight || 0);
+    const heights = contentRefs.current.map((ref) => ref?.scrollHeight || 0);
     setContentHeights(heights);
   }, []);
 
   return (
-    <div className="relative flex flex-row w-[95%] h-[80vh] mx-auto text-gray-700">
+    <div className="relative flex flex-row w-[95%] pt-16 h-full mx-auto text-gray-700">
       {/* Tab Navigation */}
       <div className="w-40 flex-shrink-0 z-10">
         <ul className="w-full flex flex-col">
@@ -34,7 +34,11 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               onMouseEnter={() => setActiveTab(index)}
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
-              <span className={`inline-block px-2 ${activeTab === index ? 'font-bold' : ''}`}>
+              <span
+                className={`inline-block px-2 ${
+                  activeTab === index ? "font-bold" : ""
+                }`}
+              >
                 {tab.title}
               </span>
             </li>
@@ -43,7 +47,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       </div>
 
       {/* Tab Content */}
-      <div className="relative flex-grow bg-white shadow-md p-5 min-h-[500px]">
+      <div className="relative flex-grow bg-white shadow-md p-5 h-full min-h-[85vh]">
         {/* Status indicators - curved background for active tab */}
         <ul className="absolute left-[-160px] top-0 w-40">
           {tabs.map((_, index) => (
@@ -52,7 +56,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               className="relative w-40 h-9 rounded-l-lg bg-white transition-opacity duration-300"
               style={{
                 opacity: activeTab === index ? 1 : 0,
-                pointerEvents: 'none' // Prevent interference with hover events
+                pointerEvents: "none", // Prevent interference with hover events
               }}
             >
               {/* Top curved corner */}
@@ -60,7 +64,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
                 <div
                   className="absolute right-0 top-[-20px] w-5 h-5"
                   style={{
-                    background: 'radial-gradient(circle at 0 0, transparent, transparent 19.5px, #fff 20px, #fff)'
+                    background:
+                      "radial-gradient(circle at 0 0, transparent, transparent 19.5px, #fff 20px, #fff)",
                   }}
                 ></div>
               )}
@@ -69,7 +74,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               <div
                 className="absolute right-0 bottom-[-20px] w-5 h-5"
                 style={{
-                  background: 'radial-gradient(circle at 0 100%, transparent, transparent 19.5px, #fff 20px, #fff)'
+                  background:
+                    "radial-gradient(circle at 0 100%, transparent, transparent 19.5px, #fff 20px, #fff)",
                 }}
               ></div>
             </li>
@@ -77,16 +83,21 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
         </ul>
 
         {/* Content area with smooth transitions */}
-        <div className="relative overflow-hidden" style={{ minHeight: Math.max(...contentHeights, 200) }}>
+        <div
+          className="relative overflow-hidden"
+          style={{ minHeight: Math.max(...contentHeights, 200) }}
+        >
           {tabs.map((tab, index) => (
             <div
               key={index}
-              ref={(el: HTMLDivElement | null) => { contentRefs.current[index] = el; }}
+              ref={(el: HTMLDivElement | null) => {
+                contentRefs.current[index] = el;
+              }}
               className="absolute left-0 top-0 w-full transition-opacity duration-300 ease-in-out"
               style={{
                 opacity: activeTab === index ? 1 : 0,
-                pointerEvents: activeTab === index ? 'auto' : 'none',
-                zIndex: activeTab === index ? 1 : 0
+                pointerEvents: activeTab === index ? "auto" : "none",
+                zIndex: activeTab === index ? 1 : 0,
               }}
             >
               {tab.content}
