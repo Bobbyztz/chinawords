@@ -2,9 +2,8 @@
 
 import React from 'react';
 import ChinawordsNavigation from '../components/ChinawordsNavigation';
-import BiophilicFooter from '../components/BiophilicFooter';
 import TabComponent from '../components/TabComponent';
-import { navigationLinks, footerData } from '../data/environmentalData';
+import { navigationLinks } from '../data/environmentalData';
 
 // Food Image Wall component
 import Image from 'next/image';
@@ -74,12 +73,6 @@ export default function FoodPage() {
           </div>
         </div>
       </main>
-
-      <BiophilicFooter
-        description={footerData.description}
-        columns={footerData.columns}
-        socialLinks={footerData.socialLinks}
-      />
     </div>
   );
 }
