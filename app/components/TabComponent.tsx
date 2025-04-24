@@ -23,14 +23,14 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
   }, []);
 
   return (
-    <div className="relative flex flex-row w-[95%] pt-16 h-full mx-auto text-gray-700">
-      {/* Tab Navigation */}
-      <div className="w-40 flex-shrink-0 z-10">
-        <ul className="w-full flex flex-col">
+    <div className="relative flex flex-col md:flex-row w-[95%] pt-8 md:pt-16 h-full mx-auto text-gray-700">
+      {/* Tab Navigation - Horizontal on mobile, Vertical on desktop */}
+      <div className="w-full md:w-40 flex-shrink-0 z-10 mb-4 md:mb-0">
+        <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
           {tabs.map((tab, index) => (
             <li
               key={index}
-              className="text-center leading-9 cursor-pointer transition-all duration-300"
+              className="text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0"
               onMouseEnter={() => setActiveTab(index)}
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
@@ -47,9 +47,9 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       </div>
 
       {/* Tab Content */}
-      <div className="relative flex-grow bg-white shadow-md p-5 h-full min-h-[85vh]">
-        {/* Status indicators - curved background for active tab */}
-        <ul className="absolute left-[-160px] top-0 w-40">
+      <div className="relative flex-grow bg-white shadow-md p-3 md:p-5 w-full" style={{ minHeight: '85vh' }}>
+        {/* Status indicators - curved background for active tab - Hidden on mobile */}
+        <ul className="absolute left-[-160px] top-0 w-40 hidden md:block">
           {tabs.map((_, index) => (
             <li
               key={index}
@@ -84,8 +84,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
         {/* Content area with smooth transitions */}
         <div
-          className="relative overflow-hidden"
-          style={{ minHeight: Math.max(...contentHeights, 200) }}
+          className="relative overflow-visible"
+          style={{ minHeight: Math.max(...contentHeights, 400) }}
         >
           {tabs.map((tab, index) => (
             <div
@@ -98,6 +98,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
                 opacity: activeTab === index ? 1 : 0,
                 pointerEvents: activeTab === index ? "auto" : "none",
                 zIndex: activeTab === index ? 1 : 0,
+                height: activeTab === index ? "auto" : 0,
               }}
             >
               {tab.content}
