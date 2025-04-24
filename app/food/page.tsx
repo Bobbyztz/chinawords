@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import ChinawordsNavigation from '../components/ChinawordsNavigation';
-import TabComponent from '../components/TabComponent';
-import { navigationLinks } from '../data/environmentalData';
+import React from "react";
+import ChinawordsNavigation from "../components/ChinawordsNavigation";
+import TabComponent from "../components/TabComponent";
+import { navigationLinks } from "../data/environmentalData";
 
 // Food Image Wall component
-import Image from 'next/image';
-import { useState, useEffect, useCallback } from 'react';
+import Image from "next/image";
+import { useState, useEffect, useCallback } from "react";
 
 interface FoodImage {
   id: string;
@@ -44,20 +44,20 @@ export default function FoodPage() {
   // Define the new tab structure
   const tabs = [
     {
-      title: '美食图片墙',
-      content: <FoodImageWall />
+      title: "美食图片墙",
+      content: <FoodImageWall />,
     },
     {
-      title: '地方菜系',
-      content: <RegionalCuisines />
+      title: "地方菜系",
+      content: <RegionalCuisines />,
     },
     {
-      title: '传统食谱',
-      content: <TraditionalRecipes />
+      title: "传统食谱",
+      content: <TraditionalRecipes />,
     },
     {
-      title: '美食文化',
-      content: <FoodCulture />
+      title: "美食文化",
+      content: <FoodCulture />,
     },
   ];
 
@@ -65,9 +65,8 @@ export default function FoodPage() {
     <div className="min-h-screen flex flex-col texture-subtle">
       <ChinawordsNavigation links={navigationLinks} />
 
-      <main className="flex-grow py-16 mt-16">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-center text-film-red">食·味蕾中国</h1>
+      <main className="flex-grow py-12 mt-16">
+        <div className="">
           <div className="flex flex-col gap-y-6">
             <TabComponent tabs={tabs} />
           </div>
