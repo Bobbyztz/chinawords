@@ -19,7 +19,7 @@ export const heroData = {
 };
 
 export const initiativesData = {
-  title: '主题板块速览',
+  title: '主题板块',
   subtitle: '精选案例，快速了解中国生活方式的多彩面貌',
   initiatives: [
     {

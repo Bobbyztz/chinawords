@@ -19,4 +19,4 @@ The City page imports and uses:
 
 This page is linked from:
 - The footer's "进阶板块" (Advanced Section) in `app/data/environmentalData.ts`
-- The "主题板块速览" (Initiatives) section on the homepage
+- The "主题板块" (Initiatives) section on the homepage
