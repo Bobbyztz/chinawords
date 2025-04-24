@@ -17,7 +17,7 @@
   /* Functional colors */
   --color-text: #333333;
   --color-text-light: #666666;
-  --color-background: var(--color-ink-gray);
+  --color-background: #FAFAFA;
   --color-background-alt: var(--color-porcelain-white);
 
   /* Shadows */

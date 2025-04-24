@@ -28,10 +28,11 @@
   --foreground: var(--ink-dark);
 }
 
+/* 移除对暗色模式的响应，强制使用浅色背景 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--paper-white);
+    --foreground: var(--ink-dark);
   }
 }
 
