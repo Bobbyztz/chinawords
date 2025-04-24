@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useSession, signOut } from 'next-auth/react';
-import { usePathname } from 'next/navigation'; // <-- Add this import
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation"; // <-- Add this import
 
 interface NavLink {
   label: string;
@@ -18,9 +18,9 @@ interface ChinawordsNavigationProps {
 }
 
 const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
-  logo = '/logo.png',
-  logoAlt = 'Chinawords',
-  links
+  logo = "/logo.png",
+  logoAlt = "Chinawords",
+  links,
 }) => {
   const { data: session } = useSession();
   const pathname = usePathname(); // <-- Get the pathname
@@ -29,11 +29,11 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   // Process pathname for title
-  const segments = pathname.split('/').filter(Boolean);
+  const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0];
   const titleSuffix = firstSegment
     ? ` - ${firstSegment.charAt(0).toUpperCase() + firstSegment.slice(1)}`
-    : '';
+    : "";
   const dynamicTitle = `China Words${titleSuffix}`;
 
   // Handle scroll effect for transparent to solid background
@@ -42,8 +42,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -56,16 +56,16 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
     <nav
       className={`nav-chinawords fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-3 shadow-md' : 'py-5'
+        isScrolled ? "py-3 shadow-md" : "py-5"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
+      <div className="pl-4 pr-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 h-10">
           <div className="relative w-10 h-10 flex-shrink-0">
@@ -77,7 +77,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               className="object-contain"
             />
           </div>
-          <div className="flex items-center h-10">
+          <div className="flex items-center pl-1 h-10">
             <span className="font-bold font-serif-sc text-black text-2xl translate-y-[5px]">
               {dynamicTitle}
             </span>
@@ -86,16 +86,18 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1.5">
-          {links.filter(link => link.label !== '注册/登录').map((link, index) => (
-            <Link
-              key={index}
-              href={link.href}
-              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
-            >
-              {link.label}
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </Link>
-          ))}
+          {links
+            .filter((link) => link.label !== "注册/登录")
+            .map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
+              >
+                {link.label}
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+            ))}
 
           {/* Project Progress Link */}
           <Link
@@ -158,9 +160,12 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               )}
             </div>
           ) : (
-            links.find(link => link.label === '注册/登录') && (
+            links.find((link) => link.label === "注册/登录") && (
               <Link
-                href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+                href={
+                  links.find((link) => link.label === "注册/登录")?.href ||
+                  "/login"
+                }
                 className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
               >
                 注册/登录
@@ -187,7 +192,11 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+              d={
+                isMobileMenuOpen
+                  ? "M6 18L18 6M6 6l12 12"
+                  : "M4 6h16M4 12h16M4 18h16"
+              }
             />
           </svg>
         </button>
@@ -196,21 +205,23 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       {/* Mobile Menu */}
       <div
         className={`md:hidden absolute w-full bg-porcelain-white shadow-md transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-96 py-4' : 'max-h-0'
+          isMobileMenuOpen ? "max-h-96 py-4" : "max-h-0"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="px-6">
           <div className="flex flex-col space-y-3">
-            {links.filter(link => link.label !== '注册/登录').map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links
+              .filter((link) => link.label !== "注册/登录")
+              .map((link, index) => (
+                <Link
+                  key={index}
+                  href={link.href}
+                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
 
             {/* Project Progress Link (Mobile) */}
             <Link
@@ -249,9 +260,12 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 </button>
               </>
             ) : (
-              links.find(link => link.label === '注册/登录') && (
+              links.find((link) => link.label === "注册/登录") && (
                 <Link
-                  href={links.find(link => link.label === '注册/登录')?.href || '/login'}
+                  href={
+                    links.find((link) => link.label === "注册/登录")?.href ||
+                    "/login"
+                  }
                   className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
