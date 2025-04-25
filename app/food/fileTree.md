@@ -8,6 +8,7 @@ This directory contains the Food page and its subpages.
 
 ## Subdirectories
 
+- **components/** - Contains components specific to the Food page
 - **plugin/** - Contains the Food Plugin page and its subpages, including the privacy policy
 
 ## Component Usage
@@ -15,8 +16,7 @@ This directory contains the Food page and its subpages.
 The Food page imports and uses:
 - `ChinawordsNavigation` from '../components/ChinawordsNavigation'
 - `TabComponent` from '../components/TabComponent'
-- `Image` from 'next/image'
-- `useState` and `useEffect` from 'react'
+- `FoodImageWall` from './components/FoodImageWall'
 
 ## Related Components
 
