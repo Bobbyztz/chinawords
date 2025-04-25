@@ -24,7 +24,12 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 }) => {
   const { data: session } = useSession();
   const pathname = usePathname(); // <-- Get the pathname
-  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Check if current page is homepage
+  const isHomepage = pathname === "/";
+
+  // Initialize isScrolled based on whether we're on the homepage or not
+  const [isScrolled, setIsScrolled] = useState(!isHomepage);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
@@ -43,22 +48,20 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
   const dynamicTitle = `China Words${titleSuffix}`;
 
-  // Check if current page is homepage
-  const isHomepage = pathname === "/";
-
   // Handle scroll effect for transparent to solid background
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Only update isScrolled based on scroll position when on homepage
+      if (isHomepage) {
+        setIsScrolled(window.scrollY > 20);
+      }
     };
 
-    // If not homepage, set isScrolled to true by default
-    if (!isHomepage) {
-      setIsScrolled(true);
+    // Add scroll listener only on homepage
+    if (isHomepage) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
     }
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomepage]);
 
   const toggleMobileMenu = () => {
