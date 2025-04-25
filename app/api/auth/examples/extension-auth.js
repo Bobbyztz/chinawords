@@ -1,6 +1,6 @@
 /**
  * 浏览器插件认证示例代码
- * 
+ *
  * 这个文件展示了如何在Chrome扩展中使用Chinawords的认证API
  */
 
@@ -36,7 +36,7 @@ async function loginAndGetToken(username, password) {
     }
 
     const { accessToken, expiresAt } = await tokenResponse.json();
-    
+
     // 3. 存储token到插件的存储中
     chrome.storage.local.set({
       chinawordsToken: accessToken,
@@ -78,7 +78,8 @@ async function fetchWithToken(url, options = {}) {
   });
 }
 
-// 使用示例
+// 使用示例 - 仅供参考，不会被实际调用
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function exampleUsage() {
   try {
     // 登录并获取token

@@ -8,7 +8,7 @@ import BiophilicFooter from '../components/BiophilicFooter';
 import { navigationLinks, footerData } from '../data/environmentalData';
 
 export default function UploadPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [prompt, setPrompt] = useState('');
@@ -33,7 +33,7 @@ export default function UploadPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate input
     if (!title) {
       setError('请输入标题');
@@ -53,12 +53,12 @@ export default function UploadPage() {
       // 这里应该实现文件上传逻辑
       // 目前只是模拟上传成功
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       setMessage('上传成功！（注意：这只是一个演示，实际上传功能尚未实现）');
       setTitle('');
       setPrompt('');
       setFile(null);
-      
+
       // 重置文件输入框
       const fileInput = document.getElementById('file-upload') as HTMLInputElement;
       if (fileInput) {
@@ -88,20 +88,20 @@ export default function UploadPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm rounded-lg p-8 shadow-lg border border-gray-200">
             <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-center">上传内容</h1>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <div className="bg-red-100 border border-red-300 text-red-800 font-medium px-4 py-3 rounded-md text-sm">
                   {error}
                 </div>
               )}
-              
+
               {message && (
                 <div className="bg-green-100 border border-green-300 text-green-800 font-medium px-4 py-3 rounded-md text-sm">
                   {message}
                 </div>
               )}
-              
+
               <div>
                 <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-1">
                   标题
@@ -116,7 +116,7 @@ export default function UploadPage() {
                   disabled={isUploading}
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="prompt" className="block text-sm font-medium text-gray-900 mb-1">
                   描述（可选）
@@ -131,7 +131,7 @@ export default function UploadPage() {
                   disabled={isUploading}
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
                   内容类型
@@ -161,7 +161,7 @@ export default function UploadPage() {
                   </label>
                 </div>
               </div>
-              
+
               <div>
                 <label htmlFor="file-upload" className="block text-sm font-medium text-gray-900 mb-1">
                   上传文件
@@ -178,7 +178,7 @@ export default function UploadPage() {
                   {mediaType === 0 ? "支持的格式: JPG, PNG, GIF, WebP" : "支持的格式: MP4, WebM"}
                 </p>
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isUploading}
@@ -186,7 +186,7 @@ export default function UploadPage() {
               >
                 {isUploading ? '上传中...' : '上传'}
               </button>
-              
+
               <div className="text-center text-gray-500 text-sm mt-4">
                 <p>注意：此功能目前仅作演示，实际上传功能尚未实现</p>
                 <p>上传内容需遵守相关法律法规和平台规定</p>

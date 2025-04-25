@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 // GET /api/assets - 获取所有资产（任务）
-export async function GET(req: NextRequest) {
+export async function GET() {
   const assets = await prisma.asset.findMany({
     orderBy: { createdAt: 'desc' },
     include: { owner: { select: { id: true, username: true } } },
