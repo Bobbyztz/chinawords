@@ -153,8 +153,8 @@ const FoodImageWall = () => {
                   onClick={() => setSelectedCuisine(cuisine.id)}
                   className={`cursor-pointer text-sm transition-colors duration-300 ${
                     selectedCuisine === cuisine.id
-                      ? 'text-film-red font-bold border-b-2 border-film-red'
-                      : 'text-gray-700 hover:text-film-red'
+                      ? 'selected-cuisine text-jade-green font-bold border-b-2 border-jade-green'
+                      : 'text-gray-700 hover:text-jade-green'
                   }`}
                 >
                   {cuisine.name}
@@ -320,10 +320,25 @@ const FoodImageWall = () => {
 
         .flex span:hover {
           transform: translateY(-1px);
+          color: var(--color-jade-green);
         }
 
         .flex span:active {
           transform: translateY(0);
+        }
+
+        /* 确保选中的菜系显示为翡翠绿色 */
+        .text-jade-green {
+          color: var(--color-jade-green) !important;
+        }
+
+        .border-jade-green {
+          border-color: var(--color-jade-green) !important;
+        }
+
+        .selected-cuisine {
+          color: #2E8B57 !important;
+          border-bottom: 2px solid #2E8B57 !important;
         }
       `}</style>
     </div>
