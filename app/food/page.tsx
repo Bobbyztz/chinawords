@@ -137,13 +137,13 @@ const FoodImageWall = () => {
   // 组件已经直接在UI中显示行数和图片数量
 
   return (
-    <div className="w-full overflow-y-auto max-h-[80vh]">
+    <div className="w-full overflow-y-auto h-full" style={{ minHeight: "calc(90vh - 100px)" }}>
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-jade-green"></div>
         </div>
       ) : (
-        <div className="space-y-8 pb-8">
+        <div className="space-y-8 pb-8 h-full">
           {/* 八大菜系按钮 - 纯文字版 */}
           <div className="mb-4 bg-white/80 backdrop-blur-sm mx-2 py-2 sticky top-0 z-10">
             <div className="flex flex-wrap justify-center gap-4">
@@ -163,47 +163,49 @@ const FoodImageWall = () => {
             </div>
           </div>
 
-          {/* 只显示前7行图片，每行5张 */}
+          {/* 显示图片，确保填充可用空间 */}
           {filteredImages.length > 0 ? (
-            Array.from({ length: Math.min(7, Math.ceil(filteredImages.length / 5)) }).map((_, rowIndex) => {
-              const rowImages = filteredImages.slice(rowIndex * 5, rowIndex * 5 + 5);
+            <div className="flex flex-col h-full" style={{ minHeight: "calc(80vh - 120px)" }}>
+              {Array.from({ length: Math.min(7, Math.ceil(filteredImages.length / 5)) }).map((_, rowIndex) => {
+                const rowImages = filteredImages.slice(rowIndex * 5, rowIndex * 5 + 5);
 
-              return (
-                <div key={`row-${rowIndex}`} className="space-y-2">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                    {rowImages.map((image) => (
-                      <div
-                        key={image.id}
-                        className="image-card hover-frame-effect"
-                      >
-                        <div className="tape-top"></div>
-                        <div className="frame-corners">
-                          <div className="corner corner-tl"></div>
-                          <div className="corner corner-tr"></div>
-                          <div className="corner corner-bl"></div>
-                          <div className="corner corner-br"></div>
+                return (
+                  <div key={`row-${rowIndex}`} className="mb-6 flex-grow">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 h-full">
+                      {rowImages.map((image) => (
+                        <div
+                          key={image.id}
+                          className="image-card hover-frame-effect h-full"
+                        >
+                          <div className="tape-top"></div>
+                          <div className="frame-corners">
+                            <div className="corner corner-tl"></div>
+                            <div className="corner corner-tr"></div>
+                            <div className="corner corner-bl"></div>
+                            <div className="corner corner-br"></div>
+                          </div>
+                          <div className="relative aspect-ratio-container overflow-hidden flex-grow">
+                            <Image
+                              src={image.src}
+                              alt={image.alt}
+                              fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
+                              className="object-cover"
+                              style={{ objectPosition: 'center' }}
+                              loading="eager"
+                              priority={rowIndex < 2} // 优先加载前两行
+                            />
+                          </div>
+                          <div className="mt-2 text-center text-sm font-medium">
+                            {image.alt}
+                          </div>
                         </div>
-                        <div className="relative aspect-ratio-container overflow-hidden">
-                          <Image
-                            src={image.src}
-                            alt={image.alt}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
-                            className="object-cover"
-                            style={{ objectPosition: 'center' }}
-                            loading="eager"
-                            priority={rowIndex < 2} // 优先加载前两行
-                          />
-                        </div>
-                        <div className="mt-2 text-center text-sm font-medium">
-                          {image.alt}
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })}
+            </div>
           ) : (
             <div className="flex justify-center items-center h-64">
               <p className="text-gray-500">没有找到相关菜系的图片</p>
@@ -223,6 +225,7 @@ const FoodImageWall = () => {
           display: flex;
           flex-direction: column;
           width: 100%;
+          height: 100%;
           animation: fadeIn 0.6s cubic-bezier(0.26, 0.53, 0.74, 1.48);
         }
 
@@ -310,6 +313,8 @@ const FoodImageWall = () => {
           width: 100%;
           padding-bottom: 100%; /* This creates a perfect square */
           overflow: hidden;
+          flex: 1;
+          min-height: 0; /* Important for flex containers */
         }
 
         /* 八大菜系文字样式 */

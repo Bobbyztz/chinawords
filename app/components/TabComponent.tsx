@@ -48,7 +48,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
       {/* Tab Content */}
       <div
-        className="relative flex-grow bg-white shadow-md px-2 w-full"
+        className="relative flex-grow bg-white shadow-md px-2 w-full flex flex-col"
         style={{ minHeight: "90vh" }}
       >
         {/* Status indicators - curved background for active tab - Hidden on mobile */}
@@ -87,7 +87,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
         {/* Content area with smooth transitions */}
         <div
-          className="relative overflow-visible"
+          className="relative overflow-visible flex-grow flex flex-col"
           style={{ minHeight: Math.max(...contentHeights, 400) }}
         >
           {tabs.map((tab, index) => (
@@ -96,12 +96,12 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               ref={(el: HTMLDivElement | null) => {
                 contentRefs.current[index] = el;
               }}
-              className="absolute left-0 top-0 w-full transition-opacity duration-300 ease-in-out"
+              className="absolute left-0 top-0 w-full h-full transition-opacity duration-300 ease-in-out flex flex-col"
               style={{
                 opacity: activeTab === index ? 1 : 0,
                 pointerEvents: activeTab === index ? "auto" : "none",
                 zIndex: activeTab === index ? 1 : 0,
-                height: activeTab === index ? "auto" : 0,
+                height: activeTab === index ? "100%" : 0,
               }}
             >
               {tab.content}
