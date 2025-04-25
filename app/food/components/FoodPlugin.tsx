@@ -17,10 +17,10 @@ const FoodPlugin: React.FC = () => {
 
       {/* 介绍卡片 - 使用优雅的阴影和边框 */}
       <div className="bg-white/90 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-12 border border-gray-100 transform transition-all duration-500 hover:shadow-xl">
-        <p className="text-lg leading-relaxed text-gray-800">
+        <p className="text-md font-semibold leading-relaxed text-gray-800">
           "Eat me!" 是一款专为中国食品爱好者设计的浏览器插件，旨在帮助用户在 Weee! 和 Yami 等中国食品电商平台上比较价格、查看食品的历史和文化背景信息、并利用AI技术将相关信息转化为属于用户的个性化产品。
         </p>
-        <p className="text-lg pt-4 leading-relaxed text-gray-800">
+        <p className="text-md font-semibold pt-4 leading-relaxed text-gray-800">
           我们认为AI时代的软件应当成为公共基础设施，用户是其生命力的保障。当传统软件霸占用户数据权益的时候，我们认为共享共建才是新时代应有的生态。我们鼓励并支持用户直接或间接参与本项目。
         </p>
       </div>
