@@ -92,57 +92,78 @@ const PriceComparison = () => {
   );
 };
 
-// Placeholder component for food culture information
+// Component for food culture information
 const FoodCultureInfo = () => {
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-6 font-serif-sc">美食文化信息</h2>
-      <div className="prose prose-lg max-w-none">
-        <p className="mb-4">
-          了解您购买的食品背后的文化和历史背景，增强您的购物体验。
+    <div className="p-8 font-sans-sc">
+      <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
+        商品详情与文化信息
+      </h2>
+      <div className="text-gray-800 space-y-4 leading-relaxed">
+        <p>左键点击商品卡片会进入商品细节栏。</p>
+        <p>
+          在栏目上方，可以看到用于展示商品原材料在历史上的时间跨度卡片（食品历史与文化）以及它在空间上的地理跨度卡片（世界地图）。同时本栏目将会逐渐纳入知名厨师的菜谱等信息。以及一个用于跳转的，目标是将（包括但不限于）以上信息产品化Share链接。
         </p>
-        <p className="mb-4">
-          我们的插件利用 OpenAI 的 API 提供关于中国食品的丰富信息，包括：
-        </p>
-        <ul className="list-disc pl-6 space-y-2 mb-4">
-          <li>食品的历史起源</li>
-          <li>地域文化特色</li>
-          <li>传统制作工艺</li>
-          <li>相关的节日和习俗</li>
-        </ul>
-        <div className="bg-gray-100 p-4 rounded-lg">
-          <h3 className="text-lg font-bold mb-2">示例：老干妈辣椒酱</h3>
-          <p>
-            老干妈是中国贵州省的一款著名辣椒酱，由陶华碧（人称&quot;老干妈&quot;）于1996年创立。这款酱料结合了贵州地区的辣椒文化和独特工艺，已成为中国家喻户晓的调味品，象征着家的味道和乡愁记忆。
-          </p>
+        {/* Detail map image using Next.js Image component */}
+        <div className="my-6">
+          <div className="image-container relative overflow-hidden rounded-lg shadow-md max-w-xl mx-auto">
+            {/* Ensure detail_map.png is in the public folder */}
+            <Image
+              src="/food/plugin/detail_map.png"
+              alt="商品详情地图示例"
+              width={600}
+              height={400}
+              className="w-full h-auto transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+          <div className="image-caption text-center text-sm text-gray-600 mt-2">
+            商品详情地图示例
+          </div>
         </div>
+        <p>
+          栏目下方是一个世界地图，可以通过它查看食品原材料的构成、他们的时间地理信息等。
+        </p>
       </div>
+      <style jsx>{`
+        .image-container img {
+          display: block;
+          max-width: 100%;
+        }
+      `}</style>
     </div>
   );
 };
 
-// Placeholder component for product list browsing
+// 产品列表浏览说明
 const ProductListBrowsing = () => {
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-6 font-serif-sc">产品列表浏览</h2>
-      <div className="prose prose-lg max-w-none">
-        <p className="mb-4">
-          在产品列表页面上直接比较多个产品的价格，提高您的购物效率。
+    <div className="p-8 font-sans-sc">
+      <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
+        产品列表浏览
+      </h2>
+      <div className="text-gray-800 space-y-6 leading-relaxed">
+        <p>
+          以上方法适用于任一已在程序中注册的页面。如果有额外需求，欢迎联系项目方。你的贡献将被记录。
         </p>
-        <p className="mb-4">
-          当您浏览 Weee! 或 Yami
-          的产品列表页面时，插件会在每个产品旁边显示价格比较信息，帮助您快速找到最优惠的选择。
-        </p>
-        <div className="bg-gray-100 p-4 rounded-lg mb-4">
-          <h3 className="text-lg font-bold mb-2">功能特点：</h3>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>批量价格比较</li>
-            <li>价格差异高亮显示</li>
-            <li>一键跳转到另一平台的同款产品</li>
-          </ul>
+        <div className="flex flex-col items-center gap-2">
+          <Image
+            src="/food/plugin/listing_page.png"
+            alt="产品列表页面示例"
+            width={600}
+            height={350}
+            className="w-full max-w-xl h-auto rounded-lg shadow-md border"
+          />
+          <div className="image-caption text-center text-sm text-gray-600 mt-2">
+            产品列表页面示例
+          </div>
         </div>
       </div>
+      <style jsx>{`
+        .image-container img {
+          display: block;
+          max-width: 100%;
+        }
+      `}</style>
     </div>
   );
 };
