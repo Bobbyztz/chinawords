@@ -245,9 +245,10 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute w-full bg-porcelain-white shadow-md transition-all duration-300 overflow-hidden ${
+        className={`md:hidden absolute w-full bg-white shadow-md transition-all duration-300 overflow-hidden ${
           isMobileMenuOpen ? "max-h-96 py-4" : "max-h-0"
         }`}
+        style={{ backgroundColor: 'white' }}
       >
         <div className="px-6">
           <div className="flex flex-col space-y-3">
