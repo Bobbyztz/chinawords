@@ -8,7 +8,7 @@ const FoodPlugin: React.FC = () => {
   return (
     <div className="plugin-container max-w-6xl mx-auto px-4 py-8 font-sans-sc">
       {/* 标题区域 - 使用中国风设计元素 */}
-      <div className="text-center mb-12 relative">
+      <div className="text-center mb-8 relative">
         <div className="absolute left-0 right-0 top-1/2 border-t border-gray-300 -z-10"></div>
         <h1 className="inline-block bg-white px-8 text-4xl font-bold font-serif-sc text-film-red relative z-10">
           Eat me! <span className="text-jade-green">浏览器插件</span>
