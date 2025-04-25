@@ -17,6 +17,7 @@ The Food page imports and uses:
 - `ChinawordsNavigation` from '../components/ChinawordsNavigation'
 - `TabComponent` from '../components/TabComponent'
 - `FoodImageWall` from './components/FoodImageWall'
+- `FoodPluginMDX` from './components/FoodPluginMDX'
 
 ## Related Components
 
@@ -31,7 +32,7 @@ The Food page contains tabs with the following sections:
 2. 地方菜系 (Regional Cuisines) - Placeholder for regional cuisine content
 3. 传统食谱 (Traditional Recipes) - Placeholder for traditional recipe content
 4. 美食文化 (Food Culture) - Placeholder for food culture content
-5. 浏览器插件 (Food Plugin) - Placeholder for food plugin content
+5. 浏览器插件 (Food Plugin) - Displays information about the "Eat me!" browser extension, including features, screenshots, and privacy information
 
 ## Features
 
