@@ -3,7 +3,7 @@
 import React from "react";
 import FoodPlugin from "./FoodPlugin";
 
-const FoodPluginMDX = () => {
+const FoodPluginContent = () => {
   return (
     <div
       className="w-full overflow-y-auto bg-white/50 backdrop-blur-sm rounded-lg"
@@ -14,4 +14,4 @@ const FoodPluginMDX = () => {
   );
 };
 
-export default FoodPluginMDX;
+export default FoodPluginContent;

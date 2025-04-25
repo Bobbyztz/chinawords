@@ -5,10 +5,12 @@ This document provides an overview of the configuration files used in the Chinaw
 ## Next.js Configuration
 
 - **next.config.js** - Main Next.js configuration file
+  - Configures page extensions (ts, tsx, js, jsx)
   - Configures image optimization settings
   - Allows images from trusted domains (images.unsplash.com)
   - Sets up remote patterns for external images
   - Disables image optimization for local files with `unoptimized: true`
+  - Disables webpack cache in development mode to prevent file system errors
 
 - **next.config.ts** - TypeScript version of Next.js configuration
   - Used for type checking during development
