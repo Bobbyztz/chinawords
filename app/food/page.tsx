@@ -382,6 +382,10 @@ export default function FoodPage() {
       title: "美食文化",
       content: <FoodCulture />,
     },
+    {
+      title: "浏览器插件",
+      content: <FoodCulture />,
+    },
   ];
 
   return (

@@ -31,6 +31,7 @@ The Food page contains tabs with the following sections:
 2. 地方菜系 (Regional Cuisines) - Placeholder for regional cuisine content
 3. 传统食谱 (Traditional Recipes) - Placeholder for traditional recipe content
 4. 美食文化 (Food Culture) - Placeholder for food culture content
+5. 浏览器插件 (Food Plugin) - Placeholder for food plugin content
 
 ## Features
 
