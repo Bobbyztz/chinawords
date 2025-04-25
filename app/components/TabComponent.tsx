@@ -87,8 +87,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
         {/* Content area with smooth transitions */}
         <div
-          className="relative overflow-visible flex-grow flex flex-col"
-          style={{ minHeight: Math.max(...contentHeights, 400) }}
+          className="relative overflow-y-auto flex-grow flex flex-col"
         >
           {tabs.map((tab, index) => (
             <div

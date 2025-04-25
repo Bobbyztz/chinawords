@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import ChinawordsNavigation from '../../components/ChinawordsNavigation';
-import TabComponent from '../../components/TabComponent';
-import { navigationLinks } from '../../data/environmentalData';
-import Link from 'next/link';
+import React from "react";
+import ChinawordsNavigation from "../../components/ChinawordsNavigation";
+import TabComponent from "../../components/TabComponent";
+import { navigationLinks } from "../../data/environmentalData";
+import Link from "next/link";
+import Image from "next/image";
 
 // Placeholder component for product philosophy
 const ProductPhilosophy = () => {
@@ -13,7 +14,8 @@ const ProductPhilosophy = () => {
       <h2 className="text-2xl font-bold mb-6 font-serif-sc">产品理念</h2>
       <div className="prose prose-lg max-w-none">
         <p className="mb-4">
-          &quot;Eat me!&quot; 浏览器插件的设计理念是帮助中国食品爱好者在海外购物平台上做出更明智的选择，同时加深对中国食品文化的理解。
+          &quot;Eat me!&quot;
+          浏览器插件的设计理念是帮助中国食品爱好者在海外购物平台上做出更明智的选择，同时加深对中国食品文化的理解。
         </p>
         <p className="mb-4">
           我们相信，食品不仅仅是满足口腹之欲的商品，更是承载着丰富文化内涵的载体。通过提供价格比较和文化背景信息，我们希望用户能够：
@@ -31,29 +33,61 @@ const ProductPhilosophy = () => {
 // Placeholder component for price comparison
 const PriceComparison = () => {
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-6 font-serif-sc">价格比较</h2>
-      <div className="prose prose-lg max-w-none">
-        <p className="mb-4">
-          我们的价格比较功能可以帮助您在不同平台之间找到最优惠的选择。
+    <div className="p-8 font-sans-sc">
+      <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
+        价格比较
+      </h2>
+      <div className="text-gray-800 space-y-4 leading-relaxed">
+        <p>
+          当你位于Weee！或者Yami的页面的时候，你会发现每个商品都被注入了tag。Weee页面会显示Yami的tag，而Yami页面会显示Weee的tag。当你点击tag的时候，会有如下的一个小弹窗出现。
         </p>
-        <p className="mb-4">
-          当您浏览 Weee! 或 Yami 网站上的产品时，插件会自动搜索另一个平台上的相同或类似产品，并显示价格差异。
+
+        <div className="my-6">
+          <div className="image-container relative overflow-hidden rounded-lg shadow-md max-w-xl mx-auto">
+            <Image
+              src="/food/plugin/small_window.png"
+              alt="价格比较小弹窗"
+              width={500}
+              height={300}
+              className="w-full h-auto transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+          <div className="image-caption text-center text-sm text-gray-600 mt-2">
+            价格比较小弹窗
+          </div>
+        </div>
+
+        <p>
+          这个弹窗会在浏览器内部去对应商家搜索商品信息并返回—-如果你位于Weee页面，他会返回给你此商品位于Yami的信息。反之亦然。
         </p>
-        <div className="bg-gray-100 p-4 rounded-lg mb-4">
-          <h3 className="text-lg font-bold mb-2">价格比较示例：</h3>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 bg-white p-3 rounded shadow-sm">
-              <p className="font-bold">Weee!:</p>
-              <p>老干妈辣椒酱 - $3.99</p>
-            </div>
-            <div className="flex-1 bg-white p-3 rounded shadow-sm">
-              <p className="font-bold">Yami:</p>
-              <p>老干妈辣椒酱 - $4.29</p>
-            </div>
+        <p>
+          由于Weee与亚米页面的技术架构不同、个人网络情况，查询耗时因人而异。插件带有重试机制，但仍有小概率查询失败。
+        </p>
+        <p>
+          点击小窗口的商品名称会弹出商品带图片的详细信息，默认显示五个对家商品和本商品信息。本商品位于最后一个。
+        </p>
+
+        <div className="my-6">
+          <div className="image-container relative overflow-hidden rounded-lg shadow-md max-w-xl mx-auto">
+            <Image
+              src="/food/plugin/big_window.png"
+              alt="详细比较视图"
+              width={500}
+              height={300}
+              className="w-full h-auto transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+          <div className="image-caption text-center text-sm text-gray-600 mt-2">
+            详细比较视图
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .image-container img {
+          display: block;
+          max-width: 100%;
+        }
+      `}</style>
     </div>
   );
 };
@@ -97,7 +131,8 @@ const ProductListBrowsing = () => {
           在产品列表页面上直接比较多个产品的价格，提高您的购物效率。
         </p>
         <p className="mb-4">
-          当您浏览 Weee! 或 Yami 的产品列表页面时，插件会在每个产品旁边显示价格比较信息，帮助您快速找到最优惠的选择。
+          当您浏览 Weee! 或 Yami
+          的产品列表页面时，插件会在每个产品旁边显示价格比较信息，帮助您快速找到最优惠的选择。
         </p>
         <div className="bg-gray-100 p-4 rounded-lg mb-4">
           <h3 className="text-lg font-bold mb-2">功能特点：</h3>
@@ -119,7 +154,8 @@ const ReturnToFoodPage = () => {
       <h2 className="text-2xl font-bold mb-6 font-serif-sc">返回美食页面</h2>
       <div className="prose prose-lg max-w-none text-center mb-8">
         <p>
-          感谢您了解 &quot;Eat me!&quot; 浏览器插件。您可以返回美食主页，探索更多中国美食文化内容。
+          感谢您了解 &quot;Eat me!&quot;
+          浏览器插件。您可以返回美食主页，探索更多中国美食文化内容。
         </p>
       </div>
       <Link
