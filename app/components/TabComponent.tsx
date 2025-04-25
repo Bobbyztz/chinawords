@@ -14,13 +14,12 @@ interface TabComponentProps {
 const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [contentHeights, setContentHeights] = useState<number[]>([]);
 
-  // Measure content heights on initial render
+  // Initialize content refs
   useEffect(() => {
-    const heights = contentRefs.current.map((ref) => ref?.scrollHeight || 0);
-    setContentHeights(heights);
-  }, []);
+    // This ensures the refs are properly set up
+    contentRefs.current = contentRefs.current.slice(0, tabs.length);
+  }, [tabs.length]);
 
   return (
     <div className="relative flex flex-col md:flex-row w-[95%] pt-4 md:pt-4 h-full mx-auto text-gray-700">
