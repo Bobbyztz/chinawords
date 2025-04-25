@@ -157,46 +157,35 @@ const FoodImageWall: React.FC = () => {
 
           {/* 显示图片，确保填充可用空间 */}
           {filteredImages.length > 0 ? (
-            <div className="flex flex-col h-full" style={{ minHeight: "calc(80vh - 120px)" }}>
-              {Array.from({ length: Math.min(7, Math.ceil(filteredImages.length / 5)) }).map((_, rowIndex) => {
-                const rowImages = filteredImages.slice(rowIndex * 5, rowIndex * 5 + 5);
-
-                return (
-                  <div key={`row-${rowIndex}`} className="mb-6 flex-grow">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 h-full">
-                      {rowImages.map((image) => (
-                        <div
-                          key={image.id}
-                          className="image-card hover-frame-effect h-full"
-                        >
-                          <div className="tape-top"></div>
-                          <div className="frame-corners">
-                            <div className="corner corner-tl"></div>
-                            <div className="corner corner-tr"></div>
-                            <div className="corner corner-bl"></div>
-                            <div className="corner corner-br"></div>
-                          </div>
-                          <div className="relative aspect-ratio-container overflow-hidden flex-grow">
-                            <Image
-                              src={image.src}
-                              alt={image.alt}
-                              fill
-                              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
-                              className="object-cover"
-                              style={{ objectPosition: 'center' }}
-                              loading="eager"
-                              priority={rowIndex < 2} // 优先加载前两行
-                            />
-                          </div>
-                          <div className="mt-2 text-center text-sm font-medium">
-                            {image.alt}
-                          </div>
-                        </div>
-                      ))}
+            <div className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredImages.map((image, index) => (
+                  <div
+                    key={image.id}
+                    className="image-card relative group hover-frame-effect rounded-lg overflow-hidden cursor-pointer"
+                  >
+                    {/* Tape effect */}
+                    <div className="absolute top-[-10px] left-1/2 transform -translate-x-1/2 -rotate-3 w-10 h-8 bg-yellow-200/50 z-10 tape-top" />
+                    {/* Aspect ratio container for the image */}
+                    <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        layout="fill"
+                        objectFit="cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        style={{ objectPosition: 'center' }}
+                        loading="eager"
+                        priority={index < 8}
+                      />
+                    </div>
+                    {/* Image Title */}
+                    <div className="mt-2 text-center text-sm font-medium">
+                      {image.alt}
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           ) : (
             <div className="flex justify-center items-center h-64">
