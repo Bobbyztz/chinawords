@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const FoodPlugin: React.FC = () => {
   return (
@@ -26,9 +25,17 @@ const FoodPlugin: React.FC = () => {
       </div>
 
       {/* 功能区域标题 */}
-      <h2 className="text-2xl font-bold mb-8 text-center font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 inline-block mx-auto">
-        主要功能
-      </h2>
+      <div className="flex justify-between pl-1 items-center mb-8 w-full">
+        <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2">
+          主要功能
+        </h2>
+        <Link
+          href="/food/plugin"
+          className="text-sm text-jade-green pr-3 hover:font-semibold"
+        >
+          更多
+        </Link>
+      </div>
 
       {/* 功能卡片容器 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
@@ -162,7 +169,7 @@ const FoodPlugin: React.FC = () => {
         <div className="flex justify-center">
           <Link
             href="/food/plugin/privacy"
-            className="inline-flex items-center bg-jade-green text-white px-6 py-3 rounded-md hover:bg-jade-green/90 transition-colors duration-300 shadow-md hover:shadow-lg"
+            className="inline-flex items-center bg-green-200/70 text-white px-6 py-3 rounded-md hover:bg-green-300 transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
