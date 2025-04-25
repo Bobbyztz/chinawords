@@ -168,26 +168,6 @@ const ProductListBrowsing = () => {
   );
 };
 
-// Placeholder component for return to food page
-const ReturnToFoodPage = () => {
-  return (
-    <div className="p-8 flex flex-col items-center justify-center">
-      <h2 className="text-2xl font-bold mb-6 font-serif-sc">返回美食页面</h2>
-      <div className="prose prose-lg max-w-none text-center mb-8">
-        <p>
-          感谢您了解 &quot;Eat me!&quot;
-          浏览器插件。您可以返回美食主页，探索更多中国美食文化内容。
-        </p>
-      </div>
-      <Link
-        href="/food"
-        className="inline-block bg-jade-green text-white px-6 py-3 rounded-md hover:bg-jade-green/90 transition-colors duration-300"
-      >
-        返回美食页面
-      </Link>
-    </div>
-  );
-};
 
 export default function FoodPluginPage() {
   // Define the tab structure
@@ -207,10 +187,6 @@ export default function FoodPluginPage() {
     {
       title: "产品列表浏览",
       content: <ProductListBrowsing />,
-    },
-    {
-      title: "返回美食页面",
-      content: <ReturnToFoodPage />,
     },
   ];
 

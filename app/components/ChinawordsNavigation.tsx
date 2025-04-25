@@ -36,18 +36,6 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   // Process pathname for title
   const segments = pathname.split("/").filter(Boolean);
 
-  // Create a suffix that includes all segments, not just the first one
-  let titleSuffix = "";
-  if (segments.length > 0) {
-    titleSuffix = segments.map((segment) => {
-      // Capitalize the first letter of each segment
-      const capitalizedSegment = segment.charAt(0).toUpperCase() + segment.slice(1);
-      return ` - ${capitalizedSegment}`;
-    }).join("");
-  }
-
-  const dynamicTitle = `China Words${titleSuffix}`;
-
   // Handle scroll effect for transparent to solid background
   useEffect(() => {
     const handleScroll = () => {
@@ -84,23 +72,53 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       }`}
     >
       <div className="pl-4 pr-6 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 h-10">
-          <div className={`relative ${isScrolled && !isHomepage ? "w-8 h-8" : "w-10 h-10"} flex-shrink-0 transition-all duration-300`}>
-            <Image
-              src={logo}
-              alt={logoAlt}
-              width={isScrolled && !isHomepage ? 32 : 40}
-              height={isScrolled && !isHomepage ? 32 : 40}
-              className="object-contain"
-            />
-          </div>
+        {/* Logo and Navigation Title */}
+        <div className="flex items-center gap-2 h-10">
+          {/* Logo - clickable to home */}
+          <Link href="/" className="flex-shrink-0">
+            <div className={`relative ${isScrolled && !isHomepage ? "w-8 h-8" : "w-10 h-10"} transition-all duration-300`}>
+              <Image
+                src={logo}
+                alt={logoAlt}
+                width={isScrolled && !isHomepage ? 32 : 40}
+                height={isScrolled && !isHomepage ? 32 : 40}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+
+          {/* Title with breadcrumb navigation */}
           <div className="flex items-center pl-1 h-10">
-            <span className={`font-bold font-serif-sc text-black ${isScrolled && !isHomepage ? "text-xl" : "text-2xl"} transition-all duration-300 translate-y-[5px]`}>
-              {dynamicTitle}
-            </span>
+            <div className={`font-bold font-serif-sc text-black ${isScrolled && !isHomepage ? "text-xl" : "text-2xl"} transition-all duration-300 translate-y-[5px] flex items-center`}>
+              {/* Home link */}
+              <Link href="/" className="cursor-pointer hover:text-[#C20F1E]">
+                China Words
+              </Link>
+
+              {/* Path segments */}
+              {segments.length > 0 && segments.map((segment, index) => {
+                // Build the path up to this segment
+                const segmentPath = '/' + segments.slice(0, index + 1).join('/');
+                const capitalizedSegment = segment.charAt(0).toUpperCase() + segment.slice(1);
+
+                return (
+                  <React.Fragment key={index}>
+                    {/* Non-clickable dash */}
+                    <span className="mx-1"> - </span>
+
+                    {/* Clickable segment */}
+                    <Link
+                      href={segmentPath}
+                      className="cursor-pointer hover:text-[#C20F1E]"
+                    >
+                      {capitalizedSegment}
+                    </Link>
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </div>
-        </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1.5">
