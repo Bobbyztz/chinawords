@@ -145,13 +145,13 @@ const FoodImageWall = () => {
       ) : (
         <div className="space-y-8 pb-8">
           {/* 八大菜系按钮 - 纯文字版 */}
-          <div className="mb-4 bg-white/80 backdrop-blur-sm py-2 sticky top-0 z-10">
+          <div className="mb-4 bg-white/80 backdrop-blur-sm mx-2 py-2 sticky top-0 z-10">
             <div className="flex flex-wrap justify-center gap-4">
               {chineseCuisines.map((cuisine) => (
                 <span
                   key={cuisine.id}
                   onClick={() => setSelectedCuisine(cuisine.id)}
-                  className={`cursor-pointer text-base font-medium transition-colors duration-300 ${
+                  className={`cursor-pointer text-sm transition-colors duration-300 ${
                     selectedCuisine === cuisine.id
                       ? 'text-film-red font-bold border-b-2 border-film-red'
                       : 'text-gray-700 hover:text-film-red'
