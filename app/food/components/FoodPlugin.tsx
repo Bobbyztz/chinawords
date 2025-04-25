@@ -123,8 +123,8 @@ const FoodPlugin: React.FC = () => {
 
       {/* 隐私保护区域 - 使用纸质纹理背景 */}
       <div className="privacy-section texture-subtle bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-12 border border-gray-100">
-        <div className="flex items-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-jade-green mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex items-center mb-4 justify-start">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-jade-green mr-3 -mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
           <h2 className="text-2xl font-bold font-serif-sc text-gray-800">隐私保护</h2>
@@ -181,8 +181,8 @@ const FoodPlugin: React.FC = () => {
 
       {/* 开源代码与安装区域 */}
       <div className="opensource-section texture-subtle bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-12 border border-gray-100">
-        <div className="flex items-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-jade-green mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex items-center mb-4 justify-start">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-jade-green mr-3 -mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
           </svg>
           <h2 className="text-2xl font-bold font-serif-sc text-gray-800">开源代码</h2>
