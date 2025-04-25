@@ -36,15 +36,23 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
     : "";
   const dynamicTitle = `China Words${titleSuffix}`;
 
+  // Check if current page is homepage
+  const isHomepage = pathname === "/";
+
   // Handle scroll effect for transparent to solid background
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
+    // If not homepage, set isScrolled to true by default
+    if (!isHomepage) {
+      setIsScrolled(true);
+    }
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomepage]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -62,23 +70,23 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   return (
     <nav
       className={`nav-chinawords fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "py-3 shadow-md" : "py-5"
+        isScrolled ? (isHomepage ? "py-2 shadow-md" : "py-1 shadow-md") : "py-5"
       }`}
     >
       <div className="pl-4 pr-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 h-10">
-          <div className="relative w-10 h-10 flex-shrink-0">
+          <div className={`relative ${isScrolled && !isHomepage ? "w-8 h-8" : "w-10 h-10"} flex-shrink-0 transition-all duration-300`}>
             <Image
               src={logo}
               alt={logoAlt}
-              width={40}
-              height={40}
+              width={isScrolled && !isHomepage ? 32 : 40}
+              height={isScrolled && !isHomepage ? 32 : 40}
               className="object-contain"
             />
           </div>
           <div className="flex items-center pl-1 h-10">
-            <span className="font-bold font-serif-sc text-black text-2xl translate-y-[5px]">
+            <span className={`font-bold font-serif-sc text-black ${isScrolled && !isHomepage ? "text-xl" : "text-2xl"} transition-all duration-300 translate-y-[5px]`}>
               {dynamicTitle}
             </span>
           </div>
@@ -86,7 +94,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1.5">
-          {links
+          {/* Only show navigation links on homepage or when not scrolled */}
+          {(isHomepage || !isScrolled) && links
             .filter((link) => link.label !== "注册/登录")
             .map((link, index) => (
               <Link
@@ -99,21 +108,24 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               </Link>
             ))}
 
-          {/* Project Progress Link */}
-          <Link
-            href="/progress"
-            className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
-          >
-            项目进度
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-          </Link>
+          {/* Project Progress Link - only show on homepage or when not scrolled */}
+          {(isHomepage || !isScrolled) && (
+            <Link
+              href="/progress"
+              className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
+            >
+              项目进度
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </Link>
+          )}
 
-          {/* User Menu or Login/Register Link */}
+          {/* User Menu or Login/Register Link - always visible */}
           {session ? (
             <div className="relative">
               <button
                 onClick={toggleUserMenu}
-                className="nav-link font-medium font-sans-sc hover:text-film-red flex items-center gap-1 relative overflow-hidden group"
+                className={`nav-link font-medium font-sans-sc hover:text-film-red flex items-center gap-1 relative overflow-hidden group`}
+                style={{ fontSize: isScrolled && !isHomepage ? '0.875rem' : '1.125rem' }}
               >
                 <span>{session.user.username}</span>
                 <svg
@@ -138,21 +150,21 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                   <Link
                     href="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                    className={`block px-4 py-2 ${isScrolled && !isHomepage ? "text-xs" : "text-sm"} text-gray-700 hover:bg-gray-100 font-sans-sc`}
                     onClick={() => setIsUserMenuOpen(false)}
                   >
                     个人资料
                   </Link>
                   <Link
                     href="/upload"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                    className={`block px-4 py-2 ${isScrolled && !isHomepage ? "text-xs" : "text-sm"} text-gray-700 hover:bg-gray-100 font-sans-sc`}
                     onClick={() => setIsUserMenuOpen(false)}
                   >
                     上传内容
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc"
+                    className={`block w-full text-left px-4 py-2 ${isScrolled && !isHomepage ? "text-xs" : "text-sm"} text-gray-700 hover:bg-gray-100 font-sans-sc`}
                   >
                     退出登录
                   </button>
@@ -166,7 +178,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   links.find((link) => link.label === "注册/登录")?.href ||
                   "/login"
                 }
-                className="nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group"
+                className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group`}
+                style={{ fontSize: isScrolled && !isHomepage ? '0.875rem' : '1.125rem' }}
               >
                 注册/登录
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -210,7 +223,8 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       >
         <div className="px-6">
           <div className="flex flex-col space-y-3">
-            {links
+            {/* Only show navigation links on homepage or when not scrolled */}
+            {(isHomepage || !isScrolled) && links
               .filter((link) => link.label !== "注册/登录")
               .map((link, index) => (
                 <Link
@@ -223,28 +237,30 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 </Link>
               ))}
 
-            {/* Project Progress Link (Mobile) */}
-            <Link
-              href="/progress"
-              className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              项目进度
-            </Link>
+            {/* Project Progress Link (Mobile) - only show on homepage or when not scrolled */}
+            {(isHomepage || !isScrolled) && (
+              <Link
+                href="/progress"
+                className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                项目进度
+              </Link>
+            )}
 
             {/* User Menu or Login/Register Link (Mobile) */}
             {session ? (
               <>
                 <Link
                   href="/profile"
-                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc ${isScrolled && !isHomepage ? "text-sm" : ""}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   个人资料
                 </Link>
                 <Link
                   href="/upload"
-                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc ${isScrolled && !isHomepage ? "text-sm" : ""}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   上传内容
@@ -254,7 +270,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                     setIsMobileMenuOpen(false);
                     handleSignOut();
                   }}
-                  className="w-full text-left py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  className={`w-full text-left py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc ${isScrolled && !isHomepage ? "text-sm" : ""}`}
                 >
                   退出登录
                 </button>
@@ -266,7 +282,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                     links.find((link) => link.label === "注册/登录")?.href ||
                     "/login"
                   }
-                  className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc ${isScrolled && !isHomepage ? "text-sm" : ""}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   注册/登录

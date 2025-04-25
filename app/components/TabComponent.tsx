@@ -23,7 +23,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
   }, []);
 
   return (
-    <div className="relative flex flex-col md:flex-row w-[95%] pt-8 md:pt-16 h-full mx-auto text-gray-700">
+    <div className="relative flex flex-col md:flex-row w-[95%] pt-4 md:pt-4 h-full mx-auto text-gray-700">
       {/* Tab Navigation - Horizontal on mobile, Vertical on desktop */}
       <div className="w-full md:w-40 flex-shrink-0 z-10 mb-4 md:mb-0">
         <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
@@ -47,7 +47,10 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       </div>
 
       {/* Tab Content */}
-      <div className="relative flex-grow bg-white shadow-md px-2 w-full" style={{ minHeight: '85vh' }}>
+      <div
+        className="relative flex-grow bg-white shadow-md px-2 w-full"
+        style={{ minHeight: "90vh" }}
+      >
         {/* Status indicators - curved background for active tab - Hidden on mobile */}
         <ul className="absolute left-[-160px] top-0 w-40 hidden md:block">
           {tabs.map((_, index) => (
