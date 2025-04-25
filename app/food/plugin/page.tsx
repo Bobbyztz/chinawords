@@ -7,7 +7,7 @@ import { navigationLinks } from "../../data/environmentalData";
 import Link from "next/link";
 import Image from "next/image";
 
-// Placeholder component for product philosophy
+// Component for product philosophy
 const ProductPhilosophy = () => {
   return (
     <div className="p-8">
@@ -30,7 +30,7 @@ const ProductPhilosophy = () => {
   );
 };
 
-// Placeholder component for price comparison
+// Component for price comparison feature
 const PriceComparison = () => {
   return (
     <div className="p-8 font-sans-sc">
@@ -39,32 +39,32 @@ const PriceComparison = () => {
       </h2>
       <div className="text-gray-800 space-y-4 leading-relaxed">
         <p>
-          当你位于Weee！或者Yami的页面的时候，你会发现每个商品都被注入了tag。Weee页面会显示Yami的tag，而Yami页面会显示Weee的tag。当你点击tag的时候，会有如下的一个小弹窗出现。
+          在浏览Weee!或Yami平台时，您将注意到每个商品页面均集成了交互式标签。Weee!平台上显示Yami的比价标签，而Yami平台则显示Weee!的比价标签。点击这些标签后，系统会生成如下所示的信息弹窗。
         </p>
 
         <div className="my-6">
           <div className="image-container relative overflow-hidden rounded-lg shadow-md max-w-xl mx-auto">
             <Image
               src="/food/plugin/small_window.png"
-              alt="价格比较小弹窗"
+              alt="价格比较信息弹窗"
               width={500}
               height={300}
               className="w-full h-auto transition-transform duration-500 hover:scale-105"
             />
           </div>
           <div className="image-caption text-center text-sm text-gray-600 mt-2">
-            价格比较小弹窗
+            价格比较信息弹窗
           </div>
         </div>
 
-        <p>
-          这个弹窗会在浏览器内部去对应商家搜索商品信息并返回—-如果你位于Weee页面，他会返回给你此商品位于Yami的信息。反之亦然。
+        <p className="border-b-2 border-gray-200 py-4">
+          该弹窗通过浏览器内部机制，自动在对应平台搜索并检索商品信息。例如，当您在Weee!平台浏览时，系统会检索并展示该商品在Yami平台的相关信息，反之亦然。
         </p>
         <p>
-          由于Weee与亚米页面的技术架构不同、个人网络情况，查询耗时因人而异。插件带有重试机制，但仍有小概率查询失败。
+          需要注意的是，由于Weee!与Yami平台采用不同的技术架构，加之个人网络环境差异，查询响应时间可能有所不同。我们的插件内置了智能重试机制，但在特定情况下仍可能出现查询未成功的情况。
         </p>
         <p>
-          点击小窗口的商品名称会弹出商品带图片的详细信息，默认显示五个对家商品和本商品信息。本商品位于最后一个。
+          点击信息弹窗中的商品名称，系统将展示包含图片的详细比较视图。该视图默认显示五个竞品商品信息及当前浏览商品信息，其中当前浏览商品位于列表末位，便于直观对比。
         </p>
 
         <div className="my-6">
