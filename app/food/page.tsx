@@ -17,9 +17,24 @@ interface FoodImage {
   prompt?: string;
 }
 
+// 八大菜系数据
+const chineseCuisines = [
+  { id: 'all', name: '全部菜系' },
+  { id: 'lu', name: '鲁菜' },
+  { id: 'chuan', name: '川菜' },
+  { id: 'yue', name: '粤菜' },
+  { id: 'su', name: '苏菜' },
+  { id: 'zhe', name: '浙菜' },
+  { id: 'min', name: '闽菜' },
+  { id: 'xiang', name: '湘菜' },
+  { id: 'hui', name: '徽菜' },
+];
+
 const FoodImageWall = () => {
   const [images, setImages] = useState<FoodImage[]>([]);
+  const [filteredImages, setFilteredImages] = useState<FoodImage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedCuisine, setSelectedCuisine] = useState<string>('all');
 
   // 获取所有美食图片
   useEffect(() => {
@@ -86,12 +101,38 @@ const FoodImageWall = () => {
 
       // 设置图片并完成加载
       setImages(foodImageObjects);
+      setFilteredImages(foodImageObjects);
       setIsLoading(false);
     };
 
     // 开始预加载
     preloadImages();
   }, []);
+
+  // 根据选中的菜系筛选图片
+  useEffect(() => {
+    if (selectedCuisine === 'all') {
+      setFilteredImages(images);
+    } else {
+      // 这里可以根据实际数据结构进行筛选
+      // 目前是示例实现，实际应用中需要为每个图片添加菜系标签
+      const filtered = images.filter(image => {
+        // 根据城市名称简单匹配菜系（示例）
+        switch(selectedCuisine) {
+          case 'lu': return ['济南', '青岛', '烟台'].includes(image.alt);
+          case 'chuan': return ['成都', '重庆'].includes(image.alt);
+          case 'yue': return ['广州', '深圳', '香港'].includes(image.alt);
+          case 'su': return ['南京', '苏州', '扬州'].includes(image.alt);
+          case 'zhe': return ['杭州', '宁波', '温州'].includes(image.alt);
+          case 'min': return ['福州', '厦门', '泉州'].includes(image.alt);
+          case 'xiang': return ['长沙', '湘潭', '岳阳'].includes(image.alt);
+          case 'hui': return ['合肥', '黄山'].includes(image.alt);
+          default: return true;
+        }
+      });
+      setFilteredImages(filtered);
+    }
+  }, [selectedCuisine, images]);
 
   // 组件已经直接在UI中显示行数和图片数量
 
@@ -103,46 +144,71 @@ const FoodImageWall = () => {
         </div>
       ) : (
         <div className="space-y-8 pb-8">
-          {/* 只显示前7行图片，每行5张 */}
-          {Array.from({ length: Math.min(7, Math.ceil(images.length / 5)) }).map((_, rowIndex) => {
-            const rowImages = images.slice(rowIndex * 5, rowIndex * 5 + 5);
+          {/* 八大菜系按钮 - 纯文字版 */}
+          <div className="mb-4 bg-white/80 backdrop-blur-sm py-2 sticky top-0 z-10">
+            <div className="flex flex-wrap justify-center gap-4">
+              {chineseCuisines.map((cuisine) => (
+                <span
+                  key={cuisine.id}
+                  onClick={() => setSelectedCuisine(cuisine.id)}
+                  className={`cursor-pointer text-base font-medium transition-colors duration-300 ${
+                    selectedCuisine === cuisine.id
+                      ? 'text-film-red font-bold border-b-2 border-film-red'
+                      : 'text-gray-700 hover:text-film-red'
+                  }`}
+                >
+                  {cuisine.name}
+                </span>
+              ))}
+            </div>
+          </div>
 
-            return (
-              <div key={`row-${rowIndex}`} className="space-y-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {rowImages.map((image) => (
-                    <div
-                      key={image.id}
-                      className="image-card hover-frame-effect"
-                    >
-                      <div className="tape-top"></div>
-                      <div className="frame-corners">
-                        <div className="corner corner-tl"></div>
-                        <div className="corner corner-tr"></div>
-                        <div className="corner corner-bl"></div>
-                        <div className="corner corner-br"></div>
+          {/* 只显示前7行图片，每行5张 */}
+          {filteredImages.length > 0 ? (
+            Array.from({ length: Math.min(7, Math.ceil(filteredImages.length / 5)) }).map((_, rowIndex) => {
+              const rowImages = filteredImages.slice(rowIndex * 5, rowIndex * 5 + 5);
+
+              return (
+                <div key={`row-${rowIndex}`} className="space-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                    {rowImages.map((image) => (
+                      <div
+                        key={image.id}
+                        className="image-card hover-frame-effect"
+                      >
+                        <div className="tape-top"></div>
+                        <div className="frame-corners">
+                          <div className="corner corner-tl"></div>
+                          <div className="corner corner-tr"></div>
+                          <div className="corner corner-bl"></div>
+                          <div className="corner corner-br"></div>
+                        </div>
+                        <div className="relative aspect-ratio-container overflow-hidden">
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
+                            className="object-cover"
+                            style={{ objectPosition: 'center' }}
+                            loading="eager"
+                            priority={rowIndex < 2} // 优先加载前两行
+                          />
+                        </div>
+                        <div className="mt-2 text-center text-sm font-medium">
+                          {image.alt}
+                        </div>
                       </div>
-                      <div className="relative aspect-ratio-container overflow-hidden">
-                        <Image
-                          src={image.src}
-                          alt={image.alt}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20vw"
-                          className="object-cover"
-                          style={{ objectPosition: 'center' }}
-                          loading="eager"
-                          priority={rowIndex < 2} // 优先加载前两行
-                        />
-                      </div>
-                      <div className="mt-2 text-center text-sm font-medium">
-                        {image.alt}
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className="flex justify-center items-center h-64">
+              <p className="text-gray-500">没有找到相关菜系的图片</p>
+            </div>
+          )}
         </div>
       )}
 
@@ -244,6 +310,20 @@ const FoodImageWall = () => {
           width: 100%;
           padding-bottom: 100%; /* This creates a perfect square */
           overflow: hidden;
+        }
+
+        /* 八大菜系文字样式 */
+        .flex span {
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .flex span:hover {
+          transform: translateY(-1px);
+        }
+
+        .flex span:active {
+          transform: translateY(0);
         }
       `}</style>
     </div>

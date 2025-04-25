@@ -47,7 +47,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       </div>
 
       {/* Tab Content */}
-      <div className="relative flex-grow bg-white shadow-md p-3 md:p-5 w-full" style={{ minHeight: '85vh' }}>
+      <div className="relative flex-grow bg-white shadow-md w-full" style={{ minHeight: '85vh' }}>
         {/* Status indicators - curved background for active tab - Hidden on mobile */}
         <ul className="absolute left-[-160px] top-0 w-40 hidden md:block">
           {tabs.map((_, index) => (
