@@ -35,7 +35,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
               <span
-                className={`inline-block px-2 ${
+                className={`inline-block px-2 text-sm ${
                   activeTab === index ? "font-bold" : ""
                 }`}
               >
