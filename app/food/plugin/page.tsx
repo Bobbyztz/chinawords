@@ -4,7 +4,6 @@ import React from "react";
 import ChinawordsNavigation from "../../components/ChinawordsNavigation";
 import TabComponent from "../../components/TabComponent";
 import { navigationLinks } from "../../data/environmentalData";
-import Link from "next/link";
 import Image from "next/image";
 
 // Component for product philosophy
