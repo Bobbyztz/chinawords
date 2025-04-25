@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const FoodPlugin: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ const FoodPlugin: React.FC = () => {
       {/* 介绍卡片 - 使用优雅的阴影和边框 */}
       <div className="bg-white/90 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-12 border border-gray-100 transform transition-all duration-500 hover:shadow-xl">
         <p className="text-md font-semibold leading-relaxed text-gray-800">
-          "Eat me!" 是一款专为中国食品爱好者设计的开源浏览器插件，旨在帮助用户在 Weee! 和 Yami 等中国食品电商平台上比较价格、查看食品的历史和文化背景信息、并利用AI技术将相关信息转化为属于用户的个性化产品，以达到促进消费、文化宣传的作用。
+          &quot;Eat me!&quot; 是一款专为中国食品爱好者设计的开源浏览器插件，旨在帮助用户在 Weee! 和 Yami 等中国食品电商平台上比较价格、查看食品的历史和文化背景信息、并利用AI技术将相关信息转化为属于用户的个性化产品，以达到促进消费、文化宣传的作用。
         </p>
         <p className="text-md font-semibold pt-4 leading-relaxed text-gray-800">
           我们认为AI时代的软件应当成为公共基础设施，用户是其生命力的保障。当传统软件霸占用户数据权益的时候，我们认为共享共建才是新时代应有的生态。我们鼓励并支持用户直接或间接参与本项目。
@@ -54,17 +55,21 @@ const FoodPlugin: React.FC = () => {
           {/* 图片展示区 - 使用悬停效果和优雅的过渡 */}
           <div className="image-showcase">
             <div className="image-container">
-              <img
+              <Image
                 src="/food/plugin/small_window.png"
                 alt="价格比较弹窗"
+                width={500}
+                height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
               <div className="image-caption">价格比较弹窗</div>
             </div>
             <div className="image-container mt-4">
-              <img
+              <Image
                 src="/food/plugin/big_window.png"
                 alt="详细比较视图"
+                width={500}
+                height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
               <div className="image-caption">详细比较视图</div>
@@ -86,9 +91,11 @@ const FoodPlugin: React.FC = () => {
 
           <div className="image-showcase">
             <div className="image-container">
-              <img
+              <Image
                 src="/food/plugin/detail_map.png"
                 alt="食品文化信息"
+                width={500}
+                height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
               <div className="image-caption">食品文化信息展示</div>
@@ -110,9 +117,11 @@ const FoodPlugin: React.FC = () => {
 
           <div className="image-showcase">
             <div className="image-container">
-              <img
+              <Image
                 src="/food/plugin/listing_page.png"
                 alt="产品列表浏览"
+                width={500}
+                height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
               <div className="image-caption">产品列表页面比较功能</div>
@@ -189,7 +198,7 @@ const FoodPlugin: React.FC = () => {
         </div>
 
         <p className="text-gray-700 mb-6">
-          "Eat me!" 插件的代码是开源的，您可以在 GitHub 上查看完整的源代码，确保插件的安全性和透明度。
+          &quot;Eat me!&quot; 插件的代码是开源的，您可以在 GitHub 上查看完整的源代码，确保插件的安全性和透明度。
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -226,7 +235,7 @@ const FoodPlugin: React.FC = () => {
               <h3 className="text-lg font-bold text-gray-800">安装插件</h3>
             </div>
             <p className="text-gray-600 mb-4 flex-grow">
-              从 Chrome 网上应用店安装 "Eat me!" 插件，开始您的中国食品文化探索之旅。
+              从 Chrome 网上应用店安装 &quot;Eat me!&quot; 插件，开始您的中国食品文化探索之旅。
             </p>
             <a
               href="https://chromewebstore.google.com/detail/eat-me/chedmnolnacnkcmagndkjhaegmkpophi?utm_source=ext_app_menu"
