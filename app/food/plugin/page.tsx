@@ -122,6 +122,16 @@ const FoodCultureInfo = () => {
         <p>
           栏目下方是一个世界地图，可以通过它查看食品原材料的构成、他们的时间地理信息等。
         </p>
+
+        <div className="mt-8 pt-6 border-t-2 border-jade-green/20">
+          <h3 className="text-xl font-serif-sc text-film-red mb-4">价值链与用户赋能</h3>
+          <p className="mb-4">
+            我们深信，从食品原材料的生产到最终消费的整个价值链中，蕴含着大量应当回归用户的价值。这条"原材料养成-产地运输-菜谱制作-烹饪助手-个性体验"的信息链条，承载着丰富的文化与实用价值。
+          </p>
+          <p>
+            基于此理念，我们正在构建一套完善的机制，以确保用户的每一项贡献都能得到适当的认可与回馈。通过参与内容建设、分享独特见解或提供反馈，您不仅能够丰富平台的知识库，还将在这个不断发展的生态系统中获得相应权益。
+          </p>
+        </div>
       </div>
       <style jsx>{`
         .image-container img {
