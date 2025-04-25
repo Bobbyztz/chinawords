@@ -5,7 +5,7 @@ import ChinawordsNavigation from "../components/ChinawordsNavigation";
 import TabComponent from "../components/TabComponent";
 import { navigationLinks } from "../data/environmentalData";
 import FoodImageWall from "./components/FoodImageWall";
-import FoodPluginContent from "./components/FoodPluginContent";
+import FoodPlugin from "./components/FoodPlugin";
 
 // Placeholder component for regional cuisines with nested tabs
 const RegionalCuisines = () => {
@@ -46,7 +46,7 @@ export default function FoodPage() {
     },
     {
       title: "浏览器插件",
-      content: <FoodPluginContent />,
+      content: <FoodPlugin />,
     },
   ];
 

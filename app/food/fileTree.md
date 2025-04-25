@@ -17,7 +17,7 @@ The Food page imports and uses:
 - `ChinawordsNavigation` from '../components/ChinawordsNavigation'
 - `TabComponent` from '../components/TabComponent'
 - `FoodImageWall` from './components/FoodImageWall'
-- `FoodPluginContent` from './components/FoodPluginContent'
+- `FoodPlugin` from './components/FoodPlugin'
 
 ## Related Components
 

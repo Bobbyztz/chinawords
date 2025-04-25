@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const FoodPlugin: React.FC = () => {
   return (
-    <div className="plugin-container max-w-6xl mx-auto px-4 py-8 font-sans-sc">
+    <div className="w-full overflow-y-auto bg-white/50 backdrop-blur-sm rounded-lg plugin-container max-w-6xl mx-auto px-4 py-8 font-sans-sc" style={{ minHeight: "calc(90vh - 100px)" }}>
       {/* 标题区域 - 使用中国风设计元素 */}
       <div className="text-center mb-8 relative">
         <div className="absolute left-0 right-0 top-1/2 border-t border-gray-300 -z-10"></div>
