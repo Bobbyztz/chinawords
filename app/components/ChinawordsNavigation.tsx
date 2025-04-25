@@ -30,10 +30,17 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
   // Process pathname for title
   const segments = pathname.split("/").filter(Boolean);
-  const firstSegment = segments[0];
-  const titleSuffix = firstSegment
-    ? ` - ${firstSegment.charAt(0).toUpperCase() + firstSegment.slice(1)}`
-    : "";
+
+  // Create a suffix that includes all segments, not just the first one
+  let titleSuffix = "";
+  if (segments.length > 0) {
+    titleSuffix = segments.map((segment) => {
+      // Capitalize the first letter of each segment
+      const capitalizedSegment = segment.charAt(0).toUpperCase() + segment.slice(1);
+      return ` - ${capitalizedSegment}`;
+    }).join("");
+  }
+
   const dynamicTitle = `China Words${titleSuffix}`;
 
   // Check if current page is homepage
