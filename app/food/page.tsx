@@ -6,6 +6,7 @@ import TabComponent from "../components/TabComponent";
 import { navigationLinks } from "../data/environmentalData";
 import FoodImageWall from "./components/FoodImageWall";
 import FoodPlugin from "./components/FoodPlugin";
+import FeedbackSuggestions from "./components/FeedbackSuggestions";
 
 // Placeholder component for regional cuisines with nested tabs
 const RegionalCuisines = () => {
@@ -54,7 +55,7 @@ export default function FoodPage() {
     },
     {
       title: "意见与建议",
-      content: <div className="text-gray-400 text-center py-16">意见与建议内容占位</div>,
+      content: <FeedbackSuggestions />,
     },
   ];
 
