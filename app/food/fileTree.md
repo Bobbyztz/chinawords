@@ -14,6 +14,7 @@ This directory contains the Food page and its subpages.
 ## Component Usage
 
 The Food page imports and uses:
+
 - `ChinawordsNavigation` from '../components/ChinawordsNavigation'
 - `TabComponent` from '../components/TabComponent'
 - `FoodImageWall` from './components/FoodImageWall'
@@ -28,11 +29,14 @@ The Food page imports and uses:
 ## Content Structure
 
 The Food page contains tabs with the following sections:
-1. 美食图片墙 (Food Image Wall) - Displays a grid of food images from different Chinese cities with filtering by the eight major Chinese cuisine styles (八大菜系)
+
+1. 图片墙总览 (Image Wall) - Displays a grid of images from different Chinese cities with filtering by the eight major Chinese cuisine styles (八大菜系)
 2. 地方菜系 (Regional Cuisines) - Placeholder for regional cuisine content
-3. 传统食谱 (Traditional Recipes) - Placeholder for traditional recipe content
-4. 美食文化 (Food Culture) - Placeholder for food culture content
-5. 浏览器插件 (Food Plugin) - Displays information about the "Eat me!" browser extension, including features, screenshots, and privacy information
+3. 食材溯源 (Food Traceability) - Placeholder for food traceability content
+4. 个性食谱 (Personalized Recipes) - Placeholder for personalized recipes content Recipes)
+5. 相册制作 (Album Making) - Placeholder for album making content
+6. 浏览器插件 (Food Plugin) - Displays information about the "Eat me!" browser extension, including features, screenshots, and privacy information
+7. 意见与建议 (Feedback) - Placeholder for feedback content
 
 ## Features
 

@@ -91,6 +91,50 @@ const PriceComparison = () => {
   );
 };
 
+// Component for language adaptation
+const LanguageAdaptation = () => {
+  return (
+    <div className="p-8 font-sans-sc">
+      <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
+        多语言智能适配
+      </h2>
+      <div className="text-gray-800 space-y-4 leading-relaxed">
+        <p>
+          "Eat me!" 插件具备智能语言检测与适配功能，能够自动识别用户当前浏览页面的主要语言，并在目标平台使用相应语言进行查询和信息展示。
+        </p>
+        <p>
+          此功能特别适用于在多语言环境中使用的用户，例如在英文界面浏览中文食品或在中文界面浏览国际食品时，插件会智能切换查询语言，确保检索结果的准确性与相关性。
+        </p>
+        <p>
+          语言适配系统支持以下功能：
+        </p>
+        <ul className="list-disc pl-6 space-y-2 mb-4">
+          <li>自动检测页面主要语言（支持中文简体、中文繁体、英文等）</li>
+          <li>根据检测结果调整搜索查询参数和关键词</li>
+          <li>在跨平台比价时保持语言一致性，确保结果匹配度</li>
+          <li>针对双语商品名称进行AI智能解析，提高搜索精确度（会员功能）</li>
+        </ul>
+
+        <div className="mt-8 pt-6 border-t-2 border-jade-green/20">
+          <h3 className="text-xl font-serif-sc text-film-red mb-4">技术实现与用户体验</h3>
+          <p className="mb-4">
+            语言适配功能采用先进的自然语言处理技术，结合页面DOM元素分析和内容特征提取，实现高精度的语言环境识别。系统会分析页面标题、描述、关键词和主要内容区域，综合判断当前语言环境。
+          </p>
+          <p>
+            此功能无需用户手动设置，完全自动化运行，为用户提供无缝的跨语言购物体验。在特殊情况下，用户也可通过插件设置面板手动指定偏好语言，覆盖自动检测结果。（待完成）
+          </p>
+        </div>
+      </div>
+      <style jsx>{`
+        .image-container img {
+          display: block;
+          max-width: 100%;
+        }
+      `}</style>
+    </div>
+  );
+};
+
 // Component for food culture information
 const FoodCultureInfo = () => {
   return (
@@ -184,6 +228,10 @@ export default function FoodPluginPage() {
     {
       title: "产品理念",
       content: <ProductPhilosophy />,
+    },
+    {
+      title: "语言适配",
+      content: <LanguageAdaptation />,
     },
     {
       title: "价格比较",

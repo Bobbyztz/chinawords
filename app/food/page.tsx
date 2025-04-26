@@ -29,7 +29,7 @@ export default function FoodPage() {
   // Define the new tab structure
   const tabs = [
     {
-      title: "美食图片墙",
+      title: "图片墙总览",
       content: <FoodImageWall />,
     },
     {
@@ -37,16 +37,24 @@ export default function FoodPage() {
       content: <RegionalCuisines />,
     },
     {
-      title: "传统食谱",
-      content: <TraditionalRecipes />,
+      title: "食材溯源",
+      content: <div className="text-gray-400 text-center py-16">食材溯源内容占位</div>,
     },
     {
-      title: "美食文化",
-      content: <FoodCulture />,
+      title: "个性食谱",
+      content: <div className="text-gray-400 text-center py-16">个性食谱内容占位</div>,
+    },
+    {
+      title: "相册制作",
+      content: <div className="text-gray-400 text-center py-16">相册制作内容占位</div>,
     },
     {
       title: "浏览器插件",
       content: <FoodPlugin />,
+    },
+    {
+      title: "意见与建议",
+      content: <div className="text-gray-400 text-center py-16">意见与建议内容占位</div>,
     },
   ];
 
