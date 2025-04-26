@@ -235,7 +235,7 @@ const FoodPlugin: React.FC = () => {
               <h3 className="text-lg font-bold text-gray-800">安装插件</h3>
             </div>
             <p className="text-gray-600 mb-4 flex-grow">
-              从 Chrome 网上应用店安装 &quot;Eat me!&quot; 插件，开始您的中国食品文化探索之旅。
+              从 Chrome / Edge 网上应用店安装 &quot;Eat me!&quot; 插件，开始您的中国食品文化探索之旅。
             </p>
             <a
               href="https://chromewebstore.google.com/detail/eat-me/chedmnolnacnkcmagndkjhaegmkpophi?utm_source=ext_app_menu"
@@ -246,7 +246,7 @@ const FoodPlugin: React.FC = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
               </svg>
-              安装 Chrome 插件
+              安装 Chrome / Edge 插件
             </a>
           </div>
         </div>
