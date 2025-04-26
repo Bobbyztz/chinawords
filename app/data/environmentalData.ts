@@ -15,7 +15,7 @@ export const heroData = {
   ctaLink: '/explore',
   secondaryCtaText: '了解更多',
   secondaryCtaLink: '/about',
-  backgroundImage: '/autumn.png'
+  backgroundImage: '/winter.png'
 };
 
 export const initiativesData = {
