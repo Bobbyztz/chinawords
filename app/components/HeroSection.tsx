@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface HeroSectionProps {
   title: string;
@@ -20,7 +20,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  backgroundImage
+  backgroundImage,
 }) => {
   const parallaxRef = useRef<HTMLDivElement>(null);
 
@@ -29,12 +29,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     const handleScroll = () => {
       if (parallaxRef.current) {
         const scrollPosition = window.scrollY;
-        parallaxRef.current.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+        parallaxRef.current.style.transform = `translateY(${
+          scrollPosition * 0.15
+        }px)`;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -50,7 +52,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             className="object-cover"
           />
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black opacity-70"></div>
         </div>
       </div>
 
@@ -60,23 +62,29 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="relative z-20 h-full flex items-center">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-film-red mb-4 leading-tight drop-shadow-lg"
+              style={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
+            >
               {title}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+            <p
+              className="text-xl md:text-2xl text-white mb-8 leading-relaxed drop-shadow-md"
+              style={{ textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
+            >
               {subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <a
                 href={ctaLink}
-                className="btn-organic bg-leaf-green hover:bg-moss-green text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-[#A00D19] hover:bg-red-700 text-white px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
               >
                 {ctaText}
               </a>
               {secondaryCtaText && secondaryCtaLink && (
                 <a
                   href={secondaryCtaLink}
-                  className="btn-organic bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300"
+                  className="bg-transparent border text-white hover:border-red-700 hover:text-red-700 px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
                 >
                   {secondaryCtaText}
                 </a>
