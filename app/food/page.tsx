@@ -14,18 +14,6 @@ const RegionalCuisines = () => {
   return <div className="text-gray-400 text-center py-16">内容已清空</div>;
 };
 
-// Placeholder component for traditional recipes
-const TraditionalRecipes = () => {
-  // 内容已清空，仅保留 tab 结构
-  return <div className="text-gray-400 text-center py-16">内容已清空</div>;
-};
-
-// Component for food culture information (reusing existing content)
-const FoodCulture = () => {
-  // 内容已清空，仅保留 tab 结构
-  return <div className="text-gray-400 text-center py-16">内容已清空</div>;
-};
-
 export default function FoodPage() {
   // Define the new tab structure
   const tabs = [

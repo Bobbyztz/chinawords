@@ -100,7 +100,7 @@ const LanguageAdaptation = () => {
       </h2>
       <div className="text-gray-800 space-y-4 leading-relaxed">
         <p>
-          "Eat me!" 插件具备智能语言检测与适配功能，能够自动识别用户当前浏览页面的主要语言，并在目标平台使用相应语言进行查询和信息展示。
+          &#34;Eat me!&#34; 插件具备智能语言检测与适配功能，能够自动识别用户当前浏览页面的主要语言，并在目标平台使用相应语言进行查询和信息展示。
         </p>
         <p>
           此功能特别适用于在多语言环境中使用的用户，例如在英文界面浏览中文食品或在中文界面浏览国际食品时，插件会智能切换查询语言，确保检索结果的准确性与相关性。
@@ -221,6 +221,53 @@ const ProductListBrowsing = () => {
   );
 };
 
+// Component for Chinese Culinary Explorer
+const ChineseCulinaryExplorer = () => {
+  return (
+    <div className="p-8 font-sans-sc">
+      <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
+        Explore Chinese Cuisine
+      </h2>
+      <div className="text-gray-800 space-y-4 leading-relaxed">
+        <p className="text-lg text-gray-700 mb-4">
+          Explore a curated collection of recipes, from classic dishes like
+          Peking Duck and Mapo Tofu to regional specialties and modern
+          interpretations. Learn about the history, ingredients, and
+          cooking techniques behind each dish.
+        </p>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+          Interactive Cooking Guides
+        </h3>
+        <p className="text-lg text-gray-700 mb-4">
+          Follow step-by-step interactive guides that make cooking Chinese
+          cuisine accessible and fun. Our plugin provides visual aids,
+          timers, and tips to ensure culinary success.
+        </p>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+          Cultural Insights
+        </h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Discover the cultural significance of food in China, including
+          regional dining customs, tea ceremonies, and the symbolism behind
+          various ingredients and dishes. Understand how food shapes social
+          interactions and celebrations.
+        </p>
+
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+        <ol className="list-decimal list-inside text-lg text-gray-700 space-y-2 mb-6">
+          <li>
+            <strong>Install the Plugin:</strong> Add the &quot;Chinese Culinary
+            Explorer&quot; plugin to your browser or favorite cooking app.
+          </li>
+          <li>
+            <strong>Browse Content:</strong> Access recipes, articles, and
+            guides directly through the plugin interface.
+          </li>
+        </ol>
+      </div>
+    </div>
+  );
+};
 
 export default function FoodPluginPage() {
   // Define the tab structure
@@ -244,6 +291,10 @@ export default function FoodPluginPage() {
     {
       title: "产品列表浏览",
       content: <ProductListBrowsing />,
+    },
+    {
+      title: "Chinese Culinary Explorer",
+      content: <ChineseCulinaryExplorer />,
     },
   ];
 
