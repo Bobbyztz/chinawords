@@ -27,15 +27,21 @@ export default function FoodPage() {
     },
     {
       title: "食材溯源",
-      content: <div className="text-gray-400 text-center py-16">食材溯源内容占位</div>,
+      content: (
+        <div className="text-gray-400 text-center py-16">食材溯源内容占位</div>
+      ),
     },
     {
       title: "个性食谱",
-      content: <div className="text-gray-400 text-center py-16">个性食谱内容占位</div>,
+      content: (
+        <div className="text-gray-400 text-center py-16">个性食谱内容占位</div>
+      ),
     },
     {
       title: "相册制作",
-      content: <div className="text-gray-400 text-center py-16">相册制作内容占位</div>,
+      content: (
+        <div className="text-gray-400 text-center py-16">相册制作内容占位</div>
+      ),
     },
     {
       title: "浏览器插件",
@@ -51,7 +57,7 @@ export default function FoodPage() {
     <div className="min-h-screen flex flex-col texture-subtle">
       <ChinawordsNavigation links={navigationLinks} />
 
-      <main className="flex-grow pt-12 flex flex-col">
+      <main className="flex-grow flex flex-col">
         <div className="flex flex-col flex-grow">
           <div className="flex flex-col gap-y-6 flex-grow">
             <TabComponent tabs={tabs} />
