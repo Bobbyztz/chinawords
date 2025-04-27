@@ -95,7 +95,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           <div className="flex items-center pl-1 h-10">
             <div
               className={`font-bold font-serif-sc text-black ${
-                isScrolled && !isHomepage ? "text-lg" : "text-xl"
+                isScrolled && !isHomepage ? "text-lg" : "text-2xl"
               } transition-all duration-300 translate-y-[5px] flex items-center`}
             >
               {/* Home link */}

@@ -30,10 +30,10 @@ const NewHomePage_Hero: React.FC<NewHomePageHeroProps> = ({
     >
       <div className="relative w-full h-[calc(100%-9px)]">
         {/* Card container with flex column layout */}
-        <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-full overflow-y-auto flex flex-col">
+        <div className="relative bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-full overflow-y-auto flex flex-col">
           {/* Navigation component as first child in normal flow */}
-          <div>
-             <ChinawordsNavigation links={navigationLinks} />
+          <div className="absolute top-0 left-0 w-full z-10">
+            <ChinawordsNavigation links={navigationLinks} />
           </div>
           {/* Inner content taking remaining space */}
           <div className="flex-1 flex items-center justify-center p-6">
