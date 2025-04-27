@@ -73,7 +73,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 1)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
+          <div className="bg-white/30 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">
                 基础板块
@@ -83,7 +83,7 @@ export default function NewHomePage() {
                 {initiativesData.initiatives.slice(0, 4).map((initiative) => (
                   <div
                     key={initiative.id}
-                    className="bg-white/80 rounded-lg hover:border-[1.5px] hover:border-black/40 overflow-hidden"
+                    className="bg-white/80 rounded-lg border-[1.5px] border-transparent hover:border-black/40 overflow-hidden"
                   >
                     <div className="relative h-48">
                       <Image
@@ -134,7 +134,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 2)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
+          <div className="bg-white/30 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">
                 进阶板块
@@ -144,7 +144,7 @@ export default function NewHomePage() {
                 {initiativesData.initiatives.slice(4, 8).map((initiative) => (
                   <div
                     key={initiative.id}
-                    className="bg-white/80 rounded-lg hover:border-[1.5px] hover:border-black/40 overflow-hidden"
+                    className="bg-white/80 rounded-lg border-[1.5px] border-transparent hover:border-[1.5px] hover:border-black/40 overflow-hidden"
                   >
                     <div className="relative h-48">
                       <Image
