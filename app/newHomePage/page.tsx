@@ -228,8 +228,11 @@ export default function NewHomePage() {
         >
           <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
+              <h2 className="text-3xl font-bold text-center pt-10 mb-1 font-serif-sc">
+                城市速览
+              </h2>
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-bold font-serif-sc">城市速览</h2>
+                <div className="hidden md:block"></div> {/* Empty div for spacing */}
 
                 {/* Desktop buttons - hidden on mobile */}
                 <div className="hidden md:flex rounded-full overflow-hidden border border-[#2E8B57] shadow-sm">
@@ -262,7 +265,7 @@ export default function NewHomePage() {
               </div>
 
               {/* Mobile buttons - shown only on mobile */}
-              <div className="flex md:hidden justify-center mt-4 mb-6 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
+              <div className="flex md:hidden justify-center mt-4 mb-8 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
                 <a
                   href="/city"
                   className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
@@ -318,8 +321,11 @@ export default function NewHomePage() {
         >
           <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
+              <h2 className="text-3xl font-bold text-center pt-10 mb-1 font-serif-sc">
+                美食速览
+              </h2>
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-bold font-serif-sc">美食速览</h2>
+                <div className="hidden md:block"></div> {/* Empty div for spacing */}
 
                 {/* Desktop buttons - hidden on mobile */}
                 <div className="hidden md:flex rounded-full overflow-hidden border border-[#2E8B57] shadow-sm">
@@ -352,7 +358,7 @@ export default function NewHomePage() {
               </div>
 
               {/* Mobile buttons - shown only on mobile */}
-              <div className="flex md:hidden justify-center mt-4 mb-6 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
+              <div className="flex md:hidden justify-center mt-4 mb-8 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
                 <a
                   href="/food"
                   className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
