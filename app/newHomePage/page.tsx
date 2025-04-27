@@ -130,6 +130,7 @@ export default function NewHomePage() {
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">基础板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Only original 4 cards: 衣食住行 */}
                 {initiativesData.initiatives.slice(0, 4).map((initiative) => (
                   <div key={initiative.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div className="relative h-48">
@@ -170,7 +171,8 @@ export default function NewHomePage() {
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">进阶板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {initiativesData.initiatives.slice(4).map((initiative) => (
+                {/* New 4 cards: 用育康乐 */}
+                {initiativesData.initiatives.slice(4, 8).map((initiative) => (
                   <div key={initiative.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div className="relative h-48">
                       <Image
@@ -563,8 +565,10 @@ export default function NewHomePage() {
                   <div>
                     <h3 className="text-sm font-bold mb-3">进阶板块</h3>
                     <ul className="space-y-2 text-xs text-gray-600">
-                      <li><a href="/entertainment" className="hover:text-[#C20F1E]">娱乐·悦心时光</a></li>
-                      <li><a href="/city" className="hover:text-[#C20F1E]">省市·山河印象</a></li>
+                      <li><a href="/under-construction" className="hover:text-[#C20F1E]">用·科技工具</a></li>
+                      <li><a href="/under-construction" className="hover:text-[#C20F1E]">育·教育发展</a></li>
+                      <li><a href="/under-construction" className="hover:text-[#C20F1E]">康·健康福祉</a></li>
+                      <li><a href="/under-construction" className="hover:text-[#C20F1E]">乐·休闲娱乐</a></li>
                     </ul>
                   </div>
                   <div>

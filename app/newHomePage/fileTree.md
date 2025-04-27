@@ -11,8 +11,8 @@ This directory contains the new homepage implementation with a full-screen scrol
 The new homepage is structured as a series of full-screen cards that snap into place when scrolled:
 
 1. **Hero Section** - Main title and call-to-action buttons
-2. **Basic Themes Section** - Four basic theme cards (clothing, food, housing, transportation)
-3. **Advanced Themes Section** - Additional theme cards
+2. **Basic Themes Section** - Four basic theme cards (衣食住行): clothing, food, housing, transportation
+3. **Advanced Themes Section** - Four advanced theme cards (用育康乐): technology/tools, education, health, entertainment
 4. **City Gallery Section** - Gallery of city images with refresh functionality
 5. **Food Gallery Section** - Gallery of food images with refresh functionality
 6. **Records Section** - Statistics and metrics about the website

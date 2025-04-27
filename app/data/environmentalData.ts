@@ -22,6 +22,7 @@ export const initiativesData = {
   title: '主题板块',
   subtitle: '精选案例，快速了解中国生活方式的多彩面貌',
   initiatives: [
+    // 基础板块：衣食住行
     {
       id: 'initiative-1',
       title: '衣·时尚传承',
@@ -58,8 +59,48 @@ export const initiativesData = {
       link: '/travel',
       animationStyle: 'none' as const
     },
+
+    // 进阶板块：用育康乐
     {
       id: 'initiative-5',
+      title: '用·科技工具',
+      description: '数字技术改变生活方式',
+      imageSrc: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=3820&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '现代科技与数字工具',
+      link: '/under-construction',
+      animationStyle: 'sway' as const
+    },
+    {
+      id: 'initiative-6',
+      title: '育·教育发展',
+      description: '知识传承与个人成长',
+      imageSrc: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=3822&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '教育与知识传播',
+      link: '/under-construction',
+      animationStyle: 'ripple' as const
+    },
+    {
+      id: 'initiative-7',
+      title: '康·健康福祉',
+      description: '身心健康与生活品质',
+      imageSrc: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '健康生活与福祉',
+      link: '/under-construction',
+      animationStyle: 'none' as const
+    },
+    {
+      id: 'initiative-8',
+      title: '乐·休闲娱乐',
+      description: '精神满足与生活平衡',
+      imageSrc: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageAlt: '休闲娱乐活动',
+      link: '/under-construction',
+      animationStyle: 'sway' as const
+    },
+
+    // 保留但不显示的原进阶板块内容
+    {
+      id: 'initiative-9',
       title: '娱乐·悦心时光',
       description: '琴棋书画，数字繁花',
       imageSrc: 'https://images.unsplash.com/photo-1502099530544-2b61cbaed85c?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -68,7 +109,7 @@ export const initiativesData = {
       animationStyle: 'sway' as const
     },
     {
-      id: 'initiative-6',
+      id: 'initiative-10',
       title: '省市·山河印象',
       description: '城市与自然的交融之美',
       imageSrc: 'https://images.unsplash.com/photo-1443891238287-325a8fddd0f7?q=80&w=3910&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -77,7 +118,7 @@ export const initiativesData = {
       animationStyle: 'ripple' as const
     },
     {
-      id: 'initiative-7',
+      id: 'initiative-11',
       title: '更多板块',
       description: '',
       imageSrc: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=3975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -194,8 +235,10 @@ export const footerData = {
     {
       title: '进阶板块',
       links: [
-        { label: '娱乐·悦心时光', href: '/entertainment' },
-        { label: '省市·山河印象', href: '/city' }
+        { label: '用·科技工具', href: '/under-construction' },
+        { label: '育·教育发展', href: '/under-construction' },
+        { label: '康·健康福祉', href: '/under-construction' },
+        { label: '乐·休闲娱乐', href: '/under-construction' }
       ]
     },
     {

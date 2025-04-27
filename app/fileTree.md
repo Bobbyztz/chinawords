@@ -42,9 +42,9 @@ Each of these directories represents a route in the application and contains a `
 - **privacy/** - Privacy Policy page
 - **terms/** - Terms of Service page
 - **travel/** - Travel page and subpages
-- **under-construction/** - Under Construction page
+- **under-construction/** - Under Construction page for sections that are still in development
 
-Most pages currently use the `UnderConstruction` component from `app/components/UnderConstruction.tsx`.
+Most pages currently use the `UnderConstruction` component from `app/components/UnderConstruction.tsx`, but the `/under-construction` route has its own custom implementation.
 
 ## Main Page (page.tsx)
 
