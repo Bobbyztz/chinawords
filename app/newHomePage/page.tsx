@@ -83,8 +83,7 @@ export default function NewHomePage() {
                 {initiativesData.initiatives.slice(0, 4).map((initiative) => (
                   <div
                     key={initiative.id}
-                    className="bg-white/80 rounded-lg border-[1.5px] border-transparent hover:border-black/40 overflow-hidden"
-                  >
+                    className="bg-transparent rounded-lg border-[1.5px] border-gray-100/70 hover:border-[1.5px] hover:border-black/40 overflow-hidden"                  >
                     <div className="relative h-48">
                       <Image
                         src={initiative.imageSrc}
@@ -144,8 +143,7 @@ export default function NewHomePage() {
                 {initiativesData.initiatives.slice(4, 8).map((initiative) => (
                   <div
                     key={initiative.id}
-                    className="bg-white/80 rounded-lg border-[1.5px] border-transparent hover:border-[1.5px] hover:border-black/40 overflow-hidden"
-                  >
+                    className="bg-transparent rounded-lg border-[1.5px] border-gray-100/70 hover:border-[1.5px] hover:border-black/40 overflow-hidden"                  >
                     <div className="relative h-48">
                       <Image
                         src={initiative.imageSrc}
