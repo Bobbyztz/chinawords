@@ -323,6 +323,13 @@ export default function NewHomePage() {
                       key={`city-${index}-${cityRefreshKey}`}
                       className="hover-frame-effect bg-white p-1 rounded shadow"
                     >
+                      <div className="tape-top"></div>
+                      <div className="frame-corners">
+                        <div className="corner corner-tl"></div>
+                        <div className="corner corner-tr"></div>
+                        <div className="corner corner-bl"></div>
+                        <div className="corner corner-br"></div>
+                      </div>
                       <div className="relative aspect-square overflow-hidden">
                         {isCityLoading ? (
                           <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
@@ -427,6 +434,13 @@ export default function NewHomePage() {
                       key={`food-${index}-${foodRefreshKey}`}
                       className="hover-frame-effect bg-white p-1 rounded shadow"
                     >
+                      <div className="tape-top"></div>
+                      <div className="frame-corners">
+                        <div className="corner corner-tl"></div>
+                        <div className="corner corner-tr"></div>
+                        <div className="corner corner-bl"></div>
+                        <div className="corner corner-br"></div>
+                      </div>
                       <div className="relative aspect-square overflow-hidden">
                         {isFoodLoading ? (
                           <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
@@ -1054,13 +1068,76 @@ export default function NewHomePage() {
 
         /* Image hover effect */
         .hover-frame-effect {
+          position: relative;
           transition: all 0.3s ease-in-out;
         }
 
         .hover-frame-effect:hover {
           transform: translateY(-3px);
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-          border-color: rgba(0, 0, 0, 0.3);
+          background-color: #f8f4e6;
+          border: 1px solid #8b4513;
+          padding: 10px;
+        }
+
+        /* Frame corners */
+        .frame-corners {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        .hover-frame-effect:hover .frame-corners {
+          opacity: 1;
+        }
+
+        .corner {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border: 2px solid #8b4513;
+          z-index: 1;
+        }
+
+        .corner-tl {
+          top: 4px;
+          left: 4px;
+          border-right: none;
+          border-bottom: none;
+        }
+
+        .corner-tr {
+          top: 4px;
+          right: 4px;
+          border-left: none;
+          border-bottom: none;
+        }
+
+        .corner-bl {
+          bottom: 4px;
+          left: 4px;
+          border-right: none;
+          border-top: none;
+        }
+
+        .corner-br {
+          bottom: 4px;
+          right: 4px;
+          border-left: none;
+          border-top: none;
+        }
+
+        /* Tape effect */
+        .tape-top {
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%) rotate(-5deg);
+          width: 40px;
+          height: 30px;
+          background-color: rgba(255, 255, 0, 0.5);
+          z-index: 2;
+          clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
         }
       `}</style>
     </div>
