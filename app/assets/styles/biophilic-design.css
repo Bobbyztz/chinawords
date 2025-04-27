@@ -113,7 +113,7 @@
 }
 
 .animate-ripple::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -156,7 +156,7 @@
 }
 
 .btn-organic::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -200,11 +200,11 @@
   position: relative;
   padding: 0.5rem 1rem;
   transition: color var(--transition-medium);
-  font-size: 1.125rem; /* 增加导航文字大小 */
+  /* font-size removed to allow Tailwind font-size utilities */
 }
 
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -225,7 +225,7 @@
 
 /* Mobile menu items */
 .md\:hidden .py-2 {
-  font-size: 1.125rem; /* 增加移动端导航文字大小 */
+  /* font-size removed to allow Tailwind font-size utilities */
 }
 
 /* Section styles */
@@ -234,7 +234,7 @@
 }
 
 .section-wave::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;

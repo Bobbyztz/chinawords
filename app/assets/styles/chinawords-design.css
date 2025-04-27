@@ -111,7 +111,7 @@
   padding: 0.5rem 1rem;
   transition: color var(--transition-medium);
   font-family: 'Noto Sans SC', sans-serif;
-  font-size: 1.125rem; /* 增加导航文字大小 */
+  /* font-size: 1.125rem;  增加导航文字大小 */
   white-space: nowrap;
 }
 
@@ -154,7 +154,7 @@
 
 /* Mobile menu items */
 .md\:hidden .py-2 {
-  font-size: 1.125rem; /* 增加移动端导航文字大小 */
+  /* font-size: 1.125rem;  增加移动端导航文字大小 */
 }
 
 /* Utility classes */

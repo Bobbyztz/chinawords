@@ -95,7 +95,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           <div className="flex items-center pl-1 h-10">
             <div
               className={`font-bold font-serif-sc text-black ${
-                isScrolled && !isHomepage ? "text-lg" : "text-2xl"
+                isScrolled && !isHomepage ? "text-lg" : "text-xl"
               } transition-all duration-300 translate-y-[5px] flex items-center`}
             >
               {/* Home link */}
@@ -141,7 +141,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 <Link
                   key={index}
                   href={link.href}
-                  className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group text-xs`}
+                  className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group text-sm`}
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -152,7 +152,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {(isHomepage || !isScrolled) && (
             <Link
               href="/progress"
-              className={`nav-link font-medium text-xs hover:text-film-red relative overflow-hidden group `}
+              className={`nav-link font-medium text-sm hover:text-film-red relative overflow-hidden group `}
             >
               项目进度
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -166,7 +166,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 onClick={toggleUserMenu}
                 className={`nav-link font-medium font-sans-sc hover:text-film-red flex items-center gap-1 relative overflow-hidden group`}
                 style={{
-                  fontSize: isScrolled && !isHomepage ? "0.875rem" : "1.125rem",
+                  fontSize: isScrolled && !isHomepage ? "text-xs" : "text-sm",
                 }}
               >
                 <span>{session.user.username}</span>
