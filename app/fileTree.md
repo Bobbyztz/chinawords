@@ -38,6 +38,7 @@ Each of these directories represents a route in the application and contains a `
 - **join/** - Join page
 - **living/** - Living page and subpages
 - **login/** - Login and registration page
+- **newHomePage/** - New Home Page template
 - **privacy/** - Privacy Policy page
 - **terms/** - Terms of Service page
 - **travel/** - Travel page and subpages
