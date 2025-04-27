@@ -39,6 +39,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: [
+      { url: "/logo.png", sizes: "180x180" }
+    ],
+    shortcut: "/logo.png"
+  },
   openGraph: {
     title: "寰语·中国 | Chinawords - 探索中国传统与创新的生活方式",
     description: "寰语·中国致力于记录和分享当代中国的生活方式与文化创新，从衣食住行到历史人文，展现中国故事的多元与魅力。",
