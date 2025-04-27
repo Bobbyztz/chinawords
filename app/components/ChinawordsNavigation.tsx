@@ -68,7 +68,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   return (
     <nav
       className={`nav-chinawords w-full z-10 ${
-        isScrolled ? (isHomepage ? "py-2" : "py-1") : "py-5"
+        isScrolled ? (isHomepage ? "py-2" : "py-1") : "py-3"
       }`}
     >
       <div className="pl-4 pr-6 flex justify-between items-center">
@@ -141,7 +141,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 <Link
                   key={index}
                   href={link.href}
-                  className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group text-sm`}
+                  className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group text-xs`}
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -152,7 +152,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {(isHomepage || !isScrolled) && (
             <Link
               href="/progress"
-              className={`nav-link font-medium font-sans-sc text-sm hover:text-film-red relative overflow-hidden group `}
+              className={`nav-link font-medium text-xs hover:text-film-red relative overflow-hidden group `}
             >
               项目进度
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
