@@ -3,6 +3,7 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { heroData, initiativesData } from "../data/environmentalData";
+import { getRandomImages } from "../../lib/imageUtils";
 
 export default function NewHomePage() {
   const sectionsRef = useRef<HTMLElement[]>([]);
@@ -10,10 +11,12 @@ export default function NewHomePage() {
   // State for city gallery
   const [isCityLoading, setIsCityLoading] = useState<boolean>(false);
   const [cityRefreshKey, setCityRefreshKey] = useState<number>(0);
+  const [cityImages, setCityImages] = useState<string[]>([]);
 
   // State for food gallery
   const [isFoodLoading, setIsFoodLoading] = useState<boolean>(false);
   const [foodRefreshKey, setFoodRefreshKey] = useState<number>(0);
+  const [foodImages, setFoodImages] = useState<string[]>([]);
 
   // Function to generate random city images
   const generateRandomCityImages = () => {
@@ -22,6 +25,9 @@ export default function NewHomePage() {
 
     // Add a small delay to show the loading effect
     setTimeout(() => {
+      // Get 10 random images from the city folder
+      const newCityImages = getRandomImages('34个省级行政区-3d', 10);
+      setCityImages(newCityImages);
       setCityRefreshKey(prevKey => prevKey + 1);
       setIsCityLoading(false);
     }, 800);
@@ -34,10 +40,23 @@ export default function NewHomePage() {
 
     // Add a small delay to show the loading effect
     setTimeout(() => {
+      // Get 10 random images from the food folder
+      const newFoodImages = getRandomImages('34个省级行政区-美食', 10);
+      setFoodImages(newFoodImages);
       setFoodRefreshKey(prevKey => prevKey + 1);
       setIsFoodLoading(false);
     }, 800);
   };
+
+  // Load initial images when component mounts
+  useEffect(() => {
+    // Get initial random images
+    const initialCityImages = getRandomImages('34个省级行政区-3d', 10);
+    const initialFoodImages = getRandomImages('34个省级行政区-美食', 10);
+
+    setCityImages(initialCityImages);
+    setFoodImages(initialFoodImages);
+  }, []);
 
   // Register sections for observation
   const registerSection = (el: HTMLElement | null, index: number) => {
@@ -294,21 +313,32 @@ export default function NewHomePage() {
               </div>
 
               <div key={cityRefreshKey} className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 transition-all duration-300 ${isCityLoading ? 'blur-effect' : ''}`}>
-                {/* Sample city images - in a real implementation, these would be dynamic */}
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <div
-                    key={`city-${index}`}
-                    className="hover-frame-effect bg-white p-1 rounded shadow"
-                  >
-                    <div className="relative aspect-square overflow-hidden">
-                      <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-                      {/* Placeholder for actual images */}
-                      <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs">
-                        城市图片 {index + 1}
+                {/* Display city images from the 3D folder */}
+                {cityImages.map((imagePath, index) => {
+                  // Extract city name from the image path
+                  const cityName = imagePath.split('/').pop()?.split('.')[0] || `城市 ${index + 1}`;
+
+                  return (
+                    <div
+                      key={`city-${index}-${cityRefreshKey}`}
+                      className="hover-frame-effect bg-white p-1 rounded shadow"
+                    >
+                      <div className="relative aspect-square overflow-hidden">
+                        {isCityLoading ? (
+                          <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+                        ) : (
+                          <Image
+                            src={imagePath}
+                            alt={`${cityName} 城市图片`}
+                            fill
+                            sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
+                            className="object-cover"
+                          />
+                        )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -387,21 +417,32 @@ export default function NewHomePage() {
               </div>
 
               <div key={foodRefreshKey} className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 transition-all duration-300 ${isFoodLoading ? 'blur-effect' : ''}`}>
-                {/* Sample food images - in a real implementation, these would be dynamic */}
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <div
-                    key={`food-${index}`}
-                    className="hover-frame-effect bg-white p-1 rounded shadow"
-                  >
-                    <div className="relative aspect-square overflow-hidden">
-                      <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-                      {/* Placeholder for actual images */}
-                      <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs">
-                        美食图片 {index + 1}
+                {/* Display food images from the food folder */}
+                {foodImages.map((imagePath, index) => {
+                  // Extract food/city name from the image path
+                  const foodName = imagePath.split('/').pop()?.split('.')[0] || `美食 ${index + 1}`;
+
+                  return (
+                    <div
+                      key={`food-${index}-${foodRefreshKey}`}
+                      className="hover-frame-effect bg-white p-1 rounded shadow"
+                    >
+                      <div className="relative aspect-square overflow-hidden">
+                        {isFoodLoading ? (
+                          <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+                        ) : (
+                          <Image
+                            src={imagePath}
+                            alt={`${foodName} 美食图片`}
+                            fill
+                            sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
+                            className="object-cover"
+                          />
+                        )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -1009,6 +1050,17 @@ export default function NewHomePage() {
           background: rgba(46, 139, 87, 0.05);
           animation: subtlePulse 2s infinite ease-in-out;
           pointer-events: none;
+        }
+
+        /* Image hover effect */
+        .hover-frame-effect {
+          transition: all 0.3s ease-in-out;
+        }
+
+        .hover-frame-effect:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          border-color: rgba(0, 0, 0, 0.3);
         }
       `}</style>
     </div>
