@@ -1,14 +1,10 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import ChinawordsNavigation from '../components/ChinawordsNavigation';
-import { navigationLinks, heroData, initiativesData } from '../data/environmentalData';
+import { heroData, initiativesData } from '../data/environmentalData';
 
 export default function NewHomePage() {
-  const [fixedHeaderVisible, setFixedHeaderVisible] = useState(false);
-  // We don't need currentSectionId for now, but might use it later for highlighting active section
-  const fixedHeaderRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
 
   // Register sections for observation
@@ -17,47 +13,6 @@ export default function NewHomePage() {
       sectionsRef.current[index] = el;
     }
   };
-
-  // Setup intersection observer for sections
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px 0px -100% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      let sectionAtTop: Element | null = null;
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && Math.abs(entry.boundingClientRect.top) < 10) {
-          sectionAtTop = entry.target;
-        }
-      });
-
-      if (sectionAtTop && sectionAtTop.id !== "hero-section") {
-        setFixedHeaderVisible(true);
-      } else {
-        setFixedHeaderVisible(false);
-      }
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    sectionsRef.current.forEach((section) => {
-      if (section) {
-        observer.observe(section);
-      }
-    });
-
-    return () => {
-      sectionsRef.current.forEach((section) => {
-        if (section) {
-          observer.unobserve(section);
-        }
-      });
-    };
-  }, []);
 
   return (
     <div className="h-full relative">
@@ -74,18 +29,6 @@ export default function NewHomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black opacity-70"></div>
       </div>
 
-      {/* Fixed header that appears when scrolling */}
-      <div
-        ref={fixedHeaderRef}
-        className={`fixed top-4 left-4 right-4 z-50 transition-opacity duration-300 ${
-          fixedHeaderVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg p-4">
-          <ChinawordsNavigation links={navigationLinks} />
-        </div>
-      </div>
-
       {/* Scroll container without snap points */}
       <div className="h-screen overflow-y-scroll scroll-smooth relative z-10">
         {/* Hero Section */}
@@ -94,7 +37,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 0)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full flex items-center justify-center p-6">
               <div className="text-center">
                 <h1 className="text-5xl font-bold text-film-red mb-6 font-serif-sc">{heroData.title}</h1>
@@ -126,7 +69,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 1)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">基础板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -167,7 +110,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 2)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">进阶板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -209,7 +152,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 3)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">城市速览</h2>
@@ -251,7 +194,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 4)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">美食速览</h2>
@@ -293,7 +236,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 5)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">我们的记录</h2>
 
@@ -363,7 +306,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 6)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">参与活动</h2>
 
@@ -476,7 +419,7 @@ export default function NewHomePage() {
           className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 7)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Newsletter Section */}
