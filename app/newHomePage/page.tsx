@@ -141,14 +141,14 @@ export default function NewHomePage() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold mb-2 font-serif-sc">{initiative.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{initiative.description}</p>
+                      <h3 className="text-xl font-semibold mb-1 font-serif-sc">{initiative.title}</h3>
+                      <p className="text-gray-600 text-sm mb-3">{initiative.description}</p>
                       <a
                         href={initiative.link}
-                        className="text-film-red hover:underline inline-flex items-center"
+                        className="text-film-red hover:underline inline-flex items-center text-xs"
                       >
                         了解更多
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </a>
@@ -169,7 +169,7 @@ export default function NewHomePage() {
           <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">进阶板块</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {initiativesData.initiatives.slice(4).map((initiative) => (
                   <div key={initiative.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div className="relative h-48">
@@ -181,14 +181,14 @@ export default function NewHomePage() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold mb-2 font-serif-sc">{initiative.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{initiative.description}</p>
+                      <h3 className="text-xl font-semibold mb-1 font-serif-sc">{initiative.title}</h3>
+                      <p className="text-gray-600 text-sm mb-3">{initiative.description}</p>
                       <a
                         href={initiative.link}
-                        className="text-film-red hover:underline inline-flex items-center"
+                        className="text-film-red hover:underline inline-flex items-center text-xs"
                       >
                         了解更多
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </a>
