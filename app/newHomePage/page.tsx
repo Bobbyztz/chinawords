@@ -91,10 +91,10 @@ export default function NewHomePage() {
         {/* Hero Section */}
         <section
           id="hero-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 0)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full flex items-center justify-center p-6">
               <div className="text-center">
                 <h1 className="text-5xl font-bold text-film-red mb-6 font-serif-sc">{heroData.title}</h1>
@@ -123,10 +123,10 @@ export default function NewHomePage() {
         {/* Basic Themes Section */}
         <section
           id="basic-themes-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 1)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">基础板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -164,10 +164,10 @@ export default function NewHomePage() {
         {/* Advanced Themes Section */}
         <section
           id="advanced-themes-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 2)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">进阶板块</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -206,10 +206,10 @@ export default function NewHomePage() {
         {/* These will be implemented in the next steps */}
         <section
           id="city-gallery-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 3)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">城市速览</h2>
@@ -248,10 +248,10 @@ export default function NewHomePage() {
 
         <section
           id="food-gallery-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 4)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">美食速览</h2>
@@ -290,10 +290,10 @@ export default function NewHomePage() {
 
         <section
           id="records-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 5)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">我们的记录</h2>
 
@@ -360,10 +360,10 @@ export default function NewHomePage() {
 
         <section
           id="activities-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 6)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <h2 className="text-3xl font-bold text-center mb-8 font-serif-sc">参与活动</h2>
 
@@ -473,10 +473,10 @@ export default function NewHomePage() {
 
         <section
           id="newsletter-bio-section"
-          className="h-screen w-full py-4 px-4 flex items-center justify-center"
+          className="h-screen w-full py-4 px-3 flex items-center justify-center"
           ref={(el) => registerSection(el, 7)}
         >
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-32px)] overflow-y-auto">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-12px)] overflow-y-auto">
             <div className="h-full p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Newsletter Section */}
