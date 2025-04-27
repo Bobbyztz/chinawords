@@ -1,11 +1,43 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { heroData, initiativesData } from "../data/environmentalData";
 
 export default function NewHomePage() {
   const sectionsRef = useRef<HTMLElement[]>([]);
+
+  // State for city gallery
+  const [isCityLoading, setIsCityLoading] = useState<boolean>(false);
+  const [cityRefreshKey, setCityRefreshKey] = useState<number>(0);
+
+  // State for food gallery
+  const [isFoodLoading, setIsFoodLoading] = useState<boolean>(false);
+  const [foodRefreshKey, setFoodRefreshKey] = useState<number>(0);
+
+  // Function to generate random city images
+  const generateRandomCityImages = () => {
+    console.log('Generating new random city images...');
+    setIsCityLoading(true);
+
+    // Add a small delay to show the loading effect
+    setTimeout(() => {
+      setCityRefreshKey(prevKey => prevKey + 1);
+      setIsCityLoading(false);
+    }, 800);
+  };
+
+  // Function to generate random food images
+  const generateRandomFoodImages = () => {
+    console.log('Generating new random food images...');
+    setIsFoodLoading(true);
+
+    // Add a small delay to show the loading effect
+    setTimeout(() => {
+      setFoodRefreshKey(prevKey => prevKey + 1);
+      setIsFoodLoading(false);
+    }, 800);
+  };
 
   // Register sections for observation
   const registerSection = (el: HTMLElement | null, index: number) => {
@@ -198,20 +230,67 @@ export default function NewHomePage() {
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">城市速览</h2>
-                <div className="flex space-x-2">
-                  <button className="bg-white text-[#2E8B57] px-3 py-1 text-sm font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border border-[#2E8B57] rounded-md">
-                    换一批
-                  </button>
+
+                {/* Desktop buttons - hidden on mobile */}
+                <div className="hidden md:flex rounded-full overflow-hidden border border-[#2E8B57] shadow-sm">
                   <a
                     href="/city"
-                    className="bg-[#2E8B57] text-white px-3 py-1 text-sm font-bold hover:bg-[#236b42] transition-colors duration-300 rounded-md"
+                    className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
                   >
                     浏览所有
                   </a>
+                  <button
+                    onClick={generateRandomCityImages}
+                    className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
+                    disabled={isCityLoading}
+                  >
+                    {isCityLoading ? (
+                      <>
+                        <span className="opacity-0">换一批</span>
+                        <span className="absolute inset-0 flex items-center justify-center">
+                          <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        </span>
+                      </>
+                    ) : (
+                      "换一批"
+                    )}
+                  </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+              {/* Mobile buttons - shown only on mobile */}
+              <div className="flex md:hidden justify-center mt-4 mb-6 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
+                <a
+                  href="/city"
+                  className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
+                >
+                  浏览所有
+                </a>
+                <button
+                  onClick={generateRandomCityImages}
+                  className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
+                  disabled={isCityLoading}
+                >
+                  {isCityLoading ? (
+                    <>
+                      <span className="opacity-0">换一批</span>
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                      </span>
+                    </>
+                  ) : (
+                    "换一批"
+                  )}
+                </button>
+              </div>
+
+              <div key={cityRefreshKey} className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 transition-all duration-300 ${isCityLoading ? 'blur-effect' : ''}`}>
                 {/* Sample city images - in a real implementation, these would be dynamic */}
                 {Array.from({ length: 10 }).map((_, index) => (
                   <div
@@ -241,20 +320,67 @@ export default function NewHomePage() {
             <div className="h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold font-serif-sc">美食速览</h2>
-                <div className="flex space-x-2">
-                  <button className="bg-white text-[#2E8B57] px-3 py-1 text-sm font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border border-[#2E8B57] rounded-md">
-                    换一批
-                  </button>
+
+                {/* Desktop buttons - hidden on mobile */}
+                <div className="hidden md:flex rounded-full overflow-hidden border border-[#2E8B57] shadow-sm">
                   <a
                     href="/food"
-                    className="bg-[#2E8B57] text-white px-3 py-1 text-sm font-bold hover:bg-[#236b42] transition-colors duration-300 rounded-md"
+                    className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
                   >
                     浏览所有
                   </a>
+                  <button
+                    onClick={generateRandomFoodImages}
+                    className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
+                    disabled={isFoodLoading}
+                  >
+                    {isFoodLoading ? (
+                      <>
+                        <span className="opacity-0">换一批</span>
+                        <span className="absolute inset-0 flex items-center justify-center">
+                          <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        </span>
+                      </>
+                    ) : (
+                      "换一批"
+                    )}
+                  </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+              {/* Mobile buttons - shown only on mobile */}
+              <div className="flex md:hidden justify-center mt-4 mb-6 rounded-full overflow-hidden border border-[#2E8B57] shadow-sm mx-auto w-fit">
+                <a
+                  href="/food"
+                  className="bg-[#2E8B57] text-white px-3 py-1 text-xs font-bold hover:bg-[#236b42] transition-colors duration-300"
+                >
+                  浏览所有
+                </a>
+                <button
+                  onClick={generateRandomFoodImages}
+                  className="bg-white text-[#2E8B57] px-3 py-1 text-xs font-bold hover:bg-[#f0f9f4] hover:text-[#1a6b3c] transition-all duration-300 border-l border-[#2E8B57] relative cursor-pointer"
+                  disabled={isFoodLoading}
+                >
+                  {isFoodLoading ? (
+                    <>
+                      <span className="opacity-0">换一批</span>
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <svg className="animate-spin h-4 w-4 text-[#2E8B57]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                      </span>
+                    </>
+                  ) : (
+                    "换一批"
+                  )}
+                </button>
+              </div>
+
+              <div key={foodRefreshKey} className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 transition-all duration-300 ${isFoodLoading ? 'blur-effect' : ''}`}>
                 {/* Sample food images - in a real implementation, these would be dynamic */}
                 {Array.from({ length: 10 }).map((_, index) => (
                   <div
@@ -845,6 +971,40 @@ export default function NewHomePage() {
           </div>
         </section>
       </div>
+      <style jsx global>{`
+        /* Blur effect for loading state */
+        .blur-effect {
+          filter: blur(10px) saturate(0.8);
+          opacity: 0.7;
+          pointer-events: none;
+          transform: scale(0.98);
+          transition: all 0.3s ease-in-out;
+        }
+
+        /* Button hover effect */
+        button:not(:disabled):hover {
+          box-shadow: 0 1px 3px rgba(46, 139, 87, 0.2);
+        }
+
+        /* Refresh button animation */
+        @keyframes subtlePulse {
+          0% { opacity: 0.7; }
+          50% { opacity: 1; }
+          100% { opacity: 0.7; }
+        }
+
+        button:not(:disabled):hover::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: rgba(46, 139, 87, 0.05);
+          animation: subtlePulse 2s infinite ease-in-out;
+          pointer-events: none;
+        }
+      `}</style>
     </div>
   );
 }
