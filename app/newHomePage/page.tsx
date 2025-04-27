@@ -721,7 +721,7 @@ export default function NewHomePage() {
             <div className="h-full p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Newsletter Section - 墨绿色主题 */}
-                <div className="border-t-4 border-[#2E8B57] bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                <div className="border-t-4 border-[#2E8B57] bg-white/40 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-[#2E8B57]/10 rounded-full flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-[#2E8B57]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -764,7 +764,7 @@ export default function NewHomePage() {
                 </div>
 
                 {/* About Us Section - 砖红色主题 */}
-                <div className="border-t-4 border-[#9C4A31] bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                <div className="border-t-4 border-[#9C4A31] bg-white/40 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-[#9C4A31]/10 rounded-full flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-[#9C4A31]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
