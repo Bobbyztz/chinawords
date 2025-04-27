@@ -2,22 +2,31 @@
 
 This directory contains the new homepage implementation with a full-screen scrolling card design.
 
-## Files
+## Files & Directories
 
-- **page.tsx** - New homepage component that implements a full-screen scrolling card layout with scroll-snap functionality
+- **page.tsx** - Main component for the new homepage. Imports and orchestrates the individual section components. Manages state for dynamic content (e.g., image galleries).
+- **components/** - Directory containing the individual section components for the new homepage.
+    - **NewHomePage_Hero.tsx** - Displays the main title, subtitle, and call-to-action buttons.
+    - **NewHomePage_BasicThemes.tsx** - Displays the four basic theme cards (衣食住行).
+    - **NewHomePage_AdvancedThemes.tsx** - Displays the four advanced theme cards (用育康乐).
+    - **NewHomePage_CityGallery.tsx** - Displays a gallery of city images with refresh functionality.
+    - **NewHomePage_FoodGallery.tsx** - Displays a gallery of food images with refresh functionality.
+    - **NewHomePage_Records.tsx** - Displays statistics and metrics about the website.
+    - **NewHomePage_Activities.tsx** - Displays information about online and offline activities.
+    - **NewHomePage_NewsletterBio.tsx** - Contains the newsletter subscription form and about us information.
 
 ## Component Structure
 
-The new homepage is structured as a series of full-screen cards that snap into place when scrolled:
+The new homepage is structured as a series of full-screen cards, each represented by a dedicated component:
 
-1. **Hero Section** - Main title and call-to-action buttons
-2. **Basic Themes Section** - Four basic theme cards (衣食住行): clothing, food, housing, transportation
-3. **Advanced Themes Section** - Four advanced theme cards (用育康乐): technology/tools, education, health, entertainment
-4. **City Gallery Section** - Gallery of city images with refresh functionality
-5. **Food Gallery Section** - Gallery of food images with refresh functionality
-6. **Records Section** - Statistics and metrics about the website
-7. **Activities Section** - Information about online and offline activities
-8. **Newsletter & Bio Section** - Newsletter subscription form and about us information
+1.  **Hero Section** (`NewHomePage_Hero.tsx`) - Main title and call-to-action buttons
+2.  **Basic Themes Section** (`NewHomePage_BasicThemes.tsx`) - Four basic theme cards (衣食住行)
+3.  **Advanced Themes Section** (`NewHomePage_AdvancedThemes.tsx`) - Four advanced theme cards (用育康乐)
+4.  **City Gallery Section** (`NewHomePage_CityGallery.tsx`) - Gallery of city images with refresh functionality
+5.  **Food Gallery Section** (`NewHomePage_FoodGallery.tsx`) - Gallery of food images with refresh functionality
+6.  **Records Section** (`NewHomePage_Records.tsx`) - Statistics and metrics about the website
+7.  **Activities Section** (`NewHomePage_Activities.tsx`) - Information about online and offline activities
+8.  **Newsletter & Bio Section** (`NewHomePage_NewsletterBio.tsx`) - Newsletter subscription form and about us information
 
 ## Key Features
 
