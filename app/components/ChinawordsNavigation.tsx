@@ -190,13 +190,6 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   >
                     个人资料
                   </Link>
-                  <Link
-                    href="/upload"
-                    className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc`}
-                    onClick={() => setIsUserMenuOpen(false)}
-                  >
-                    上传内容
-                  </Link>
                   <button
                     onClick={handleSignOut}
                     className={`block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-sans-sc`}
@@ -292,13 +285,6 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   个人资料
-                </Link>
-                <Link
-                  href="/upload"
-                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc text-sm`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  上传内容
                 </Link>
                 <button
                   onClick={() => {
