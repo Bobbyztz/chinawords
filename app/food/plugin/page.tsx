@@ -221,49 +221,65 @@ const ProductListBrowsing = () => {
   );
 };
 
-// Component for Chinese Culinary Explorer
-const ChineseCulinaryExplorer = () => {
+const DownloadAndRating = () => {
   return (
     <div className="p-8 font-sans-sc">
       <h2 className="text-2xl font-bold font-serif-sc text-jade-green border-b-2 border-jade-green/30 pb-2 mb-6">
-        Explore Chinese Cuisine
+        下载与评分
       </h2>
       <div className="text-gray-800 space-y-4 leading-relaxed">
-        <p className="text-lg text-gray-700 mb-4">
-          Explore a curated collection of recipes, from classic dishes like
-          Peking Duck and Mapo Tofu to regional specialties and modern
-          interpretations. Learn about the history, ingredients, and
-          cooking techniques behind each dish.
-        </p>
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-          Interactive Cooking Guides
-        </h3>
-        <p className="text-lg text-gray-700 mb-4">
-          Follow step-by-step interactive guides that make cooking Chinese
-          cuisine accessible and fun. Our plugin provides visual aids,
-          timers, and tips to ensure culinary success.
-        </p>
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-          Cultural Insights
-        </h3>
-        <p className="text-lg text-gray-700 mb-6">
-          Discover the cultural significance of food in China, including
-          regional dining customs, tea ceremonies, and the symbolism behind
-          various ingredients and dishes. Understand how food shapes social
-          interactions and celebrations.
+        <p>
+          "Eat me!" 浏览器插件目前处于内测阶段，我们正在不断完善功能和用户体验。您可以通过以下方式获取插件：
         </p>
 
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-        <ol className="list-decimal list-inside text-lg text-gray-700 space-y-2 mb-6">
-          <li>
-            <strong>Install the Plugin:</strong> Add the &quot;Chinese Culinary
-            Explorer&quot; plugin to your browser or favorite cooking app.
-          </li>
-          <li>
-            <strong>Browse Content:</strong> Access recipes, articles, and
-            guides directly through the plugin interface.
-          </li>
-        </ol>
+        <div className="grid md:grid-cols-2 gap-8 my-8">
+          <div className="bg-white/80 p-6 rounded-lg shadow-md border border-jade-green/20">
+            <h3 className="text-xl font-serif-sc text-film-red mb-4">Chrome 浏览器</h3>
+            <p className="mb-4">Chrome 插件商店发布审核中，目前可通过开发者模式安装：</p>
+            <ol className="list-decimal pl-6 space-y-2">
+              <li>下载插件压缩包（<a href="#" className="text-jade-green hover:underline">点击下载</a>）</li>
+              <li>解压到本地文件夹</li>
+              <li>打开 Chrome 浏览器，进入扩展程序页面</li>
+              <li>开启"开发者模式"</li>
+              <li>点击"加载已解压的扩展程序"</li>
+              <li>选择解压后的文件夹</li>
+            </ol>
+          </div>
+
+          <div className="bg-white/80 p-6 rounded-lg shadow-md border border-jade-green/20">
+            <h3 className="text-xl font-serif-sc text-film-red mb-4">Edge 浏览器</h3>
+            <p className="mb-4">Edge 插件商店发布审核中，目前可通过开发者模式安装：</p>
+            <ol className="list-decimal pl-6 space-y-2">
+              <li>下载插件压缩包（<a href="#" className="text-jade-green hover:underline">点击下载</a>）</li>
+              <li>解压到本地文件夹</li>
+              <li>打开 Edge 浏览器，进入扩展程序页面</li>
+              <li>开启"开发者模式"</li>
+              <li>点击"加载已解压的扩展程序"</li>
+              <li>选择解压后的文件夹</li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="bg-white/80 p-6 rounded-lg shadow-md border border-jade-green/20 my-8">
+          <h3 className="text-xl font-serif-sc text-film-red mb-4">用户评分与反馈</h3>
+          <p className="mb-4">
+            我们非常重视用户的反馈和建议，这是我们不断改进产品的重要依据。目前，您可以通过以下方式提供反馈：
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>在插件使用过程中点击反馈按钮</li>
+            <li>发送邮件至 <a href="mailto:feedback@chinawords.com" className="text-jade-green hover:underline">feedback@chinawords.com</a></li>
+            <li>在我们的 <a href="https://github.com/Bobbyztz/chinawords" className="text-jade-green hover:underline">GitHub 仓库</a> 提交 Issue</li>
+          </ul>
+          <p className="mt-4">
+            内测阶段的用户反馈将获得特别感谢，并有机会参与未来产品规划讨论。
+          </p>
+        </div>
+
+        <div className="mt-6">
+          <p className="italic text-gray-600">
+            注：插件目前仅支持 Weee! 和 Yami 两个平台，我们计划在未来版本中支持更多平台。
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -281,6 +297,10 @@ export default function FoodPluginPage() {
       content: <LanguageAdaptation />,
     },
     {
+      title:"下载与评分",
+      content:<DownloadAndRating/>,
+    },
+    {
       title: "价格比较",
       content: <PriceComparison />,
     },
@@ -292,17 +312,13 @@ export default function FoodPluginPage() {
       title: "产品列表浏览",
       content: <ProductListBrowsing />,
     },
-    {
-      title: "Chinese Culinary Explorer",
-      content: <ChineseCulinaryExplorer />,
-    },
   ];
 
   return (
     <div className="min-h-screen flex flex-col texture-subtle">
       <ChinawordsNavigation links={navigationLinks} />
 
-      <main className="flex-growflex flex-col">
+      <main className="flex-grow flex flex-col">
         <div className="flex flex-col flex-grow">
           <div className="flex flex-col gap-y-6 flex-grow">
             <TabComponent tabs={tabs} />
