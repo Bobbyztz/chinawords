@@ -1,5 +1,4 @@
 import React, { useState, useRef, MouseEvent } from "react";
-import Image from "next/image";
 import ChinawordsNavigation from "../ChinawordsNavigation";
 import { navigationLinks } from "../../data/environmentalData";
 

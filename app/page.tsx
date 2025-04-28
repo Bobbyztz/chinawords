@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { heroData, initiativesData } from "./data/environmentalData";
 import { getRandomImages } from "../lib/imageUtils";
