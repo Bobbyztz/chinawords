@@ -14,6 +14,7 @@ This directory contains the main application code using Next.js App Router struc
 - **api/** - API routes for server-side functionality including authentication
 - **assets/** - Contains styles, textures, and decorations
 - **components/** - Reusable UI components
+  - **components/homepage/** - Components specific to the new homepage design
 - **data/** - Data files for the application
 - **types/** - TypeScript type definitions
 
@@ -38,7 +39,6 @@ Each of these directories represents a route in the application and contains a `
 - **join/** - Join page
 - **living/** - Living page and subpages
 - **login/** - Login and registration page
-- **newHomePage/** - New Home Page template
 - **privacy/** - Privacy Policy page
 - **terms/** - Terms of Service page
 - **travel/** - Travel page and subpages
@@ -48,13 +48,16 @@ Most pages currently use the `UnderConstruction` component from `app/components/
 
 ## Main Page (page.tsx)
 
-The homepage imports and uses the following components:
-- ChinawordsNavigation from './components/ChinawordsNavigation'
-- HeroSection from './components/HeroSection'
-- InitiativesSection from './components/InitiativesSection'
-- SustainabilitySection from './components/SustainabilitySection'
-- CommunitySection from './components/CommunitySection'
-- NewsletterSection from './components/NewsletterSection'
-- BiophilicFooter from './components/BiophilicFooter'
+The homepage uses components from the `./components/homepage/` directory:
+- NewHomePage_Hero
+- NewHomePage_BasicThemes
+- NewHomePage_AdvancedThemes
+- NewHomePage_CityGallery
+- NewHomePage_FoodGallery
+- NewHomePage_Records
+- NewHomePage_Activities
+- NewHomePage_NewsletterBio
 
 Data for these components is imported from './data/environmentalData'.
+
+See `app/fileTree-page.md` for more details on the homepage structure.

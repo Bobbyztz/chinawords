@@ -7,14 +7,6 @@ This directory contains reusable UI components used throughout the application.
 - **BiophilicFooter.tsx** - Footer component used on all pages
 - **ChinawordsNavigation.tsx** - Main navigation component used on all pages
 
-## Section Components (Used on Homepage)
-
-- **HeroSection.tsx** - Hero section for the homepage
-- **InitiativesSection.tsx** - Initiatives section for the homepage
-- **SustainabilitySection.tsx** - Sustainability section for the homepage
-- **CommunitySection.tsx** - Community section for the homepage
-- **NewsletterSection.tsx** - Newsletter section for the homepage
-
 ## Authentication Components
 
 - **auth/LoginForm.tsx** - Form component for user login with validation and error handling
@@ -32,11 +24,5 @@ This directory contains reusable UI components used throughout the application.
 
 - **UnderConstruction.tsx** is used by most page components as they are currently placeholders
 - **TabComponent.tsx** is used by the Food page (`app/food/page.tsx`) to display content in tabs
-- The homepage (`app/page.tsx`) uses multiple section components:
-  - ChinawordsNavigation
-  - HeroSection
-  - InitiativesSection
-  - SustainabilitySection
-  - CommunitySection
-  - NewsletterSection
-  - BiophilicFooter
+- The new homepage (`app/page.tsx`) uses components from the `app/components/homepage/` directory
+- **BiophilicFooter.tsx** is used in multiple pages including profile, login, upload, and food plugin privacy pages

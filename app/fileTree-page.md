@@ -4,36 +4,34 @@ The root page (`app/page.tsx`) is the homepage of the application.
 
 ## Files
 
-- **page.tsx** - Homepage component that renders the main sections of the website
+- **page.tsx** - Homepage component that renders the main sections of the website using the new homepage components
 
 ## Component Usage
 
-The homepage imports and uses:
-- `ChinawordsNavigation` from './components/ChinawordsNavigation'
-- `HeroSection` from './components/HeroSection'
-- `InitiativesSection` from './components/InitiativesSection'
-- `SustainabilitySection` from './components/SustainabilitySection'
-- `CommunitySection` from './components/CommunitySection'
-- `NewsletterSection` from './components/NewsletterSection'
-- `BiophilicFooter` from './components/BiophilicFooter'
+The homepage imports and uses components from the `./components/homepage/` directory:
+- `NewHomePage_Hero` - Hero section with navigation
+- `NewHomePage_BasicThemes` - Basic themes section (衣食住行)
+- `NewHomePage_AdvancedThemes` - Advanced themes section (用育康乐)
+- `NewHomePage_CityGallery` - City gallery with image showcase
+- `NewHomePage_FoodGallery` - Food gallery with image showcase
+- `NewHomePage_Records` - Statistics and records section
+- `NewHomePage_Activities` - Activities and events section
+- `NewHomePage_NewsletterBio` - Newsletter subscription and bio section
 
 Data for these components is imported from './data/environmentalData':
-- `navigationLinks` - Navigation links for the header
 - `heroData` - Data for the hero section
-- `initiativesData` - Data for the initiatives section
-- `sustainabilityData` - Data for the sustainability section
-- `communityData` - Data for the community section
-- `newsletterData` - Data for the newsletter section
-- `footerData` - Data for the footer
+- `initiativesData` - Data for the themes sections
 
 ## Structure
 
 The homepage is structured as follows:
-1. Navigation header
-2. Main content sections:
-   - Hero section with background image and call-to-action buttons
-   - Initiatives section with cards for different initiatives
-   - Sustainability section with metrics and description
-   - Community section with upcoming events
-   - Newsletter subscription section
-3. Footer with links and social media icons
+1. Fixed background image with gradient overlay
+2. Scrollable container with sections:
+   - Hero section with navigation
+   - Basic themes section (衣食住行)
+   - Advanced themes section (用育康乐)
+   - City gallery with image showcase and refresh functionality
+   - Food gallery with image showcase and refresh functionality
+   - Records section with statistics
+   - Activities section with events
+   - Newsletter and bio section with footer links
