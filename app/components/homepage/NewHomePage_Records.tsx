@@ -77,7 +77,7 @@ const NewHomePage_Records: React.FC<NewHomePageRecordsProps> = ({ registerSectio
 
           <div className="text-center">
             <a
-              href="/progress"
+              href="/impact"
               className="inline-block border border-[#C20F1E] text-[#C20F1E] hover:bg-[#C20F1E] hover:text-white px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
             >
               了解我们的影响力

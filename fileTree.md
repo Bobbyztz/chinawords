@@ -50,7 +50,7 @@ See **config.fileTree.md** for detailed documentation on configuration files.
 - **config.fileTree.md** - Documentation for configuration files
 - **todoList.md** - Project implementation plan and task tracking
 - **全栈逐步实现路线图：Next .js (App Router) + Prisma + Vercel Postgres.md** - Implementation roadmap
-- **初级MVP数据结构设计.md** - MVP data structure design
+- **初级 MVP 数据结构设计.md** - MVP data structure design
 - **PRIVACY.md** - Privacy policy
 
 ## Main Application Structure
