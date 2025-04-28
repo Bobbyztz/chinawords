@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import ChinawordsNavigation from '../components/ChinawordsNavigation';
-import BiophilicFooter from '../components/BiophilicFooter';
-import { navigationLinks, footerData } from '../data/environmentalData';
+import ContentPageLayout from '../components/ContentPageLayout';
 
 export default function UploadPage() {
   const { status } = useSession();
@@ -79,128 +77,125 @@ export default function UploadPage() {
       </div>
     );
   }
+  
+  // 创建上传表单内容
+  const uploadFormContent = (
+    <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm rounded-lg p-8 shadow-lg border border-gray-200">
+      <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-center">上传内容</h1>
 
-  return (
-    <div className="min-h-screen flex flex-col texture-subtle">
-      <ChinawordsNavigation links={navigationLinks} />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {error && (
+          <div className="bg-red-100 border border-red-300 text-red-800 font-medium px-4 py-3 rounded-md text-sm">
+            {error}
+          </div>
+        )}
 
-      <main className="flex-grow py-20 mt-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm rounded-lg p-8 shadow-lg border border-gray-200">
-            <h1 className="text-3xl md:text-4xl font-bold mb-8 font-serif-sc text-center">上传内容</h1>
+        {message && (
+          <div className="bg-green-100 border border-green-300 text-green-800 font-medium px-4 py-3 rounded-md text-sm">
+            {message}
+          </div>
+        )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {error && (
-                <div className="bg-red-100 border border-red-300 text-red-800 font-medium px-4 py-3 rounded-md text-sm">
-                  {error}
-                </div>
-              )}
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-1">
+            标题
+          </label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
+            placeholder="请输入内容标题"
+            disabled={isUploading}
+          />
+        </div>
 
-              {message && (
-                <div className="bg-green-100 border border-green-300 text-green-800 font-medium px-4 py-3 rounded-md text-sm">
-                  {message}
-                </div>
-              )}
+        <div>
+          <label htmlFor="prompt" className="block text-sm font-medium text-gray-900 mb-1">
+            描述（可选）
+          </label>
+          <textarea
+            id="prompt"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
+            placeholder="请输入内容描述"
+            rows={4}
+            disabled={isUploading}
+          />
+        </div>
 
-              <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-1">
-                  标题
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
-                  placeholder="请输入内容标题"
-                  disabled={isUploading}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="prompt" className="block text-sm font-medium text-gray-900 mb-1">
-                  描述（可选）
-                </label>
-                <textarea
-                  id="prompt"
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
-                  placeholder="请输入内容描述"
-                  rows={4}
-                  disabled={isUploading}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-1">
-                  内容类型
-                </label>
-                <div className="flex space-x-4">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      className="form-radio text-jade-green"
-                      name="mediaType"
-                      checked={mediaType === 0}
-                      onChange={() => setMediaType(0)}
-                      disabled={isUploading}
-                    />
-                    <span className="ml-2">图片</span>
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      className="form-radio text-jade-green"
-                      name="mediaType"
-                      checked={mediaType === 1}
-                      onChange={() => setMediaType(1)}
-                      disabled={isUploading}
-                    />
-                    <span className="ml-2">视频</span>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="file-upload" className="block text-sm font-medium text-gray-900 mb-1">
-                  上传文件
-                </label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept={mediaType === 0 ? "image/*" : "video/*"}
-                  onChange={handleFileChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
-                  disabled={isUploading}
-                />
-                <p className="mt-1 text-sm text-gray-500">
-                  {mediaType === 0 ? "支持的格式: JPG, PNG, GIF, WebP" : "支持的格式: MP4, WebM"}
-                </p>
-              </div>
-
-              <button
-                type="submit"
+        <div>
+          <label className="block text-sm font-medium text-gray-900 mb-1">
+            内容类型
+          </label>
+          <div className="flex space-x-4">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                className="form-radio text-jade-green"
+                name="mediaType"
+                checked={mediaType === 0}
+                onChange={() => setMediaType(0)}
                 disabled={isUploading}
-                className="auth-button"
-              >
-                {isUploading ? '上传中...' : '上传'}
-              </button>
-
-              <div className="text-center text-gray-500 text-sm mt-4">
-                <p>注意：此功能目前仅作演示，实际上传功能尚未实现</p>
-                <p>上传内容需遵守相关法律法规和平台规定</p>
-              </div>
-            </form>
+              />
+              <span className="ml-2">图片</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                className="form-radio text-jade-green"
+                name="mediaType"
+                checked={mediaType === 1}
+                onChange={() => setMediaType(1)}
+                disabled={isUploading}
+              />
+              <span className="ml-2">视频</span>
+            </label>
           </div>
         </div>
-      </main>
 
-      <BiophilicFooter
-        description={footerData.description}
-        columns={footerData.columns}
-        socialLinks={footerData.socialLinks}
-      />
+        <div>
+          <label htmlFor="file-upload" className="block text-sm font-medium text-gray-900 mb-1">
+            上传文件
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept={mediaType === 0 ? "image/*" : "video/*"}
+            onChange={handleFileChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-jade-green/50 focus:border-jade-green text-gray-900"
+            disabled={isUploading}
+          />
+          <p className="mt-1 text-sm text-gray-500">
+            {mediaType === 0 ? "支持的格式: JPG, PNG, GIF, WebP" : "支持的格式: MP4, WebM"}
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isUploading}
+          className="auth-button"
+        >
+          {isUploading ? '上传中...' : '上传'}
+        </button>
+
+        <div className="text-center text-gray-500 text-sm mt-4">
+          <p>注意：此功能目前仅作演示，实际上传功能尚未实现</p>
+          <p>上传内容需遵守相关法律法规和平台规定</p>
+        </div>
+      </form>
     </div>
   );
+  
+  // 定义页面标签
+  const tabs = [
+    {
+      title: "上传内容",
+      content: uploadFormContent
+    }
+  ];
+
+  return <ContentPageLayout tabs={tabs} />;
 }
