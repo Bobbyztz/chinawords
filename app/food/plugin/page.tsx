@@ -227,7 +227,7 @@ const DownloadAndRating = () => {
       </h2>
       <div className="text-gray-800 space-y-4 leading-relaxed">
         <p>
-          "Eat me!" 浏览器插件目前处于内测阶段，我们正在不断完善功能和用户体验。您可以通过以下方式获取插件：
+          &quot;Eat me!&quot; 浏览器插件目前处于内测阶段，我们正在不断完善功能和用户体验。您可以通过以下方式获取插件：
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 my-8">
@@ -238,8 +238,8 @@ const DownloadAndRating = () => {
               <li>下载插件压缩包（<a href="#" className="text-jade-green hover:underline">点击下载</a>）</li>
               <li>解压到本地文件夹</li>
               <li>打开 Chrome 浏览器，进入扩展程序页面</li>
-              <li>开启"开发者模式"</li>
-              <li>点击"加载已解压的扩展程序"</li>
+              <li>开启&quot;开发者模式&quot;</li>
+              <li>点击&quot;加载已解压的扩展程序&quot;</li>
               <li>选择解压后的文件夹</li>
             </ol>
           </div>
@@ -251,8 +251,8 @@ const DownloadAndRating = () => {
               <li>下载插件压缩包（<a href="#" className="text-jade-green hover:underline">点击下载</a>）</li>
               <li>解压到本地文件夹</li>
               <li>打开 Edge 浏览器，进入扩展程序页面</li>
-              <li>开启"开发者模式"</li>
-              <li>点击"加载已解压的扩展程序"</li>
+              <li>开启&quot;开发者模式&quot;</li>
+              <li>点击&quot;加载已解压的扩展程序&quot;</li>
               <li>选择解压后的文件夹</li>
             </ol>
           </div>
