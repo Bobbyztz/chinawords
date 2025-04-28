@@ -12,6 +12,24 @@ This document provides an overview of the project structure for the Chinawords w
 - **node_modules/** - External dependencies (not tracked in version control)
 - **.next/** - Build output directory (not tracked in version control)
 
+## Page Structure and Components
+
+### Unified Page Layout System
+
+The project uses a standardized layout system for non-homepage pages:
+
+- **ContentPageLayout** - A reusable layout component that provides a consistent structure for content pages with tabs
+- **getUnderConstructionTabs** - A helper function that generates standard placeholder tabs for pages under construction
+
+This unified approach ensures consistent user experience across the site and simplifies the creation of new pages.
+
+### Page Types
+
+- **Homepage** (`/app/page.tsx`) - Custom layout with multiple sections
+- **Content Pages** - Use the `ContentPageLayout` component with customized tabs
+- **Under Construction Pages** - Use `ContentPageLayout` with `getUnderConstructionTabs`
+- **Authentication Pages** - Custom layouts for login and registration
+
 ## Configuration Files
 
 - **.env** - Environment variables for local development (see .env.fileTree.md for documentation)
