@@ -156,32 +156,32 @@ const NewHomePage_NewsletterBio: React.FC<NewHomePageNewsletterBioProps> = ({
                   <ul className="space-y-2 text-xs">
                     <li>
                       <a
-                        href="/under-construction"
-                        className="text-gray-600 hover:text-[#9C4A31] transition-colors duration-300"
+                        href="/tech"
+                        className="text-gray-600 hover:text-[#2E8B57] transition-colors duration-300"
                       >
                         用·科技工具
                       </a>
                     </li>
                     <li>
                       <a
-                        href="/under-construction"
-                        className="text-gray-600 hover:text-[#9C4A31] transition-colors duration-300"
+                        href="/education"
+                        className="text-gray-600 hover:text-[#2E8B57] transition-colors duration-300"
                       >
                         育·教育发展
                       </a>
                     </li>
                     <li>
                       <a
-                        href="/under-construction"
-                        className="text-gray-600 hover:text-[#9C4A31] transition-colors duration-300"
+                        href="/health"
+                        className="text-gray-600 hover:text-[#2E8B57] transition-colors duration-300"
                       >
                         康·健康福祉
                       </a>
                     </li>
                     <li>
                       <a
-                        href="/under-construction"
-                        className="text-gray-600 hover:text-[#9C4A31] transition-colors duration-300"
+                        href="/entertainment"
+                        className="text-gray-600 hover:text-[#2E8B57] transition-colors duration-300"
                       >
                         乐·休闲娱乐
                       </a>

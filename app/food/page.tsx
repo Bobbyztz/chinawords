@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import ChinawordsNavigation from "../components/ChinawordsNavigation";
-import TabComponent from "../components/TabComponent";
-import { navigationLinks, heroData } from "../data/environmentalData";
+import ContentPageLayout from "../components/ContentPageLayout";
 import FoodImageWall from "./components/FoodImageWall";
 import FoodPlugin from "./components/FoodPlugin";
 import FeedbackSuggestions from "./components/FeedbackSuggestions";
@@ -16,8 +13,8 @@ const RegionalCuisines = () => {
 };
 
 export default function FoodPage() {
-  // Define the new tab structure
-  const tabs = [
+  // Define the tab structure
+  const foodTabs = [
     {
       title: "图片墙总览",
       content: <FoodImageWall />,
@@ -54,33 +51,5 @@ export default function FoodPage() {
     },
   ];
 
-  return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Fixed background image - same as homepage */}
-      <div className="fixed inset-0 z-0">
-        <Image
-          src={heroData.backgroundImage}
-          alt="Background"
-          fill
-          priority
-          className="object-cover"
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black opacity-70"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <ChinawordsNavigation links={navigationLinks} />
-
-        <main className="flex-grow flex flex-col">
-          <div className="flex flex-col flex-grow">
-            <div className="flex flex-col gap-y-6 flex-grow">
-              <TabComponent tabs={tabs} />
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  );
+  return <ContentPageLayout tabs={foodTabs} />;
 }

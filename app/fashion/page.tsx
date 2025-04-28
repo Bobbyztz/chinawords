@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import UnderConstruction from '../components/UnderConstruction';
+import ContentPageLayout from '../components/ContentPageLayout';
+import { getUnderConstructionTabs } from '../components/UnderConstructionContent';
 
 export default function FashionPage() {
   return (
-    <UnderConstruction title="衣·时尚传承" />
+    <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );
 }

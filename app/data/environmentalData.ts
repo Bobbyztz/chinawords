@@ -67,7 +67,7 @@ export const initiativesData = {
       description: '数字技术改变生活方式',
       imageSrc: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=3820&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: '现代科技与数字工具',
-      link: '/under-construction',
+      link: '/tech',
       animationStyle: 'sway' as const
     },
     {
@@ -76,7 +76,7 @@ export const initiativesData = {
       description: '知识传承与个人成长',
       imageSrc: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=3822&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: '教育与知识传播',
-      link: '/under-construction',
+      link: '/education',
       animationStyle: 'ripple' as const
     },
     {
@@ -85,7 +85,7 @@ export const initiativesData = {
       description: '身心健康与生活品质',
       imageSrc: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: '健康生活与福祉',
-      link: '/under-construction',
+      link: '/health',
       animationStyle: 'none' as const
     },
     {
@@ -235,10 +235,10 @@ export const footerData = {
     {
       title: '进阶板块',
       links: [
-        { label: '用·科技工具', href: '/under-construction' },
-        { label: '育·教育发展', href: '/under-construction' },
-        { label: '康·健康福祉', href: '/under-construction' },
-        { label: '乐·休闲娱乐', href: '/under-construction' }
+        { label: '用·科技工具', href: '/tech' },
+        { label: '育·教育发展', href: '/education' },
+        { label: '康·健康福祉', href: '/health' },
+        { label: '乐·休闲娱乐', href: '/entertainment' }
       ]
     },
     {

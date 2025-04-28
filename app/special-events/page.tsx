@@ -4,13 +4,13 @@ import React from 'react';
 import ContentPageLayout from '../components/ContentPageLayout';
 import { getUnderConstructionTabs } from '../components/UnderConstructionContent';
 
-export default function ProgressPage() {
+export default function SpecialEventsPage() {
   // 使用通用的未建设完成标签
   const tabs = getUnderConstructionTabs();
   // 修改标签标题以反映页面内容
   const customTabs = tabs.map((tab, index) => ({
     ...tab,
-    title: index === 0 ? "项目进度" : `项目进度 ${index + 1}`
+    title: index === 0 ? "特别活动" : `特别活动 ${index + 1}`
   }));
   
   return (

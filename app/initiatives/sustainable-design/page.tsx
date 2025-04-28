@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import UnderConstruction from '../../components/UnderConstruction';
+import ContentPageLayout from '../../components/ContentPageLayout';
+import { getUnderConstructionTabs } from '../../components/UnderConstructionContent';
 
 export default function SustainableDesignPage() {
   return (
-    <UnderConstruction title="食·味蕾中国" />
+    <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );
 }

@@ -4,16 +4,19 @@ This directory contains the "省市·山河印象" (City and Landscape Impressio
 
 ## Files
 
-- **page.tsx** - City page component that renders the UnderConstruction component with title "省市·山河印象"
+- **page.tsx** - City page component that renders the ContentPageLayout component with placeholder tabs
 
 ## Component Usage
 
 The City page imports and uses:
-- `UnderConstruction` component from '../components/UnderConstruction'
+- `ContentPageLayout` component from '../components/ContentPageLayout'
+- `getUnderConstructionTabs` function from '../components/UnderConstructionContent'
 
 ## Related Components
 
-- **UnderConstruction.tsx** in `app/components/` - A placeholder component for pages that are under construction
+- **ContentPageLayout.tsx** in `app/components/` - Universal layout component for content pages with tabs, background image and navigation
+- **UnderConstructionContent.tsx** in `app/components/` - Helper function that provides placeholder tabs for pages under construction
+- **TabComponent.tsx** in `app/components/` - Used by ContentPageLayout to display content in tabs
 
 ## Navigation
 

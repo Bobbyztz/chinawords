@@ -15,16 +15,16 @@ This directory contains the Food page and its subpages.
 
 The Food page imports and uses:
 
-- `ChinawordsNavigation` from '../components/ChinawordsNavigation'
-- `TabComponent` from '../components/TabComponent'
+- `ContentPageLayout` from '../components/ContentPageLayout'
 - `FoodImageWall` from './components/FoodImageWall'
 - `FoodPlugin` from './components/FoodPlugin'
+- `FeedbackSuggestions` from './components/FeedbackSuggestions'
 
 ## Related Components
 
-- **TabComponent.tsx** in `app/components/` - A custom tab component that displays content in tabs with a curved tab interface, using hover to switch between tabs
-- **ChinawordsNavigation.tsx** in `app/components/` - The main navigation component
-- **BiophilicFooter.tsx** in `app/components/` - The footer component
+- **ContentPageLayout.tsx** in `app/components/` - Universal layout component for content pages with tabs, background image and navigation
+- **TabComponent.tsx** in `app/components/` - A custom tab component used by ContentPageLayout to display content in tabs with hover-to-switch functionality
+- **ChinawordsNavigation.tsx** in `app/components/` - The main navigation component used by ContentPageLayout
 
 ## Content Structure
 

@@ -44,7 +44,7 @@ Each of these directories represents a route in the application and contains a `
 - **travel/** - Travel page and subpages
 - **under-construction/** - Under Construction page for sections that are still in development
 
-Most pages currently use the `UnderConstruction` component from `app/components/UnderConstruction.tsx`, but the `/under-construction` route has its own custom implementation.
+Most pages now use the `StandardUnderConstruction` component from `app/components/StandardUnderConstruction.tsx` which provides a consistent style with tabs matching the food and plugin pages. The `/under-construction` route still has its own custom implementation.
 
 ## Main Page (page.tsx)
 

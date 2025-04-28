@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import UnderConstruction from '../components/UnderConstruction';
+import ContentPageLayout from '../components/ContentPageLayout';
+import { getUnderConstructionTabs } from '../components/UnderConstructionContent';
 
 export default function EventsPage() {
   return (
-    <UnderConstruction title="活动日历" />
+    <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );
 }

@@ -10,8 +10,9 @@ This directory contains the Living page and its subpages.
 ## Component Usage
 
 The Living page imports and uses:
-- `UnderConstruction` component from '../components/UnderConstruction'
+- `StandardUnderConstruction` component from '../components/StandardUnderConstruction'
 
 ## Related Components
 
-- **UnderConstruction.tsx** in `app/components/` - A placeholder component for pages that are under construction
+- **StandardUnderConstruction.tsx** in `app/components/` - A standardized component for pages that are under construction, with tabs and matching style to food/plugin pages
+- **TabComponent.tsx** in `app/components/` - Used by StandardUnderConstruction to display content in tabs

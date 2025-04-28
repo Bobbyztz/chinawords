@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import UnderConstruction from '../components/UnderConstruction';
+import ContentPageLayout from '../components/ContentPageLayout';
+import { getUnderConstructionTabs } from '../components/UnderConstructionContent';
 
 export default function TermsPage() {
   return (
-    <UnderConstruction title="服务条款" />
+    <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );
 }

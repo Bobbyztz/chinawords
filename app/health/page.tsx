@@ -4,7 +4,7 @@ import React from 'react';
 import ContentPageLayout from '../components/ContentPageLayout';
 import { getUnderConstructionTabs } from '../components/UnderConstructionContent';
 
-export default function TravelPage() {
+export default function HealthPage() {
   return (
     <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );

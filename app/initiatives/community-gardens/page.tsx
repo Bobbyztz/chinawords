@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import UnderConstruction from '../../components/UnderConstruction';
+import ContentPageLayout from '../../components/ContentPageLayout';
+import { getUnderConstructionTabs } from '../../components/UnderConstructionContent';
 
 export default function CommunityGardensPage() {
   return (
-    <UnderConstruction title="住·空间美学" />
+    <ContentPageLayout tabs={getUnderConstructionTabs()} />
   );
 }
