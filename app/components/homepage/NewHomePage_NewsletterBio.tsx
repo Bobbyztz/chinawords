@@ -15,7 +15,7 @@ const NewHomePage_NewsletterBio: React.FC<NewHomePageNewsletterBioProps> = ({
     >
       <div className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
         <div className="h-full p-6">
-          <div className="max-w-xl mt-10 mx-auto">
+          <div className="max-w-xl mt-16 mx-auto">
             {/* Newsletter Section - 墨绿色主题 */}
             <div className="bg-transparent rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
               <div className="p-6">
