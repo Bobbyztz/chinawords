@@ -15,16 +15,10 @@ const NewHomePage_NewsletterBio: React.FC<NewHomePageNewsletterBioProps> = ({ re
         <div className="h-full p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Newsletter Section - 墨绿色主题 */}
-            <div className="border-t-4 border-[#2E8B57] bg-white/40 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-[#2E8B57]/10 rounded-full flex items-center justify-center mr-4">
-                  <svg className="w-6 h-6 text-[#2E8B57]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
+            <div className="border-x border-[#2E8B57] bg-transparent rounded-lg p-6 hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center pl-1 mb-6">
                 <div>
                   <h2 className="text-2xl font-bold font-serif-sc text-[#2E8B57]">订阅我们的通讯</h2>
-                  <p className="text-gray-600 text-sm mt-1">获取最新的中国文化与生活方式资讯</p>
                 </div>
               </div>
 
@@ -58,16 +52,10 @@ const NewHomePage_NewsletterBio: React.FC<NewHomePageNewsletterBioProps> = ({ re
             </div>
 
             {/* About Us Section - 砖红色主题 */}
-            <div className="border-t-4 border-[#9C4A31] bg-white/40 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-[#9C4A31]/10 rounded-full flex items-center justify-center mr-4">
-                  <svg className="w-6 h-6 text-[#9C4A31]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                </div>
+            <div className=" border-x border-[#9C4A31] bg-transparent rounded-lg p-6 hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center pl-1 mb-6">
                 <div>
                   <h2 className="text-2xl font-bold font-serif-sc text-[#9C4A31]">关于我们</h2>
-                  <p className="text-gray-600 text-sm mt-1">Chinawords致力于记录和分享当代中国的文化</p>
                 </div>
               </div>
 
