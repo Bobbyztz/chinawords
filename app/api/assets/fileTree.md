@@ -9,6 +9,7 @@ This directory contains API routes for managing digital assets (images, videos, 
 ## Purpose
 
 This API route provides endpoints for:
+
 1. Retrieving a list of all assets in the system
 2. Creating new assets with metadata and file references
 
@@ -89,6 +90,7 @@ Creates a new asset in the system.
 ## Usage
 
 These endpoints are used by:
+
 - The upload page to create new assets
 - The profile page to display user's assets
 - Gallery pages to display collections of assets
