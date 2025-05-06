@@ -136,8 +136,8 @@ const FeedbackSuggestions: React.FC = () => {
       style={{ minHeight: "calc(90vh - 100px)" }}
     >
       {/* 介绍文字 */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-lg p-6 shadow-lg mb-8 border border-gray-100">
-        <p className="text-md font-medium leading-relaxed text-gray-800">
+      <div className="rounded-lg p-6 shadow-sm mb-8">
+        <p className="text-md font-medium  leading-relaxed text-gray-800">
           我们非常重视您的反馈和建议。在这里，您可以查看当前的项目进展，提出新的建议，或者为您喜欢的建议投票。您的参与将帮助我们不断改进和完善网站内容。
         </p>
       </div>
