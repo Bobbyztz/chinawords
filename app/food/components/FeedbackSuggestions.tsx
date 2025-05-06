@@ -17,13 +17,22 @@ const FeedbackSuggestions: React.FC = () => {
     { id: "2", content: "添加传统节日食品专题", votes: 12 },
     { id: "3", content: "提供食材营养成分对比", votes: 8 },
   ]);
-  
-  const [inProgressSuggestions, setInProgressSuggestions] = useState<Suggestion[]>([
-    { id: "4", content: "完善八大菜系的筛选功能", votes: 23, team: "前端开发组" },
+
+  const [inProgressSuggestions, setInProgressSuggestions] = useState<
+    Suggestion[]
+  >([
+    {
+      id: "4",
+      content: "完善八大菜系的筛选功能",
+      votes: 23,
+      team: "前端开发组",
+    },
     { id: "5", content: "优化图片加载速度", votes: 18, team: "性能优化组" },
   ]);
-  
-  const [completedSuggestions, setCompletedSuggestions] = useState<Suggestion[]>([
+
+  const [completedSuggestions, setCompletedSuggestions] = useState<
+    Suggestion[]
+  >([
     { id: "6", content: "修复移动端导航栏显示问题", votes: 7, team: "UI/UX组" },
     { id: "7", content: "添加食品图片墙功能", votes: 31, team: "内容组" },
   ]);
@@ -35,20 +44,23 @@ const FeedbackSuggestions: React.FC = () => {
   // Handle adding a new suggestion
   const handleAddSuggestion = () => {
     if (newSuggestion.trim() === "") return;
-    
+
     const suggestion: Suggestion = {
       id: Date.now().toString(), // Simple unique ID
       content: newSuggestion,
       votes: 0,
     };
-    
+
     setTodoSuggestions([...todoSuggestions, suggestion]);
     setNewSuggestion("");
     setShowInput(false);
   };
 
   // Handle upvoting a suggestion
-  const handleUpvote = (id: string, column: "todo" | "inProgress" | "completed") => {
+  const handleUpvote = (
+    id: string,
+    column: "todo" | "inProgress" | "completed"
+  ) => {
     if (column === "todo") {
       setTodoSuggestions(
         todoSuggestions.map((suggestion) =>
@@ -85,42 +97,44 @@ const FeedbackSuggestions: React.FC = () => {
       key={suggestion.id}
       className="bg-white rounded-lg shadow-sm p-4 mb-3 flex items-start"
     >
-      <div 
+      <div
         className="flex-shrink-0 w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center mr-3 cursor-pointer group relative"
         onClick={() => handleUpvote(suggestion.id, column)}
       >
         <span className="text-gray-700 font-medium">{suggestion.votes}</span>
         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-5 w-5 text-jade-green" 
-            fill="none" 
-            viewBox="0 0 24 24" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-jade-green"
+            fill="none"
+            viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 15l7-7 7 7"
+            />
           </svg>
         </div>
       </div>
       <div className="flex-grow">
         <p className="text-gray-800">{suggestion.content}</p>
         {suggestion.team && (
-          <p className="text-sm text-jade-green mt-1">负责团队: {suggestion.team}</p>
+          <p className="text-sm text-jade-green mt-1">
+            负责团队: {suggestion.team}
+          </p>
         )}
       </div>
     </div>
   );
 
   return (
-    <div className="w-full overflow-y-auto bg-white/50 backdrop-blur-sm rounded-lg max-w-6xl mx-auto px-4 py-8 font-sans-sc" style={{ minHeight: "calc(90vh - 100px)" }}>
-      {/* 标题区域 */}
-      <div className="text-center mb-8 relative">
-        <div className="absolute left-0 right-0 top-1/2 border-t border-gray-300 -z-10"></div>
-        <h1 className="inline-block bg-white px-8 text-4xl font-bold font-serif-sc text-film-red relative z-10">
-          意见与建议
-        </h1>
-      </div>
-
+    <div
+      className="w-full overflow-y-auto  rounded-lg max-w-6xl mx-auto px-4 py-8 font-sans-sc"
+      style={{ minHeight: "calc(90vh - 100px)" }}
+    >
       {/* 介绍文字 */}
       <div className="bg-white/90 backdrop-blur-sm rounded-lg p-6 shadow-lg mb-8 border border-gray-100">
         <p className="text-md font-medium leading-relaxed text-gray-800">
@@ -214,7 +228,9 @@ const FeedbackSuggestions: React.FC = () => {
       {/* 说明文字 */}
       <div className="mt-8 text-center text-gray-500 text-sm">
         <p>点击建议左侧的数字可以为该建议投票，表示您支持这个建议</p>
-        <p className="mt-1">目前所有功能均为前端实现，后续将接入数据库实现数据持久化</p>
+        <p className="mt-1">
+          目前所有功能均为前端实现，后续将接入数据库实现数据持久化
+        </p>
       </div>
     </div>
   );
