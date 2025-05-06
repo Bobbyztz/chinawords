@@ -185,7 +185,7 @@ const FoodImageWall: React.FC = () => {
                       />
                     </div>
                     {/* Image Title */}
-                    <div className="mt-2 text-center text-sm font-medium">
+                    <div className="mt-1 mb-0.5 text-center text-xs font-medium">
                       {image.alt}
                     </div>
                   </div>
@@ -212,7 +212,7 @@ const FoodImageWall: React.FC = () => {
         .image-card {
           position: relative;
           background-color: white;
-          padding: 8px;
+          padding: 0 0 1px 0;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           margin-bottom: 20px;
           transition: all 0.3s ease;
@@ -240,9 +240,8 @@ const FoodImageWall: React.FC = () => {
         }
 
         .hover-frame-effect:hover {
-          background-color: #f8f4e6;
-          border: 1px solid #8b4513;
-          padding: 10px;
+          background-color: rgb(253, 251, 245);
+          border: 1px solid rgb(189, 144, 112);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
