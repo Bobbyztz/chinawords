@@ -29,13 +29,15 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
           {tabs.map((tab, index) => (
             <li
               key={index}
-              className="text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0"
+              className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${
+                activeTab === index ? "md:rounded-r-lg" : ""
+              }`}
               onMouseEnter={() => setActiveTab(index)}
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
               <span
                 className={`inline-block px-2 text-sm ${
-                  activeTab === index ? "font-bold" : ""
+                  activeTab === index ? "font-bold text-[#2e8b57]" : ""
                 }`}
               >
                 {tab.title}
@@ -47,47 +49,11 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
       {/* Tab Content */}
       <div
-        className="relative flex-grow bg-white shadow-md px-2 w-full flex flex-col"
+        className="relative flex-grow bg-white/20 backdrop-blur-md shadow-md border-x border-gray-300 rounded-md px-2 w-full flex flex-col"
         style={{ minHeight: "90vh" }}
       >
-        {/* Status indicators - curved background for active tab - Hidden on mobile */}
-        <ul className="absolute left-[-160px] top-0 w-40 hidden md:block">
-          {tabs.map((_, index) => (
-            <li
-              key={index}
-              className="relative w-40 h-9 rounded-l-lg bg-white transition-opacity duration-300"
-              style={{
-                opacity: activeTab === index ? 1 : 0,
-                pointerEvents: "none", // Prevent interference with hover events
-              }}
-            >
-              {/* Top curved corner */}
-              {index !== 0 && (
-                <div
-                  className="absolute right-0 top-[-20px] w-5 h-5"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 0 0, transparent, transparent 19.5px, #fff 20px, #fff)",
-                  }}
-                ></div>
-              )}
-
-              {/* Bottom curved corner */}
-              <div
-                className="absolute right-0 bottom-[-20px] w-5 h-5"
-                style={{
-                  background:
-                    "radial-gradient(circle at 0 100%, transparent, transparent 19.5px, #fff 20px, #fff)",
-                }}
-              ></div>
-            </li>
-          ))}
-        </ul>
-
         {/* Content area with smooth transitions */}
-        <div
-          className="relative overflow-y-auto flex-grow flex flex-col"
-        >
+        <div className="relative overflow-y-auto flex-grow flex flex-col">
           {tabs.map((tab, index) => (
             <div
               key={index}

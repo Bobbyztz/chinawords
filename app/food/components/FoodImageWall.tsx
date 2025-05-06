@@ -117,7 +117,7 @@ const FoodImageWall: React.FC = () => {
       ) : (
         <div className="space-y-8 pb-8 h-full">
           {/* 八大菜系按钮 - 纯文字版 */}
-          <div className="mb-4 bg-white/80 backdrop-blur-sm py-2 sticky top-0 z-10 w-auto">
+          <div className="mb-4 backdrop-blur-sm  py-2 sticky top-0 z-10 w-auto">
             <div className="flex items-center justify-between px-4 w-full">
               {/* 左侧容器：搜索框和菜系选择 */}
               <div className="flex items-center space-x-8">
@@ -139,7 +139,7 @@ const FoodImageWall: React.FC = () => {
                       onClick={() => setSelectedCuisine(cuisine.id)}
                       className={`cursor-pointer text-sm transition-colors duration-300 py-0 ${
                         selectedCuisine === cuisine.id
-                          ? "border-b-2 border-[#2e8b57] text-[#2e8b57] font-bold"
+                          ? "text-[#2e8b57] bg-white/20 backdrop-blur-md"
                           : "text-gray-700 hover:text-[#2e8b57]"
                       }`}
                     >
