@@ -32,7 +32,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${
                 activeTab === index ? "md:rounded-r-lg" : ""
               }`}
-              onMouseEnter={() => setActiveTab(index)}
+              onClick={() => setActiveTab(index)}
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
               <span
