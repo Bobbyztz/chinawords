@@ -110,6 +110,48 @@ const FoodImageWall: React.FC = () => {
       className="w-full overflow-y-auto h-full"
       style={{ minHeight: "calc(90vh - 100px)" }}
     >
+      <div className="mb-4 backdrop-blur-sm  py-2 sticky top-0 z-10 w-auto">
+        <div className="flex items-center justify-between px-4 w-full">
+          {/* 左侧容器：搜索框和菜系选择 */}
+          <div className="flex items-center space-x-8">
+            {/* 搜索框 - 左边 */}
+            <div className="inline-flex items-center border-b-2 border-[#2e8b57] pb-0">
+              <Search className="h-5 w-5 text-[#2e8b57] mr-2" />
+              <input
+                type="text"
+                className="outline-none text-sm bg-transparent w-96"
+                placeholder="搜索美食..."
+              />
+            </div>
+
+            {/* 八大菜系 - 中间 */}
+            <div className="flex items-center space-x-3 pl-24">
+              {chineseCuisines.map((cuisine) => (
+                <span
+                  key={cuisine.id}
+                  onClick={() => setSelectedCuisine(cuisine.id)}
+                  className={`cursor-pointer text-sm transition-colors duration-300 py-0 ${
+                    selectedCuisine === cuisine.id
+                      ? "text-[#2e8b57] bg-white/20 backdrop-blur-md"
+                      : "text-gray-700 hover:text-[#2e8b57]"
+                  }`}
+                >
+                  {cuisine.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 上传按钮 - 右侧 */}
+          <div className="ml-auto">
+            <button className="upload-button flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs">
+              <Plus className="h-3 w-3" />
+              <span>上传资料</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-jade-green"></div>
@@ -117,47 +159,6 @@ const FoodImageWall: React.FC = () => {
       ) : (
         <div className="space-y-8 pb-8 h-full">
           {/* 八大菜系按钮 - 纯文字版 */}
-          <div className="mb-4 backdrop-blur-sm  py-2 sticky top-0 z-10 w-auto">
-            <div className="flex items-center justify-between px-4 w-full">
-              {/* 左侧容器：搜索框和菜系选择 */}
-              <div className="flex items-center space-x-8">
-                {/* 搜索框 - 左边 */}
-                <div className="inline-flex items-center border-b-2 border-[#2e8b57] pb-0">
-                  <Search className="h-5 w-5 text-[#2e8b57] mr-2" />
-                  <input
-                    type="text"
-                    className="outline-none text-sm bg-transparent w-96"
-                    placeholder="搜索美食..."
-                  />
-                </div>
-
-                {/* 八大菜系 - 中间 */}
-                <div className="flex items-center space-x-3 pl-24">
-                  {chineseCuisines.map((cuisine) => (
-                    <span
-                      key={cuisine.id}
-                      onClick={() => setSelectedCuisine(cuisine.id)}
-                      className={`cursor-pointer text-sm transition-colors duration-300 py-0 ${
-                        selectedCuisine === cuisine.id
-                          ? "text-[#2e8b57] bg-white/20 backdrop-blur-md"
-                          : "text-gray-700 hover:text-[#2e8b57]"
-                      }`}
-                    >
-                      {cuisine.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* 上传按钮 - 右侧 */}
-              <div className="ml-auto">
-                <button className="upload-button flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs">
-                  <Plus className="h-3 w-3" />
-                  <span>上传资料</span>
-                </button>
-              </div>
-            </div>
-          </div>
 
           {/* 显示图片，确保填充可用空间 */}
           {images.length > 0 ? (
