@@ -70,7 +70,7 @@ const NewHomePage_Hero: React.FC<NewHomePageHeroProps> = ({
                 {heroData.secondaryCtaText && heroData.secondaryCtaLink && (
                   <a
                     href={heroData.secondaryCtaLink}
-                    className="bg-transparent border border-[#A00D19] text-[#A00D19] hover:bg-[#A00D19] hover:text-white px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
+                    className="bg-transparent border border-[#A00D19] text-[#A00D19] px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
                   >
                     {heroData.secondaryCtaText}
                   </a>
