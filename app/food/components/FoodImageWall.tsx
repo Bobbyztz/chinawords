@@ -185,7 +185,7 @@ const FoodImageWall: React.FC = () => {
                       />
                     </div>
                     {/* Image Title */}
-                    <div className="mt-1 mb-0.5 text-center text-xs font-medium">
+                    <div className="mt-1 mb-0.5 text-center text-xs md:text-sm lg:text-sm font-medium">
                       {image.alt}
                     </div>
                   </div>
