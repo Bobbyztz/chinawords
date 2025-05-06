@@ -202,7 +202,11 @@ const FoodImageWall: React.FC = () => {
 
       <style jsx>{`
         :root {
-          --color-jade-green-dark: #1a6840; /* 深翡翠绿色，用于hover和focus状态 */
+          --color-jade-green-dark: rgb(
+            94,
+            167,
+            100
+          ); /* 深翡翠绿色，用于hover和focus状态 */
         }
 
         .image-card {
