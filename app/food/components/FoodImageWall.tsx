@@ -229,10 +229,6 @@ const FoodImageWall: React.FC = () => {
           }
         }
 
-        .image-card:hover {
-          transform: translateY(-5px);
-        }
-
         /* Hover frame effect */
         .hover-frame-effect {
           position: relative;
@@ -243,16 +239,6 @@ const FoodImageWall: React.FC = () => {
           border: 1px solid #8b4513;
           padding: 10px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .frame-corners {
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .hover-frame-effect:hover .frame-corners {
-          opacity: 1;
         }
 
         .corner {
