@@ -49,7 +49,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
 
       {/* Tab Content */}
       <div
-        className="relative flex-grow bg-white/20 backdrop-blur-md shadow-md border-x border-gray-300 rounded-md px-2 w-full flex flex-col"
+        className="relative flex-grow bg-white/20 backdrop-blur-md shadow-md  border-gray-300 rounded-md px-2 w-full flex flex-col"
         style={{ minHeight: "90vh" }}
       >
         {/* Content area with smooth transitions */}
