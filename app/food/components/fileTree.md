@@ -4,9 +4,13 @@ This directory contains components specific to the Food page.
 
 ## Files
 
-- **FoodImageWall.tsx** - Component that displays a grid of food images from different Chinese cities with filtering by the eight major Chinese cuisine styles (八大菜系)
+- **FoodImageWall.tsx** - Main component that manages the state and layout for displaying food images with filtering by the eight major Chinese cuisine styles (八大菜系)
+- **FoodImageCard.tsx** - Reusable component for displaying individual food images with styling and hover effects
+- **FoodImageGrid.tsx** - Component that renders the grid of food images using the FoodImageCard component
+- **FoodImageStyles.tsx** - Component containing all the CSS styles for the food image display
 - **FoodPlugin.tsx** - React component for the browser plugin "Eat me!" section, including features, screenshots, and privacy information
 - **FeedbackSuggestions.tsx** - Component that displays a three-column layout for user suggestions and feedback, categorized as "待做" (To Do), "正在进行" (In Progress), and "已完成" (Completed)
+- **StyleDefinition.tsx** - Component that displays placeholder content for food traceability information ("食材溯源")
 
 ## Component Features
 

@@ -5,7 +5,7 @@ import ContentPageLayout from "../components/ContentPageLayout";
 import FoodImageWall from "./components/FoodImageWall";
 import FoodPlugin from "./components/FoodPlugin";
 import FeedbackSuggestions from "./components/FeedbackSuggestions";
-
+import StyleDefinition from "./components/StyleDefinition";
 // Placeholder component for regional cuisines with nested tabs
 const RegionalCuisines = () => {
   // 内容已清空，仅保留 tab 结构
@@ -18,6 +18,10 @@ export default function FoodPage() {
     {
       title: "图片墙总览",
       content: <FoodImageWall />,
+    },
+    {
+      title: "风格定义",
+      content: <StyleDefinition />,
     },
     {
       title: "地方菜系",

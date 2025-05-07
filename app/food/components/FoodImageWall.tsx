@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { Search, Plus } from "lucide-react";
+import FoodImageGrid from "./FoodImageGrid";
+import FoodImageStyles from "./FoodImageStyles";
 
 interface FoodImage {
   id: string;
@@ -130,7 +131,7 @@ const FoodImageWall: React.FC = () => {
                 <span
                   key={cuisine.id}
                   onClick={() => setSelectedCuisine(cuisine.id)}
-                  className={`cursor-pointer text-sm transition-colors duration-300 py-0 ${
+                  className={`cursor-pointer text-sm py-0 ${
                     selectedCuisine === cuisine.id
                       ? "text-[#2e8b57] bg-white/20 backdrop-blur-md"
                       : "text-gray-700 hover:text-[#2e8b57]"
@@ -152,192 +153,9 @@ const FoodImageWall: React.FC = () => {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-jade-green"></div>
-        </div>
-      ) : (
-        <div className="space-y-8 pb-8 h-full">
-          {/* 八大菜系按钮 - 纯文字版 */}
+      <FoodImageGrid images={images} isLoading={isLoading} />
 
-          {/* 显示图片，确保填充可用空间 */}
-          {images.length > 0 ? (
-            <div className="mt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {images.map((image, index) => (
-                  <div
-                    key={image.id}
-                    className="image-card relative group hover-frame-effect rounded-lg overflow-hidden cursor-pointer"
-                  >
-                    {/* Tape effect */}
-                    <div className="absolute top-[-10px] left-1/2 transform -translate-x-1/2 -rotate-3 w-10 h-8 bg-yellow-200/50 z-10 tape-top" />
-                    {/* Aspect ratio container for the image */}
-                    <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        layout="fill"
-                        objectFit="cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                        style={{ objectPosition: "center" }}
-                        loading="eager"
-                        priority={index < 8}
-                      />
-                    </div>
-                    {/* Image Title */}
-                    <div className="mt-1 mb-0.5 text-center text-xs md:text-sm lg:text-sm font-medium">
-                      {image.alt}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="flex justify-center items-center h-64">
-              <p className="text-gray-500">没有找到相关菜系的图片</p>
-            </div>
-          )}
-        </div>
-      )}
-
-      <style jsx>{`
-        :root {
-          --color-jade-green-dark: rgb(
-            94,
-            167,
-            100
-          ); /* 深翡翠绿色，用于hover和focus状态 */
-        }
-
-        .image-card {
-          position: relative;
-          background-color: white;
-          padding: 0 0 1px 0;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin-bottom: 20px;
-          transition: all 0.3s ease;
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          height: 100%;
-          animation: fadeIn 0.6s cubic-bezier(0.26, 0.53, 0.74, 1.48);
-        }
-
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        /* Hover frame effect */
-        .hover-frame-effect {
-          position: relative;
-        }
-
-        .hover-frame-effect:hover {
-          background-color: rgb(253, 251, 245);
-          border: 1px solid rgb(189, 144, 112);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .corner {
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          border: 2px solid #8b4513;
-          z-index: 1;
-        }
-
-        .corner-tl {
-          top: 4px;
-          left: 4px;
-          border-right: none;
-          border-bottom: none;
-        }
-
-        .corner-tr {
-          top: 4px;
-          right: 4px;
-          border-left: none;
-          border-bottom: none;
-        }
-
-        .corner-bl {
-          bottom: 4px;
-          left: 4px;
-          border-right: none;
-          border-top: none;
-        }
-
-        .corner-br {
-          bottom: 4px;
-          right: 4px;
-          border-left: none;
-          border-top: none;
-        }
-
-        .tape-top {
-          position: absolute;
-          top: -10px;
-          left: 50%;
-          transform: translateX(-50%) rotate(-5deg);
-          width: 40px;
-          height: 30px;
-          background-color: rgba(255, 255, 0, 0.5);
-          z-index: 2;
-          clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
-        }
-
-        .aspect-ratio-container {
-          position: relative;
-          width: 100%;
-          padding-bottom: 85%; /* Reduced from 100% to make images shorter */
-          overflow: hidden;
-          flex: 1;
-          min-height: 0; /* Important for flex containers */
-        }
-
-        /* 八大菜系文字样式 */
-        .flex span {
-          transition: all 0.3s ease;
-          position: relative;
-        }
-
-        .flex span:hover {
-          transform: translateY(-1px);
-          color: var(--color-jade-green);
-        }
-
-        .flex span:active {
-          transform: translateY(0);
-        }
-
-        /* 确保选中的菜系显示为翡翠绿色 */
-        .text-jade-green {
-          color: var(--color-jade-green) !important;
-        }
-
-        .border-jade-green {
-          border-color: var(--color-jade-green) !important;
-        }
-
-        /* 占位符样式 */
-        input::placeholder {
-          color: #999;
-          opacity: 0.7;
-        }
-
-        /* 上传按钮样式 */
-        .upload-button {
-          color: #2e8b57;
-          background-color: transparent;
-        }
-      `}</style>
+      <FoodImageStyles />
     </div>
   );
 };
