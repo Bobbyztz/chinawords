@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,11 +45,13 @@ export async function POST(req: NextRequest) {
     // Hash password
     const passwordHash = await hash(password, 10);
 
-    // Create user
+    // Create user with UUID
     const user = await prisma.user.create({
       data: {
+        id: uuidv4(),
         username,
         passwordHash,
+        // updatedAt会由Prisma自动处理（@updatedAt装饰器）
       },
     });
 
