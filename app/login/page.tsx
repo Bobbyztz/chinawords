@@ -1,17 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ContentPageLayout from '../components/ContentPageLayout';
 import LoginForm from '../components/auth/LoginForm';
 import RegisterForm from '../components/auth/RegisterForm';
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+  const [redirectPath, setRedirectPath] = useState<string>('/');
+
+  useEffect(() => {
+    // Get the redirect path from URL parameters
+    const redirect = searchParams.get('redirect');
+    
+    // 安全检查：确保重定向路径是内部路径
+    if (redirect && isValidInternalPath(redirect)) {
+      setRedirectPath(redirect);
+    }
+  }, [searchParams]);
+  
+  // 验证路径是否为内部路径
+  const isValidInternalPath = (path: string): boolean => {
+    // 确保路径以 / 开头且不包含 // 或 :
+    // 这样可以防止重定向到外部网站
+    return path.startsWith('/') && 
+           !path.includes('//') && 
+           !path.includes(':') &&
+           !path.startsWith('/api/');
+  };
 
   const handleSuccess = () => {
-    router.push('/');
+    router.push(redirectPath);
     router.refresh();
   };
 
