@@ -158,9 +158,14 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {/* User Menu or Login/Register Link - always visible */}
           {session ? (
             <div className="relative">
-              <button
+              <div
                 onClick={toggleUserMenu}
-                className={`nav-link font-medium font-sans-sc hover:text-film-red flex items-center gap-1 relative overflow-hidden text-sm group`}
+                onKeyDown={(e) => e.key === 'Enter' && toggleUserMenu()}
+                className="nav-link font-medium text-sm hover:text-film-red relative overflow-hidden group cursor-pointer flex items-center gap-1"
+                role="button"
+                tabIndex={0}
+                aria-haspopup="true"
+                aria-expanded={isUserMenuOpen}
               >
                 <span>{session.user.username}</span>
                 <svg
@@ -178,7 +183,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   />
                 </svg>
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </button>
+              </div>
 
               {/* User Dropdown Menu */}
               {isUserMenuOpen && (
