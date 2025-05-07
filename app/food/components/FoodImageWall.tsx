@@ -116,12 +116,48 @@ const FoodImageWall: React.FC = () => {
     setIsUploadModalOpen(false);
   };
 
-  const handleUpload = (file: File, prompt: string, altText: string) => {
-    console.log('Uploading image:', file.name, 'Prompt:', prompt, 'Alt:', altText);
-    // Implement actual upload logic here
-    // For example, call an API endpoint
-    // After successful upload, you might want to refresh the image list
-    handleCloseUploadModal(); // Close modal after handling upload
+  const handleUpload = async (file: File, prompt: string, altText: string) => {
+    try {
+      // Create form data
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('prompt', prompt);
+      formData.append('altText', altText);
+      
+      // Upload to server
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to upload image');
+      }
+      
+      console.log('Upload successful:', result);
+      
+      // Add the newly uploaded image to the images array
+      if (result.success && result.asset) {
+        const newImage: FoodImage = {
+          id: `uploaded-${result.asset.id}`,
+          src: result.asset.url,
+          alt: result.asset.title,
+          prompt: result.asset.prompt,
+          author: 'You' // Indicating this was uploaded by the current user
+        };
+        
+        setImages(prevImages => [newImage, ...prevImages]);
+      }
+      
+      // Close modal after successful upload
+      handleCloseUploadModal();
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('上传失败，请重试');
+      // Keep modal open so user can try again
+    }
   };
 
   return (

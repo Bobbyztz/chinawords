@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, ChangeEvent } from "react";
-import { Plus, X, LogIn } from "lucide-react";
+import { Plus, X, LogIn, Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (file: File, prompt: string, altText: string) => void;
+  onUpload: (file: File, prompt: string, altText: string) => Promise<void>;
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
@@ -21,6 +21,8 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [aiPrompt, setAiPrompt] = useState<string>("");
   const [altText, setAltText] = useState<string>("");
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Get session data to check if user is logged in
@@ -54,10 +56,18 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
     fileInputRef.current?.click();
   };
 
-  const handleConfirmUpload = () => {
+  const handleConfirmUpload = async () => {
     if (selectedImage) {
-      onUpload(selectedImage, aiPrompt, altText);
-      handleClose(); // Close modal after initiating upload
+      setIsUploading(true);
+      setUploadError("");
+      try {
+        await onUpload(selectedImage, aiPrompt, altText);
+        // Modal will be closed by the parent component after successful upload
+      } catch (error) {
+        console.error("Upload error:", error);
+        setUploadError(typeof error === "string" ? error : "上传失败，请重试");
+        setIsUploading(false);
+      }
     }
   };
 
@@ -66,6 +76,8 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
     setPreviewUrl(null);
     setAiPrompt("");
     setAltText("");
+    setIsUploading(false);
+    setUploadError("");
     onClose();
   };
 
@@ -168,6 +180,13 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 </div>
               </div>
 
+              {/* Error message */}
+              {uploadError && (
+                <div className="text-red-500 text-sm mb-2">
+                  {uploadError}
+                </div>
+              )}
+              
               {/* Buttons Section */}
               <div className="flex justify-end space-x-2">
                 <button
@@ -180,10 +199,17 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 <button
                   type="button"
                   onClick={handleConfirmUpload}
-                  disabled={!selectedImage || !aiPrompt || !altText}
-                  className="px-4 py-2 bg-[#2e8b57] border border-transparent rounded-md text-sm font-medium text-white hover:bg-[#256d43] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2e8b57] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!selectedImage || !aiPrompt || !altText || isUploading}
+                  className="px-4 py-2 bg-[#2e8b57] border border-transparent rounded-md text-sm font-medium text-white hover:bg-[#256d43] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2e8b57] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
                 >
-                  确认上传
+                  {isUploading ? (
+                    <>
+                      <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                      上传中...
+                    </>
+                  ) : (
+                    "确认上传"
+                  )}
                 </button>
               </div>
             </>
