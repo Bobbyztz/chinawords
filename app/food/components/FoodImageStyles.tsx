@@ -27,7 +27,7 @@ const FoodImageStyles: React.FC = () => {
       }
 
       .image-card:hover {
-        border: 1px solid rgb(186, 218, 200);
+        border: 0.5px solid rgb(225, 217, 190);
         overflow: hidden;
         flex: 1;
         min-height: 0; /* Important for flex containers */
