@@ -167,7 +167,7 @@ const FoodImageStyles: React.FC = () => {
       .image-card:hover .image-caption-area {
         /* Attempts to make caption area transparent. */
         /* NOTE: If 'image-card' has a white background, this will show that white background. */
-        background-color: transparent !important;
+        background-color: gray/40 !important;
       }
 
       .image-card:hover .alt-text-display {
