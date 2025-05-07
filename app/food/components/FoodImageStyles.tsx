@@ -118,9 +118,9 @@ const FoodImageStyles: React.FC = () => {
         width: 100%;
         height: 35%; /* Golden ratio for bottom 1/3 (approx) */
         background-color: rgba(
-          255,
-          255,
-          255,
+          225,
+          225,
+          225,
           0.1
         ); /* Light background for frost effect */
         backdrop-filter: blur(6px); /* Frosted glass effect */
