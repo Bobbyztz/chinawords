@@ -13,23 +13,36 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid()) // 使用UUID代替自增整数，提高安全性
+  email        String?  @unique // 可选电子邮件，支持Supabase身份验证
   username     String   @unique
   passwordHash String
+  displayName  String?  // 可选显示名称
+  avatarUrl    String?  // 可选头像URL
   createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt // 添加更新时间戳
   assets       Asset[]
+
+  @@index([email]) // 为常用查询添加索引
+  @@index([username])
 }
 
 model Asset {
-  id        Int      @id @default(autoincrement())
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   Int
-  title     String
-  prompt    String?
-  mediaType Int      // 0 = image, 1 = video
-  fileUri   String
-  createdAt DateTime @default(now())
+  id          String   @id @default(uuid()) // 使用UUID
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade) // 添加级联删除
+  ownerId     String   // 更新为String类型以匹配User.id
+  title       String
+  description String?  // 添加可选描述
+  prompt      String?
+  mediaType   Int      // 0 = image, 1 = video
+  fileUri     String
+  altText     String?  // 添加可选替代文本，提高可访问性
+  metadata    Json?    // 添加可选元数据字段，存储额外信息
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt // 添加更新时间戳
+  isPublic    Boolean  @default(true) // 添加可见性控制
 
   @@index([ownerId, createdAt])
   @@index([mediaType, createdAt])
+  @@index([isPublic, createdAt]) // 为公开内容查询添加索引
 }
