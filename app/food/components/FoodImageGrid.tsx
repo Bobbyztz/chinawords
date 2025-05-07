@@ -40,12 +40,9 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({ images, isLoading }) => {
           {images.map((image, index) => (
             <FoodImageCard
               key={image.id}
-              id={image.id}
               src={image.src}
               alt={image.alt}
               priority={index < 8}
-              author={image.author}
-              prompt={image.prompt}
             />
           ))}
         </div>

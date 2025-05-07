@@ -5,21 +5,15 @@ import Image from "next/image";
 import { Heart, Star, Copy } from "lucide-react";
 
 interface FoodImageProps {
-  id: string;
   src: string;
   alt: string;
   priority?: boolean;
-  author?: string;
-  prompt?: string;
 }
 
 const FoodImageCard: React.FC<FoodImageProps> = ({
-  id,
   src,
   alt,
   priority = false,
-  author,
-  prompt,
 }) => {
   return (
     <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
