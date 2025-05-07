@@ -16,7 +16,6 @@ const FoodImageStyles: React.FC = () => {
       .image-card {
         position: relative;
         background-color: white;
-        border: 1px transparent;
         padding: 0 0 1px 0;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
