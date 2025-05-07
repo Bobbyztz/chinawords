@@ -22,7 +22,7 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   prompt,
 }) => {
   return (
-    <div className="image-card relative rounded-lg overflow-hidden cursor-pointer">
+    <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
       {/* Image container */}
       <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
         <Image
@@ -35,6 +35,16 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
           loading="eager"
           priority={priority}
         />
+        {/* Container for description, handles sizing, positioning, and hover effect */}
+        <div className="absolute bottom-0 left-0 w-full h-[35%] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 overflow-hidden">
+          {/* Text element, handles text styling and line clamping */}
+          <p className="text-gray-600 text-xs line-clamp-4">
+            This is a sample of a rather long description, intended to showcase
+            how text behaves when it overflows its designated container,
+            ultimately truncating with an elegant ellipsis. truncating with an
+            elegant ellipsis. truncating with an elegant ellipsis.
+          </p>
+        </div>
       </div>
 
       {/* Container for Alt Text / Icons BELOW the image */}
