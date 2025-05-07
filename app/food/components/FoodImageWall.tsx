@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Search, Plus } from "lucide-react";
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
+import ImageUploadModal from './ImageUploadModal';
 
 interface FoodImage {
   id: string;
@@ -30,6 +31,7 @@ const FoodImageWall: React.FC = () => {
   const [images, setImages] = useState<FoodImage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   // 获取所有美食图片
   useEffect(() => {
@@ -106,6 +108,22 @@ const FoodImageWall: React.FC = () => {
   // 保留菜系按钮的选择状态，但不再进行筛选
   // 移除了筛选逻辑，现在始终显示所有图片
 
+  const handleOpenUploadModal = () => {
+    setIsUploadModalOpen(true);
+  };
+
+  const handleCloseUploadModal = () => {
+    setIsUploadModalOpen(false);
+  };
+
+  const handleUpload = (file: File, prompt: string, altText: string) => {
+    console.log('Uploading image:', file.name, 'Prompt:', prompt, 'Alt:', altText);
+    // Implement actual upload logic here
+    // For example, call an API endpoint
+    // After successful upload, you might want to refresh the image list
+    handleCloseUploadModal(); // Close modal after handling upload
+  };
+
   return (
     <div
       className="w-full overflow-y-auto h-full"
@@ -145,7 +163,10 @@ const FoodImageWall: React.FC = () => {
 
           {/* 上传按钮 - 右侧 */}
           <div className="ml-auto">
-            <button className="upload-button flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs">
+            <button
+              onClick={handleOpenUploadModal}
+              className="upload-button flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs"
+            >
               <Plus className="h-3 w-3" />
               <span>上传资料</span>
             </button>
@@ -156,6 +177,12 @@ const FoodImageWall: React.FC = () => {
       <FoodImageGrid images={images} isLoading={isLoading} />
 
       <FoodImageStyles />
+
+      <ImageUploadModal
+        isOpen={isUploadModalOpen}
+        onClose={handleCloseUploadModal}
+        onUpload={handleUpload}
+      />
     </div>
   );
 };
