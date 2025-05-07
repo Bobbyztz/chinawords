@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get user ID from session
-    const userId = parseInt(session.user.id);
+    // Get user ID from session (as string for UUID compatibility)
+    const userId = session.user.id; // 保留为字符串UUID
 
     // Parse the form data
     const formData = await request.formData();
@@ -67,14 +67,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Save metadata to database
+    // Save metadata to database with updated schema
     const asset = await prisma.asset.create({
       data: {
-        ownerId: userId,
+        ownerId: userId, // 字符串UUID
         title: altText,
+        description: null, // 新增可选字段
         prompt: prompt || null,
         mediaType: 0, // 0 for image, 1 for video
         fileUri: fileUrl,
+        altText: altText, // 新增替代文本字段
+        isPublic: true, // 默认公开
+        // metadata和updatedAt字段由Prisma自动处理
       },
     });
 
@@ -86,6 +90,7 @@ export async function POST(request: NextRequest) {
         url: fileUrl,
         title: asset.title,
         prompt: asset.prompt,
+        altText: asset.altText,
       },
     });
   } catch (error) {
