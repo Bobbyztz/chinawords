@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { Heart, Star, Copy } from "lucide-react";
 
 interface FoodImageProps {
   id: string;
@@ -21,15 +22,12 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   prompt,
 }) => {
   return (
-    <div
-      className="image-card relative rounded-lg overflow-hidden cursor-pointer"
-    >
-      
-      {/* Aspect ratio container for the image */}
+    <div className="image-card relative rounded-lg overflow-hidden cursor-pointer">
+      {/* Image container */}
       <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
         <Image
           src={src}
-          alt={alt}
+          alt={alt} // Alt text for accessibility on the image itself
           layout="fill"
           objectFit="cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
@@ -38,10 +36,22 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
           priority={priority}
         />
       </div>
-      
-      {/* Image Title */}
-      <div className="mt-1 mb-0.5 text-center text-xs md:text-sm lg:text-sm font-medium">
-        {alt}
+
+      {/* Container for Alt Text / Icons BELOW the image */}
+      {/* Tailwind classes for layout (relative, text-center, font sizes) remain. */}
+      {/* bg-white, opacity, and opacity transitions will be handled by FoodImageStyles.tsx */}
+      {/* py-2 removed to reduce height */}
+      <div className="image-caption-area relative text-center text-xs md:text-sm lg:text-sm font-medium">
+        {/* Alt text - visible by default */}
+        <span className="alt-text-display">{alt}</span>
+
+        {/* Icons - hidden by default, visible on hover, positioned absolutely within this container */}
+        {/* Tailwind classes for layout (absolute, inset-0, flex, items-center, justify-center, gap-3) remain. */}
+        <div className="caption-hover-icons absolute inset-0 flex justify-center items-center gap-6 pointer-events-none">
+          <Heart size={14} className="cursor-pointer hover:text-red-500" />
+          <Star size={14} className="cursor-pointer hover:text-yellow-500" />
+          <Copy size={14} className="cursor-pointer hover:text-blue-500" />
+        </div>
       </div>
     </div>
   );

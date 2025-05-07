@@ -31,6 +31,7 @@ This directory contains components specific to the Food page.
 - Provides visual feedback during loading with a spinner
 - Displays images in a responsive grid layout (5 images per row on large screens)
 - Includes hover effects with Chinese-style frame corners and yellow tape decoration
+- Adds a frosted glass overlay to the bottom third of images on hover
 - Implements a Kanban-style board for user suggestions with upvoting functionality
 - Uses responsive grid layout that adapts to different screen sizes
 - Provides interactive UI elements for adding new suggestions and upvoting existing ones
