@@ -7,6 +7,12 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
+    // Log all headers
+    console.log('[/api/upload-url] Incoming request headers:', JSON.stringify(Object.fromEntries(request.headers.entries()), null, 2));
+    // Log cookies specifically if available
+    const cookieHeader = request.headers.get('cookie');
+    console.log('[/api/upload-url] Cookie header:', cookieHeader || 'No cookie header found');
+
     // Check if user is authenticated
     const session = await getServerSession(authOptions);
     if (!session || !session.user || !session.user.id) {

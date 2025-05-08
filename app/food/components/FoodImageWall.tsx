@@ -157,7 +157,7 @@ const FoodImageWall: React.FC = () => {
         clientPayload: JSON.stringify({
           prompt,
           altText
-        }),
+        })
       });
       
       console.log('Upload successful:', newBlob);
