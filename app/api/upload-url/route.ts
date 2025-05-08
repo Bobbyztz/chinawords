@@ -46,25 +46,56 @@ export async function POST(request: Request): Promise<NextResponse> {
       onUploadCompleted: async (options: { blob: PutBlobResult; tokenPayload?: string | null | undefined }) => {
         const { blob, tokenPayload } = options;
         try {
+          console.log('Starting DB save operation for blob:', blob.pathname);
           // Parse the token payload to get user data
           const { userId, altText, prompt } = JSON.parse(tokenPayload || '{}');
           
-          // Save metadata to database
+          console.log('Parsed payload data:', { userId, altText, prompt: prompt || '(none)' });
+          
+          // Validate required fields
+          if (!userId) {
+            throw new Error('User ID is required');
+          }
+          if (!altText) { 
+            throw new Error('Alt text is required (used as title for the asset)');
+          }
+          if (!blob.url) {
+            throw new Error('File URL is required');
+          }
+          
+          // Create the asset with only the required fields we know exist in TypeScript types
           const asset = await prisma.asset.create({
             data: {
               ownerId: userId,
-              title: altText,
-              prompt: prompt || null,
-              mediaType: 0, // 0 for image
-              fileUri: blob.url,
-              // Using the fields defined in your Prisma schema
+              title: altText, // Explicitly using altText as the title (required field)
+              prompt: prompt || null, // Optional field
+              mediaType: 0, // 0 for image (required field)
+              fileUri: blob.url, // Required field with the Blob URL
+              // Only include fields that exist in the generated Prisma client types
             },
           });
           
           console.log('Image upload completed and saved to database', asset.id);
         } catch (error) {
-          console.error('Failed to save asset to database', error);
-          throw new Error('Could not save image details');
+          // More detailed error logging
+          console.error('Failed to save asset to database');
+          if (error instanceof Error) {
+            console.error(`Error message: ${error.message}`);
+            console.error(`Error stack: ${error.stack}`);
+          } else {
+            console.error('Unknown error type:', error);
+          }
+          
+          // Check if this is a Prisma error
+          if (error && typeof error === 'object' && 'code' in error) {
+            const typedError = error as { code: string; meta?: Record<string, unknown> };
+            console.error(`Prisma error code: ${typedError.code}`);
+            if (typedError.meta) { 
+              console.error('Prisma error metadata:', typedError.meta);
+            }
+          }
+          
+          throw new Error('Could not save image details: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
       },
     });

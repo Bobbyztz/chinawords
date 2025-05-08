@@ -146,6 +146,9 @@ const FoodImageWall: React.FC = () => {
       
       console.log('Upload successful:', newBlob);
       
+      // Add a delay to allow for CDN propagation before trying to display the image
+      await new Promise(resolve => setTimeout(resolve, 2500)); // 2.5 seconds delay
+      
       // Add the newly uploaded image to the images array
       const newImage: FoodImage = {
         id: `uploaded-${Date.now()}`,
@@ -162,7 +165,13 @@ const FoodImageWall: React.FC = () => {
     } catch (error) {
       console.error('Error uploading image:', error);
       if (error instanceof Error) {
-        alert(`上传失败: ${error.message}`);
+        const errorMsg = error.message;
+        alert(`上传失败: ${errorMsg}`);
+        
+        // Log specific errors that might be coming from the database save operation
+        if (errorMsg.includes('Could not save image details')) {
+          console.error('Database save error - check server logs for details');
+        }
       } else {
         alert('上传失败，请重试');
       }

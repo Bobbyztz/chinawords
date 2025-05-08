@@ -12,34 +12,26 @@ interface FoodImageProps {
 }
 
 const FoodImageCard: React.FC<FoodImageProps> = ({
-  id,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  id: _id,
   src,
   alt,
   priority = false,
 }) => {
-  const isNewUpload = id.startsWith('uploaded-');
 
   return (
     <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
       {/* Image container */}
       <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
-        {isNewUpload ? (
-          <img
-            src={src}
-            alt={alt}
-            className="w-full h-full object-cover object-center"
-          />
-        ) : (
-          <Image
-            src={src}
-            alt={alt}
-            layout="fill"
-            objectFit="cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-            style={{ objectPosition: "center" }}
-            priority={priority}
-          />
-        )}
+        <Image
+          src={src}
+          alt={alt}
+          layout="fill"
+          objectFit="cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+          style={{ objectPosition: "center" }}
+          priority={priority}
+        />
         {/* Container for description, handles sizing, positioning, and hover effect */}
         <div className="absolute bottom-0 left-0 w-full h-[35%] px-2 pt-2 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 overflow-hidden">
           {/* Text element, handles text styling and line clamping */}

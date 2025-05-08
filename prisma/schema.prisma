@@ -32,13 +32,11 @@ model Asset {
   id          String   @id @default(uuid()) // 使用UUID
   owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade) // 添加级联删除
   ownerId     String   // 更新为String类型以匹配User.id
-  title       String
-  description String?  // 添加可选描述
-  prompt      String?
+  title       String   // 标题/说明（从ImageUploadModal中使用altText填充）
+  prompt      String?  // AI生成提示（如果适用）
   mediaType   Int      // 0 = image, 1 = video
-  fileUri     String
-  altText     String?  // 添加可选替代文本，提高可访问性
-  metadata    Json?    // 添加可选元数据字段，存储额外信息
+  fileUri     String   // Vercel Blob或其他存储的URL
+  metadata    Json?    // 保留用于将来扩展（如图片尺寸、类型等）
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt // 添加更新时间戳
   isPublic    Boolean  @default(true) // 添加可见性控制
