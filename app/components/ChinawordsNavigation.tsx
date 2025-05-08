@@ -76,9 +76,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         <div className="flex items-center gap-2 h-10">
           {/* Logo - clickable to home */}
           <Link href="/" className="flex-shrink-0">
-            <div
-              className={`relative w-10 h-10`}
-            >
+            <div className={`relative w-10 h-10`}>
               <Image
                 src={logo}
                 alt={logoAlt}
@@ -160,7 +158,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
             <div className="relative">
               <div
                 onClick={toggleUserMenu}
-                onKeyDown={(e) => e.key === 'Enter' && toggleUserMenu()}
+                onKeyDown={(e) => e.key === "Enter" && toggleUserMenu()}
                 className="nav-link font-medium text-sm hover:text-film-red relative overflow-hidden group cursor-pointer flex items-center gap-1"
                 role="button"
                 tabIndex={0}
@@ -173,7 +171,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  stroke="black"
                 >
                   <path
                     strokeLinecap="round"

@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState, useRef, ChangeEvent } from "react";
-import { Plus, X, LogIn, Loader2 } from "lucide-react";
+import { Plus, X, Loader2, LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from 'next/image';
 
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (file: File, prompt: string, altText: string) => Promise<void>;
+  onUpload: (file: File, aiPrompt: string, altText: string) => Promise<void>;
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
@@ -26,10 +27,10 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Get session data to check if user is logged in
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
   
-  // Get current path for redirect after login
   const pathname = usePathname();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -99,10 +100,12 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               />
               {previewUrl ? (
                 <>
-                  <img
+                  <Image
                     src={previewUrl}
-                    alt="Preview"
-                    className="max-h-full max-w-full object-contain rounded-md"
+                    alt="Selected image preview"
+                    width={300}
+                    height={300}
+                    className="max-w-full max-h-64 object-contain"
                   />
                   <button
                     onClick={handleCancelImage}
