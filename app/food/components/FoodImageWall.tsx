@@ -15,15 +15,15 @@ interface FoodImage {
 }
 
 interface AssetFromDB {
-  id: number;
-  ownerId: number;
+  id: string;
+  ownerId: string;
   title: string;
   prompt: string | null;
   mediaType: number;
   fileUri: string;
   createdAt: string;
   owner?: {
-    id: number;
+    id: string;
     username: string;
   };
 }
