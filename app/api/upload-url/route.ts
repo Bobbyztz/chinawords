@@ -1,4 +1,5 @@
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import type { PutBlobResult } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
@@ -23,7 +24,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const jsonResponse = await handleUpload({
       body,
       request,
-      onBeforeGenerateToken: async (pathname: string, clientPayload: string | null, multipart: boolean) => {
+      onBeforeGenerateToken: async (pathname: string, clientPayload: string | null, _multipart: boolean) => {
         // Parse client payload which contains the alt text and prompt
         const { altText, prompt } = JSON.parse(clientPayload || '{}');
         
@@ -41,7 +42,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           maximumSizeInBytes: 10 * 1024 * 1024, // 10MB limit
         };
       },
-      onUploadCompleted: async (options: { blob: any; tokenPayload?: string | null | undefined }) => {
+      onUploadCompleted: async (options: { blob: PutBlobResult; tokenPayload?: string | null | undefined }) => {
         const { blob, tokenPayload } = options;
         try {
           // Parse the token payload to get user data
