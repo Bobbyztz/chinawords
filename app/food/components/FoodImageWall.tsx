@@ -55,7 +55,7 @@ const FoodImageWall: React.FC = () => {
         setIsLoading(true);
 
         // 从API获取图片
-        const response = await fetch("/api/assets");
+        const response = await fetch("/api/assets", { cache: "no-store" });
 
         // If we get any response (including 500), try to parse it
         try {

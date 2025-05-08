@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from 'next/cache';
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
@@ -106,6 +107,11 @@ export async function POST(request: Request): Promise<NextResponse> {
           });
           
           console.log('Image upload completed and saved to database', asset.id);
+
+          // Revalidate paths to ensure fresh data is fetched
+          revalidatePath('/api/assets');
+          revalidatePath('/food'); // Or the specific page path where FoodImageWall is displayed
+
         } catch (error) {
           // More detailed error logging
           console.error('Failed to save asset to database');
