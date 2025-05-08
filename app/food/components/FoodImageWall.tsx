@@ -54,8 +54,15 @@ const FoodImageWall: React.FC = () => {
       try {
         setIsLoading(true);
 
-        // 从API获取图片
-        const response = await fetch("/api/assets", { cache: "no-store" });
+        // 从API获取图片 - 添加时间戳参数以完全避免缓存
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/assets?t=${timestamp}`, { 
+          cache: "no-store",
+          headers: {
+            'Pragma': 'no-cache',
+            'Cache-Control': 'no-cache, no-store, must-revalidate'
+          }
+        });
 
         // If we get any response (including 500), try to parse it
         try {
@@ -161,8 +168,14 @@ const FoodImageWall: React.FC = () => {
 
       // For now, we'll proceed with userId. If it's undefined, the server-side check will catch it.
 
+      // 生成唯一文件名以避免同名文件冲突
+      const fileExtension = file.name.split('.').pop() || ''; // 获取原始文件扩展名
+      const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
+      
+      console.log(`原始文件名: ${file.name}, 生成的唯一文件名: ${uniqueFileName}`);
+      
       // Proceed with the upload using the Vercel Blob client
-      const newBlob = await upload(file.name, file, {
+      const newBlob = await upload(uniqueFileName, file, {
         access: "public",
         handleUploadUrl: "/api/upload-url", // Our new API route for client uploads
         // Include metadata for database storage including userId for authentication backup
@@ -170,6 +183,7 @@ const FoodImageWall: React.FC = () => {
           prompt,
           altText,
           userId, // Include userId in payload to help server-side authentication
+          originalFilename: file.name // 保存原始文件名以供参考
         }),
       });
 

@@ -4,7 +4,7 @@ This directory contains components specific to the Food page.
 
 ## Files
 
-- **FoodImageWall.tsx** - Main component that manages the state and layout for displaying food images with filtering by the eight major Chinese cuisine styles (八大菜系)
+- **FoodImageWall.tsx** - Main component for displaying food images. It handles image uploads (generating unique filenames using UUIDs to prevent conflicts), manages image display state, and provides filtering by the eight major Chinese cuisine styles (八大菜系)
 - **FoodImageCard.tsx** - Reusable component for displaying individual food images with styling and hover effects
 - **FoodImageGrid.tsx** - Component that renders the grid of food images using the FoodImageCard component
 - **FoodImageStyles.tsx** - Component containing all the CSS styles for the food image display
