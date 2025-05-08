@@ -56,12 +56,12 @@ const FoodImageWall: React.FC = () => {
 
         // 从API获取图片 - 添加时间戳参数以完全避免缓存
         const timestamp = new Date().getTime();
-        const response = await fetch(`/api/assets?t=${timestamp}`, { 
+        const response = await fetch(`/api/assets?t=${timestamp}`, {
           cache: "no-store",
           headers: {
-            'Pragma': 'no-cache',
-            'Cache-Control': 'no-cache, no-store, must-revalidate'
-          }
+            Pragma: "no-cache",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+          },
         });
 
         // If we get any response (including 500), try to parse it
@@ -169,11 +169,13 @@ const FoodImageWall: React.FC = () => {
       // For now, we'll proceed with userId. If it's undefined, the server-side check will catch it.
 
       // 生成唯一文件名以避免同名文件冲突
-      const fileExtension = file.name.split('.').pop() || ''; // 获取原始文件扩展名
+      const fileExtension = file.name.split(".").pop() || ""; // 获取原始文件扩展名
       const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
-      
-      console.log(`原始文件名: ${file.name}, 生成的唯一文件名: ${uniqueFileName}`);
-      
+
+      console.log(
+        `原始文件名: ${file.name}, 生成的唯一文件名: ${uniqueFileName}`
+      );
+
       // Proceed with the upload using the Vercel Blob client
       const newBlob = await upload(uniqueFileName, file, {
         access: "public",
@@ -183,7 +185,7 @@ const FoodImageWall: React.FC = () => {
           prompt,
           altText,
           userId, // Include userId in payload to help server-side authentication
-          originalFilename: file.name // 保存原始文件名以供参考
+          originalFilename: file.name, // 保存原始文件名以供参考
         }),
       });
 
@@ -251,7 +253,7 @@ const FoodImageWall: React.FC = () => {
                   onClick={() => setSelectedCuisine(cuisine.id)}
                   className={`cursor-pointer text-sm py-0 ${
                     selectedCuisine === cuisine.id
-                      ? "text-[#2e8b57] bg-white/20 backdrop-blur-md"
+                      ? "text-[#2e8b57]"
                       : "text-gray-700 hover:text-[#2e8b57]"
                   }`}
                 >
