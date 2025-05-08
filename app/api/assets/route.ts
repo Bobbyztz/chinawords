@@ -3,11 +3,19 @@ import { prisma } from '@/lib/prisma';
 
 // GET /api/assets - 获取所有资产（任务）
 export async function GET() {
-  const assets = await prisma.asset.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: { owner: { select: { id: true, username: true } } },
-  });
-  return NextResponse.json(assets);
+  try {
+    const assets = await prisma.asset.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: { owner: { select: { id: true, username: true } } },
+    });
+    return NextResponse.json(assets);
+  } catch (error) {
+    console.error("Error fetching assets:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch assets. See server logs for details." },
+      { status: 500 }
+    );
+  }
 }
 
 // POST /api/assets - 新建资产（任务）
