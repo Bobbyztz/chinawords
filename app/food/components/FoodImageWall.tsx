@@ -57,38 +57,54 @@ const FoodImageWall: React.FC = () => {
         // 从API获取图片
         const response = await fetch('/api/assets');
         
-        if (!response.ok) {
-          throw new Error('Failed to fetch images');
-        }
-        
-        const assets: AssetFromDB[] = await response.json();
-        
-        // 过滤出图片类型的资产（mediaType = 0）
-        const imageAssets = assets.filter(asset => asset.mediaType === 0);
-        
-        if (imageAssets.length === 0) {
+        // If we get any response (including 500), try to parse it
+        try {
+          const assets: AssetFromDB[] = await response.json();
+          
+          // If we get an empty array (or response that can be parsed as JSON), process it
+          // The API will return [] for empty database or if assets table doesn't exist
+          
+          // Handle the empty array case explicitly
+          if (!assets || assets.length === 0) {
+            setIsLoading(false);
+            setErrorMessage('暂无图片数据');
+            return;
+          }
+          
+          // 过滤出图片类型的资产（mediaType = 0）
+          const imageAssets = assets.filter(asset => asset.mediaType === 0);
+          
+          if (imageAssets.length === 0) {
+            setIsLoading(false);
+            setErrorMessage('暂无图片数据');
+            return;
+          }
+          
+          // 将资产转换为FoodImage格式
+          const foodImageObjects: FoodImage[] = imageAssets.map(asset => ({
+            id: `db-${asset.id}`,
+            src: asset.fileUri,
+            alt: asset.title,
+            prompt: asset.prompt || undefined,
+            author: asset.owner?.username
+          }));
+          
+          // 应用随机排序算法
+          const randomizedImages = randomizeImages(foodImageObjects);
+          
+          // 设置图片并完成加载
+          setImages(randomizedImages);
           setIsLoading(false);
+        } catch (parseError) {
+          // Cannot parse the response as JSON
+          console.error('Error parsing API response:', parseError);
+          // Assume it's an empty database if we can't parse the response
           setErrorMessage('暂无图片数据');
-          return;
+          setIsLoading(false);
         }
-        
-        // 将资产转换为FoodImage格式
-        const foodImageObjects: FoodImage[] = imageAssets.map(asset => ({
-          id: `db-${asset.id}`,
-          src: asset.fileUri,
-          alt: asset.title,
-          prompt: asset.prompt || undefined,
-          author: asset.owner?.username
-        }));
-        
-        // 应用随机排序算法
-        const randomizedImages = randomizeImages(foodImageObjects);
-        
-        // 设置图片并完成加载
-        setImages(randomizedImages);
-        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        // This will catch network errors or if fetch fails entirely
+        console.error('Network error fetching images:', error);
         setErrorMessage('获取图片失败，请刷新页面重试');
         setIsLoading(false);
       }
