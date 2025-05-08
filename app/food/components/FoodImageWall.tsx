@@ -159,9 +159,9 @@ const FoodImageWall: React.FC = () => {
         throw new Error('您需要登录才能上传图片');
       }
       
-      console.log('Using user ID for upload:', userId);
-      
-      // Perform direct client-side upload
+      // For now, we'll proceed with userId. If it's undefined, the server-side check will catch it.
+
+      // Proceed with the upload using the Vercel Blob client
       const newBlob = await upload(file.name, file, {
         access: 'public',
         handleUploadUrl: '/api/upload-url', // Our new API route for client uploads
