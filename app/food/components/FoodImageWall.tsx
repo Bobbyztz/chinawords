@@ -127,45 +127,48 @@ const FoodImageWall: React.FC = () => {
 
   const handleUpload = async (file: File, prompt: string, altText: string) => {
     try {
-      // Create form data
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('prompt', prompt);
-      formData.append('altText', altText);
+      // Use the Vercel Blob client-side upload approach
+      // First, import the necessary dependencies
+      const { upload } = await import('@vercel/blob/client');
       
-      // Upload to server
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
+      setIsLoading(true);
+      
+      // Perform direct client-side upload
+      const newBlob = await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload-url', // Our new API route for client uploads
+        // Include metadata for database storage
+        clientPayload: JSON.stringify({
+          prompt,
+          altText
+        }),
       });
       
-      const result = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to upload image');
-      }
-      
-      console.log('Upload successful:', result);
+      console.log('Upload successful:', newBlob);
       
       // Add the newly uploaded image to the images array
-      if (result.success && result.asset) {
-        const newImage: FoodImage = {
-          id: `uploaded-${result.asset.id}`,
-          src: result.asset.url,
-          alt: result.asset.title,
-          prompt: result.asset.prompt,
-          author: 'You' // Indicating this was uploaded by the current user
-        };
-        
-        setImages(prevImages => [newImage, ...prevImages]);
-      }
+      const newImage: FoodImage = {
+        id: `uploaded-${Date.now()}`,
+        src: newBlob.url,
+        alt: altText,
+        prompt: prompt,
+        author: 'You' // Indicating this was uploaded by the current user
+      };
+      
+      setImages(prevImages => [newImage, ...prevImages]);
       
       // Close modal after successful upload
       handleCloseUploadModal();
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('上传失败，请重试');
+      if (error instanceof Error) {
+        alert(`上传失败: ${error.message}`);
+      } else {
+        alert('上传失败，请重试');
+      }
       // Keep modal open so user can try again
+    } finally {
+      setIsLoading(false);
     }
   };
 

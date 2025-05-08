@@ -66,7 +66,16 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         // Modal will be closed by the parent component after successful upload
       } catch (error) {
         console.error("Upload error:", error);
-        setUploadError(typeof error === "string" ? error : "上传失败，请重试");
+        if (error instanceof Error) {
+          // Handle specific error messages for better user feedback
+          if (error.message.includes("413") || error.message.includes("entity too large")) {
+            setUploadError("图片文件太大，请压缩后重试或使用较小的图片");
+          } else {
+            setUploadError(error.message || "上传失败，请重试");
+          }
+        } else {
+          setUploadError(typeof error === "string" ? error : "上传失败，请重试");
+        }
         setIsUploading(false);
       }
     }
