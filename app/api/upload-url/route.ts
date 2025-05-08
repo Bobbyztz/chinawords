@@ -24,6 +24,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const jsonResponse = await handleUpload({
       body,
       request,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onBeforeGenerateToken: async (pathname: string, clientPayload: string | null, _multipart: boolean) => {
         // Parse client payload which contains the alt text and prompt
         const { altText, prompt } = JSON.parse(clientPayload || '{}');
