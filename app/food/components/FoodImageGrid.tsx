@@ -42,7 +42,7 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({ images, isLoading }) => {
               key={image.id}
               src={image.src}
               alt={image.alt}
-              priority={index < 8}
+              priority={index < 8 && !image.id.startsWith('uploaded-')}
             />
           ))}
         </div>
