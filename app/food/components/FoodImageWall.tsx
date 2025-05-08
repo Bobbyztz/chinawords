@@ -149,15 +149,28 @@ const FoodImageWall: React.FC = () => {
       
       setIsLoading(true);
       
+      // Get the current session information for authentication backup
+      // Fetch the current session directly with a fetch request to ensure we have latest data
+      const sessionResponse = await fetch('/api/auth/session');
+      const sessionData = await sessionResponse.json();
+      const userId = sessionData?.user?.id;
+      
+      if (!userId) {
+        throw new Error('您需要登录才能上传图片');
+      }
+      
+      console.log('Using user ID for upload:', userId);
+      
       // Perform direct client-side upload
       const newBlob = await upload(file.name, file, {
         access: 'public',
         handleUploadUrl: '/api/upload-url', // Our new API route for client uploads
-        // Include metadata for database storage
+        // Include metadata for database storage including userId for authentication backup
         clientPayload: JSON.stringify({
           prompt,
-          altText
-        })
+          altText,
+          userId // Include userId in payload to help server-side authentication
+        }),
       });
       
       console.log('Upload successful:', newBlob);

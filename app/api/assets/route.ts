@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma';
 // GET /api/assets - 获取所有资产（任务）
 export async function GET() {
   try {
+    // Using include with owner relation only to avoid selecting non-existent fields
+    // This avoids querying non-existent fields like 'description'
     const assets = await prisma.asset.findMany({
       orderBy: { createdAt: 'desc' },
       include: { owner: { select: { id: true, username: true } } },

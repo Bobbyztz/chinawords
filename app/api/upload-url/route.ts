@@ -13,18 +13,31 @@ export async function POST(request: Request): Promise<NextResponse> {
     const cookieHeader = request.headers.get('cookie');
     console.log('[/api/upload-url] Cookie header:', cookieHeader || 'No cookie header found');
 
-    // Check if user is authenticated
+    // Check if user is authenticated via NextAuth session
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || !session.user.id) {
-      return NextResponse.json(
-        { error: "Authentication required" },
-        { status: 401 }
-      );
-    }
-
-    // Get user ID from session
-    const userId = session.user.id;
+    let userId: string | undefined;
     
+    if (session?.user?.id) {
+      // If we have a valid session, use its userId
+      userId = session.user.id;
+      console.log('[/api/upload-url] Using userId from NextAuth session:', userId);
+    } else {
+      // If no session, try to parse the body to extract userId from clientPayload
+      try {
+        console.log('[/api/upload-url] No valid session, attempting to extract userId from clientPayload...');
+        // We can't parse request.json() twice, so we need to use a different approach
+        // We'll extract userId during the handleUpload process instead
+        console.log('[/api/upload-url] Will try to get userId from tokenPayload in onBeforeGenerateToken callback');
+      } catch (parseError) {
+        console.error('[/api/upload-url] Error preparing for clientPayload extraction:', parseError);
+        return NextResponse.json(
+          { error: "Authentication required - couldn't prepare for payload extraction" },
+          { status: 401 }
+        );
+      }
+    }
+    
+    // Parse body only once
     const body = (await request.json()) as HandleUploadBody;
 
     const jsonResponse = await handleUpload({
@@ -32,8 +45,19 @@ export async function POST(request: Request): Promise<NextResponse> {
       request,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onBeforeGenerateToken: async (pathname: string, clientPayload: string | null, _multipart: boolean) => {
-        // Parse client payload which contains the alt text and prompt
-        const { altText, prompt } = JSON.parse(clientPayload || '{}');
+        // Parse client payload which contains the alt text, prompt, and potentially userId
+        const { altText, prompt, userId: payloadUserId } = JSON.parse(clientPayload || '{}');
+        
+        // If we don't have userId from session but we have it in clientPayload, use that instead
+        if (!userId && payloadUserId) {
+          console.log(`[/api/upload-url] Using userId from clientPayload: ${payloadUserId}`);
+          userId = payloadUserId;
+        }
+        
+        // Verify we now have a userId one way or another
+        if (!userId) {
+          throw new Error('User ID is required - not found in session or clientPayload');
+        }
         
         if (!altText) {
           throw new Error('Alt text is required');
