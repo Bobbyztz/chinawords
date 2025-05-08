@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Search, Plus, AlertCircle } from "lucide-react";
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
-import ImageUploadModal from './ImageUploadModal';
+import ImageUploadModal from "./ImageUploadModal";
 
 interface FoodImage {
   id: string;
@@ -46,87 +46,87 @@ const FoodImageWall: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // 获取所有美食图片
   useEffect(() => {
     const fetchImages = async () => {
       try {
         setIsLoading(true);
-        
+
         // 从API获取图片
-        const response = await fetch('/api/assets');
-        
+        const response = await fetch("/api/assets");
+
         // If we get any response (including 500), try to parse it
         try {
           const assets: AssetFromDB[] = await response.json();
-          
+
           // If we get an empty array (or response that can be parsed as JSON), process it
           // The API will return [] for empty database or if assets table doesn't exist
-          
+
           // Handle the empty array case explicitly
           if (!assets || assets.length === 0) {
             setIsLoading(false);
-            setErrorMessage('暂无图片数据');
+            setErrorMessage("暂无图片数据");
             return;
           }
-          
+
           // 过滤出图片类型的资产（mediaType = 0）
-          const imageAssets = assets.filter(asset => asset.mediaType === 0);
-          
+          const imageAssets = assets.filter((asset) => asset.mediaType === 0);
+
           if (imageAssets.length === 0) {
             setIsLoading(false);
-            setErrorMessage('暂无图片数据');
+            setErrorMessage("暂无图片数据");
             return;
           }
-          
+
           // 将资产转换为FoodImage格式
-          const foodImageObjects: FoodImage[] = imageAssets.map(asset => ({
+          const foodImageObjects: FoodImage[] = imageAssets.map((asset) => ({
             id: `db-${asset.id}`,
             src: asset.fileUri,
             alt: asset.title,
             prompt: asset.prompt || undefined,
-            author: asset.owner?.username
+            author: asset.owner?.username,
           }));
-          
+
           // 应用随机排序算法
           const randomizedImages = randomizeImages(foodImageObjects);
-          
+
           // 设置图片并完成加载
           setImages(randomizedImages);
           setIsLoading(false);
         } catch (parseError) {
           // Cannot parse the response as JSON
-          console.error('Error parsing API response:', parseError);
+          console.error("Error parsing API response:", parseError);
           // Assume it's an empty database if we can't parse the response
-          setErrorMessage('暂无图片数据');
+          setErrorMessage("暂无图片数据");
           setIsLoading(false);
         }
       } catch (error) {
         // This will catch network errors or if fetch fails entirely
-        console.error('Network error fetching images:', error);
-        setErrorMessage('获取图片失败，请刷新页面重试');
+        console.error("Network error fetching images:", error);
+        setErrorMessage("获取图片失败，请刷新页面重试");
         setIsLoading(false);
       }
     };
-    
+
     fetchImages();
   }, []);
-  
+
   // 随机排序图片的函数
   const randomizeImages = (images: FoodImage[]): FoodImage[] => {
     // 处理边缘情况：如果图片数量少于2张，直接返回原数组
     if (images.length < 2) {
       return images;
     }
-    
+
     // Fisher-Yates洗牌算法
     const shuffled = [...images];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    
+
     return shuffled;
   };
 
@@ -145,64 +145,64 @@ const FoodImageWall: React.FC = () => {
     try {
       // Use the Vercel Blob client-side upload approach
       // First, import the necessary dependencies
-      const { upload } = await import('@vercel/blob/client');
-      
+      const { upload } = await import("@vercel/blob/client");
+
       setIsLoading(true);
-      
+
       // Get the current session information for authentication backup
       // Fetch the current session directly with a fetch request to ensure we have latest data
-      const sessionResponse = await fetch('/api/auth/session');
+      const sessionResponse = await fetch("/api/auth/session");
       const sessionData = await sessionResponse.json();
       const userId = sessionData?.user?.id;
-      
+
       if (!userId) {
-        throw new Error('您需要登录才能上传图片');
+        throw new Error("您需要登录才能上传图片");
       }
-      
+
       // For now, we'll proceed with userId. If it's undefined, the server-side check will catch it.
 
       // Proceed with the upload using the Vercel Blob client
       const newBlob = await upload(file.name, file, {
-        access: 'public',
-        handleUploadUrl: '/api/upload-url', // Our new API route for client uploads
+        access: "public",
+        handleUploadUrl: "/api/upload-url", // Our new API route for client uploads
         // Include metadata for database storage including userId for authentication backup
         clientPayload: JSON.stringify({
           prompt,
           altText,
-          userId // Include userId in payload to help server-side authentication
+          userId, // Include userId in payload to help server-side authentication
         }),
       });
-      
-      console.log('Upload successful:', newBlob);
-      
+
+      // console.log('Upload successful:', newBlob);
+
       // Add a delay to allow for CDN propagation before trying to display the image
-      await new Promise(resolve => setTimeout(resolve, 2500)); // 2.5 seconds delay
-      
+      await new Promise((resolve) => setTimeout(resolve, 2500)); // 2.5 seconds delay
+
       // Add the newly uploaded image to the images array
       const newImage: FoodImage = {
         id: `uploaded-${Date.now()}`,
         src: newBlob.url,
         alt: altText,
         prompt: prompt,
-        author: 'You' // Indicating this was uploaded by the current user
+        author: "You", // Indicating this was uploaded by the current user
       };
-      
-      setImages(prevImages => [newImage, ...prevImages]);
-      
+
+      setImages((prevImages) => [newImage, ...prevImages]);
+
       // Close modal after successful upload
       handleCloseUploadModal();
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       if (error instanceof Error) {
         const errorMsg = error.message;
         alert(`上传失败: ${errorMsg}`);
-        
+
         // Log specific errors that might be coming from the database save operation
-        if (errorMsg.includes('Could not save image details')) {
-          console.error('Database save error - check server logs for details');
+        if (errorMsg.includes("Could not save image details")) {
+          console.error("Database save error - check server logs for details");
         }
       } else {
-        alert('上传失败，请重试');
+        alert("上传失败，请重试");
       }
       // Keep modal open so user can try again
     } finally {
