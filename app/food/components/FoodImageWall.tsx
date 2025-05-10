@@ -1,34 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Search, Plus, AlertCircle } from "lucide-react";
+import { useInView } from 'react-intersection-observer';
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
 import ImageUploadModal from "./ImageUploadModal";
 
-interface FoodImage {
+// Updated FoodImage interface to align better with API response (AssetWithOwner)
+interface FoodImage { 
   id: string;
   src: string;
   alt: string;
-  author?: string;
+  author?: string; // from owner.username
   prompt?: string;
 }
 
-interface AssetFromDB {
+// Minimal type for the raw asset data received from the API
+interface ApiAsset {
   id: string;
-  ownerId: string;
+  fileUri: string;
   title: string;
   prompt: string | null;
-  mediaType: number;
-  fileUri: string;
-  createdAt: string;
   owner?: {
-    id: string;
-    username: string;
+    username: string | null;
   };
+  // Add other fields from AssetWithOwner if they were to be used before mapping
 }
 
-// 八大菜系数据
 const chineseCuisines = [
   { id: "all", name: "全部菜系" },
   { id: "lu", name: "鲁菜" },
@@ -43,102 +42,111 @@ const chineseCuisines = [
 
 const FoodImageWall: React.FC = () => {
   const [images, setImages] = useState<FoodImage[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false); 
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // 获取所有美食图片
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        setIsLoading(true);
+  const [loadedImageIds, setLoadedImageIds] = useState<Set<string>>(new Set());
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-        // 从API获取图片 - 添加时间戳参数以完全避免缓存
-        const timestamp = new Date().getTime();
-        const response = await fetch(`/api/assets?t=${timestamp}`, {
-          cache: "no-store",
-          headers: {
-            Pragma: "no-cache",
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-          },
-        });
+  const { ref: bottomScrollRef, inView: isBottomVisible } = useInView({
+    threshold: 0,
+    rootMargin: "300px 0px", 
+  });
 
-        // If we get any response (including 500), try to parse it
+  const fetchMoreImages = useCallback(async (isInitialLoad = false) => {
+    if (isLoading || (!hasMore && !isInitialLoad)) return;
+
+    setIsLoading(true);
+    if (isInitialLoad) {
+      setImages([]);
+      setLoadedImageIds(new Set());
+      setErrorMessage(""); 
+      // setHasMore(true); 
+    }
+
+    try {
+      const excludeIdsString = Array.from(loadedImageIds).join(',');
+      const response = await fetch(`/api/assets?count=12&excludeIds=${excludeIdsString}`, {
+        // cache: "no-store", 
+        headers: {
+          // Pragma: "no-cache",
+          // "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
+      });
+
+      if (!response.ok) {
+        let apiErrorMsg = "获取图片失败";
         try {
-          const assets: AssetFromDB[] = await response.json();
-
-          // If we get an empty array (or response that can be parsed as JSON), process it
-          // The API will return [] for empty database or if assets table doesn't exist
-
-          // Handle the empty array case explicitly
-          if (!assets || assets.length === 0) {
-            setIsLoading(false);
-            setErrorMessage("暂无图片数据");
-            return;
+          const errorResult = await response.json();
+          if (errorResult && errorResult.error) {
+            apiErrorMsg = errorResult.error;
           }
-
-          // 过滤出图片类型的资产（mediaType = 0）
-          const imageAssets = assets.filter((asset) => asset.mediaType === 0);
-
-          if (imageAssets.length === 0) {
-            setIsLoading(false);
-            setErrorMessage("暂无图片数据");
-            return;
-          }
-
-          // 将资产转换为FoodImage格式
-          const foodImageObjects: FoodImage[] = imageAssets.map((asset) => ({
-            id: `db-${asset.id}`,
-            src: asset.fileUri,
-            alt: asset.title,
-            prompt: asset.prompt || undefined,
-            author: asset.owner?.username,
-          }));
-
-          // 应用随机排序算法
-          const randomizedImages = randomizeImages(foodImageObjects);
-
-          // 设置图片并完成加载
-          setImages(randomizedImages);
-          setIsLoading(false);
-        } catch (parseError) {
-          // Cannot parse the response as JSON
-          console.error("Error parsing API response:", parseError);
-          // Assume it's an empty database if we can't parse the response
-          setErrorMessage("暂无图片数据");
-          setIsLoading(false);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (_error) {
+          // Ignore if cannot parse error JSON
         }
-      } catch (error) {
-        // This will catch network errors or if fetch fails entirely
-        console.error("Network error fetching images:", error);
-        setErrorMessage("获取图片失败，请刷新页面重试");
-        setIsLoading(false);
+        throw new Error(`API Error: ${response.status} - ${apiErrorMsg}`);
       }
-    };
+      
+      // Type assertion based on the API's response structure
+      const result = await response.json() as { data: ApiAsset[], hasMore: boolean };
 
-    fetchImages();
-  }, []);
+      if (!result || !result.data) {
+        setErrorMessage(isInitialLoad && (!result || !result.data || result.data.length === 0) ? "暂无图片数据" : "未能加载更多图片");
+        setHasMore(false); 
+        setIsLoading(false);
+        return;
+      }
 
-  // 随机排序图片的函数
-  const randomizeImages = (images: FoodImage[]): FoodImage[] => {
-    // 处理边缘情况：如果图片数量少于2张，直接返回原数组
-    if (images.length < 2) {
-      return images;
+      const fetchedApiAssets = result.data; // This is ApiAsset[]
+      const moreAvailable = result.hasMore;
+
+      // Map API assets to FoodImage structure
+      const newImages: FoodImage[] = fetchedApiAssets.map(asset => ({
+        id: asset.id, // Using direct ID from DB
+        src: asset.fileUri,
+        alt: asset.title,
+        prompt: asset.prompt || undefined,
+        author: asset.owner?.username || undefined,
+      }));
+
+      if (newImages.length === 0 && isInitialLoad) {
+        setErrorMessage("暂无图片数据");
+      } else if (newImages.length === 0 && !isInitialLoad) {
+        // No new images returned on subsequent loads, means no more different images
+      } else {
+        setErrorMessage(""); 
+      }
+      
+      setImages((prevImages) => isInitialLoad ? newImages : [...prevImages, ...newImages]);
+      
+      const newIds = new Set(newImages.map(img => img.id));
+      setLoadedImageIds((prevIds) => new Set([...prevIds, ...newIds]));
+      setHasMore(moreAvailable);
+
+    } catch (error) {
+      console.error("Error fetching images:", error);
+      setErrorMessage(error instanceof Error ? error.message : "获取图片数据时发生未知错误");
+      // Optionally, set hasMore to false on error to prevent repeated failed calls,
+      // or implement a retry mechanism.
+      // setHasMore(false);
+    } finally {
+      setIsLoading(false);
     }
+  }, [isLoading, hasMore, loadedImageIds /*, pageKey */]); 
 
-    // Fisher-Yates洗牌算法
-    const shuffled = [...images];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  useEffect(() => {
+    fetchMoreImages(true); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [/* pageKey */]); 
+
+  useEffect(() => {
+    if (isBottomVisible && hasMore && !isLoading) {
+      fetchMoreImages();
     }
-
-    return shuffled;
-  };
-
-  // 保留菜系按钮的选择状态，但不再进行筛选
-  // 移除了筛选逻辑，现在始终显示所有图片
+  }, [isBottomVisible, hasMore, isLoading, fetchMoreImages]);
 
   const handleOpenUploadModal = () => {
     setIsUploadModalOpen(true);
@@ -150,14 +158,10 @@ const FoodImageWall: React.FC = () => {
 
   const handleUpload = async (file: File, prompt: string, altText: string) => {
     try {
-      // Use the Vercel Blob client-side upload approach
-      // First, import the necessary dependencies
       const { upload } = await import("@vercel/blob/client");
 
       setIsLoading(true);
 
-      // Get the current session information for authentication backup
-      // Fetch the current session directly with a fetch request to ensure we have latest data
       const sessionResponse = await fetch("/api/auth/session");
       const sessionData = await sessionResponse.json();
       const userId = sessionData?.user?.id;
@@ -166,46 +170,36 @@ const FoodImageWall: React.FC = () => {
         throw new Error("您需要登录才能上传图片");
       }
 
-      // For now, we'll proceed with userId. If it's undefined, the server-side check will catch it.
-
-      // 生成唯一文件名以避免同名文件冲突
-      const fileExtension = file.name.split(".").pop() || ""; // 获取原始文件扩展名
+      const fileExtension = file.name.split(".").pop() || ""; 
       const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
 
       console.log(
         `原始文件名: ${file.name}, 生成的唯一文件名: ${uniqueFileName}`
       );
 
-      // Proceed with the upload using the Vercel Blob client
       const newBlob = await upload(uniqueFileName, file, {
         access: "public",
-        handleUploadUrl: "/api/upload-url", // Our new API route for client uploads
-        // Include metadata for database storage including userId for authentication backup
+        handleUploadUrl: "/api/upload-url", 
         clientPayload: JSON.stringify({
           prompt,
           altText,
-          userId, // Include userId in payload to help server-side authentication
-          originalFilename: file.name, // 保存原始文件名以供参考
+          userId, 
+          originalFilename: file.name, 
         }),
       });
 
-      // console.log('Upload successful:', newBlob);
+      await new Promise((resolve) => setTimeout(resolve, 2500)); 
 
-      // Add a delay to allow for CDN propagation before trying to display the image
-      await new Promise((resolve) => setTimeout(resolve, 2500)); // 2.5 seconds delay
-
-      // Add the newly uploaded image to the images array
       const newImage: FoodImage = {
         id: `uploaded-${Date.now()}`,
         src: newBlob.url,
         alt: altText,
         prompt: prompt,
-        author: "You", // Indicating this was uploaded by the current user
+        author: "You", 
       };
 
       setImages((prevImages) => [newImage, ...prevImages]);
 
-      // Close modal after successful upload
       handleCloseUploadModal();
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -213,15 +207,12 @@ const FoodImageWall: React.FC = () => {
         const errorMsg = error.message;
         alert(`上传失败: ${errorMsg}`);
 
-        // Log specific errors that might be coming from the database save operation
         if (errorMsg.includes("Could not save image details")) {
           console.error("Database save error - check server logs for details");
         }
       } else {
         alert("上传失败，请重试");
       }
-      // Keep modal open so user can try again
-    } finally {
       setIsLoading(false);
     }
   };
@@ -233,9 +224,7 @@ const FoodImageWall: React.FC = () => {
     >
       <div className="mb-4 backdrop-blur-sm  py-2 sticky top-0 z-10 w-auto">
         <div className="flex items-center justify-between px-4 w-full">
-          {/* 左侧容器：搜索框和菜系选择 */}
           <div className="flex items-center space-x-8">
-            {/* 搜索框 - 左边 */}
             <div className="inline-flex items-center border-b-2 border-[#2e8b57] pb-0">
               <Search className="h-5 w-5 text-[#2e8b57] mr-2" />
               <input
@@ -245,7 +234,6 @@ const FoodImageWall: React.FC = () => {
               />
             </div>
 
-            {/* 八大菜系 - 中间 */}
             <div className="flex items-center space-x-3 pl-24">
               {chineseCuisines.map((cuisine) => (
                 <span
@@ -263,7 +251,6 @@ const FoodImageWall: React.FC = () => {
             </div>
           </div>
 
-          {/* 上传按钮 - 右侧 */}
           <div className="ml-auto">
             <button
               onClick={handleOpenUploadModal}
@@ -276,13 +263,24 @@ const FoodImageWall: React.FC = () => {
         </div>
       </div>
 
-      {errorMessage ? (
+      {errorMessage && !isLoading && images.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-64 text-gray-500">
           <AlertCircle className="h-12 w-12 mb-4" />
           <p>{errorMessage}</p>
         </div>
       ) : (
-        <FoodImageGrid images={images} isLoading={isLoading} />
+        <FoodImageGrid images={images} isLoading={isLoading && images.length === 0} />
+      )}
+
+      {hasMore && !errorMessage && (
+        <div ref={bottomScrollRef} className="h-10 flex justify-center items-center">
+          {isLoading && images.length > 0 && <p>正在加载更多美食...</p>}
+        </div>
+      )}
+      {!hasMore && images.length > 0 && !errorMessage && (
+        <div className="text-center py-4 text-gray-500">
+          <p>所有美食都看遍啦！</p>
+        </div>
       )}
 
       <FoodImageStyles />

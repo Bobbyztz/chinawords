@@ -39,10 +39,9 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
         <Image
           src={src}
           alt={alt}
-          layout="fill"
-          objectFit="cover"
+          fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-          style={{ objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "center" }}
           priority={priority}
         />
         {/* Container for description, handles sizing, positioning, and hover effect */}
