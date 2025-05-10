@@ -20,6 +20,18 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   priority = false,
   prompt,
 }) => {
+  const handleCopyPrompt = async () => {
+    const textToCopy =
+      prompt || "This is placeholder text for image description.";
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      // Optional: Add some feedback to the user, e.g., a toast notification
+      console.log("Prompt copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
   return (
     <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
       {/* Image container */}
@@ -54,10 +66,20 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
 
         {/* Icons - hidden by default, visible on hover, positioned absolutely within this container */}
         {/* Tailwind classes for layout (absolute, inset-0, flex, items-center, justify-center, gap-3) remain. */}
-        <div className="caption-hover-icons absolute inset-0 flex justify-center items-center gap-6 pointer-events-none">
-          <Heart size={14} className="cursor-pointer hover:text-red-500" />
-          <Star size={14} className="cursor-pointer hover:text-yellow-500" />
-          <Copy size={14} className="cursor-pointer hover:text-blue-500" />
+        <div className="caption-hover-icons absolute inset-0 flex justify-center items-center gap-6">
+          <Heart
+            size={14}
+            className="cursor-pointer hover:text-red-500 pointer-events-auto"
+          />
+          <Star
+            size={14}
+            className="cursor-pointer hover:text-yellow-500 pointer-events-auto"
+          />
+          <Copy
+            size={14}
+            className="cursor-pointer hover:text-blue-500 pointer-events-auto"
+            onClick={handleCopyPrompt}
+          />
         </div>
       </div>
     </div>
