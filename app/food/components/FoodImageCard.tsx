@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Heart, Star, Copy } from "lucide-react";
 
@@ -20,6 +20,8 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   priority = false,
   prompt,
 }) => {
+  const [isFlashing, setIsFlashing] = useState(false);
+
   const handleCopyPrompt = async () => {
     const textToCopy =
       prompt || "This is placeholder text for image description.";
@@ -27,6 +29,18 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
       await navigator.clipboard.writeText(textToCopy);
       // Optional: Add some feedback to the user, e.g., a toast notification
       console.log("Prompt copied to clipboard!");
+
+      // Trigger flash animation
+      setIsFlashing(true);
+      setTimeout(() => {
+        setIsFlashing(false);
+        setTimeout(() => {
+          setIsFlashing(true);
+          setTimeout(() => {
+            setIsFlashing(false);
+          }, 100); // Duration of the second flash (image visible again)
+        }, 100); // Delay before the second flash (image dimmed)
+      }, 100); // Duration of the first flash (image visible again)
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
@@ -43,6 +57,9 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
           style={{ objectFit: "cover", objectPosition: "center" }}
           priority={priority}
+          className={`transition-opacity duration-50 ${
+            isFlashing ? "opacity-50" : "opacity-100"
+          }`}
         />
         {/* Container for description, handles sizing, positioning, and hover effect */}
         <div className="absolute bottom-0 left-0 w-full h-[35%] px-2 pt-2 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 overflow-hidden">
@@ -65,7 +82,7 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
 
         {/* Icons - hidden by default, visible on hover, positioned absolutely within this container */}
         {/* Tailwind classes for layout (absolute, inset-0, flex, items-center, justify-center, gap-3) remain. */}
-        <div className="caption-hover-icons absolute inset-0 flex justify-center items-center gap-6">
+        <div className="caption-hover-icons absolute inset-0 flex justify-center items-center gap-6 ">
           <Heart
             size={14}
             className="cursor-pointer hover:text-red-500 pointer-events-auto"

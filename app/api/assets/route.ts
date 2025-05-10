@@ -58,7 +58,24 @@ export async function GET(request: NextRequest): Promise<NextResponse<{ data: As
     if (selectedIds.length > 0) {
       const dbAssets = await prisma.asset.findMany({
         where: { id: { in: selectedIds } },
-        include: { owner: { select: { id: true, username: true } } },
+        select: {
+          id: true,
+          title: true,
+          prompt: true,
+          mediaType: true,
+          fileUri: true,
+          createdAt: true,
+          ownerId: true,
+          isPublic: true, // Assuming this is in your schema
+          metadata: true, // Assuming this is in your schema
+          updatedAt: true, // Assuming this is in your schema
+          owner: { 
+            select: { 
+              id: true, 
+              username: true 
+            } 
+          }
+        },
       });
 
       // Ensure the order matches the random selectedIds
