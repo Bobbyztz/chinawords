@@ -9,6 +9,7 @@ interface FoodImageProps {
   src: string;
   alt: string;
   priority?: boolean;
+  prompt?: string;
 }
 
 const FoodImageCard: React.FC<FoodImageProps> = ({
@@ -17,8 +18,8 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   src,
   alt,
   priority = false,
+  prompt,
 }) => {
-
   return (
     <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
       {/* Image container */}
@@ -36,10 +37,9 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
         <div className="absolute bottom-0 left-0 w-full h-[35%] px-2 pt-2 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 overflow-hidden">
           {/* Text element, handles text styling and line clamping */}
           <p className="text-white/90 text-xs line-clamp-4">
-            This is a sample of a rather long description, intended to showcase
-            how text behaves when it overflows its designated container,
-            ultimately truncating with an elegant ellipsis. truncating with an
-            elegant ellipsis. truncating with an elegant ellipsis.
+            {prompt
+              ? prompt
+              : "This is placeholder text for image description."}
           </p>
         </div>
       </div>
