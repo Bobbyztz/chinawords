@@ -99,7 +99,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           </div>
         )}
 
-        <div className="flex items-center text-sm">
+        <div className="flex items-center text-sm pb-0.5">
           <label
             htmlFor="register-username"
             className="w-20 flex-shrink-0 font-medium text-gray-900"
@@ -117,7 +117,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           />
         </div>
 
-        <div className="flex items-center text-sm">
+        <div className="flex items-center text-sm pb-0.5">
           <label
             htmlFor="register-password"
             className="w-20 flex-shrink-0 font-medium text-gray-900"
@@ -135,7 +135,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           />
         </div>
 
-        <div className="flex items-center text-sm">
+        <div className="flex items-center text-sm pb-0.5">
           <label
             htmlFor="confirm-password"
             className="w-20 flex-shrink-0 font-medium text-gray-900"
@@ -153,7 +153,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           />
         </div>
 
-        <div className="flex text-sm pl-0.5 mt-3.5 border-b border-white/40 pb-2">
+        <div className="flex text-sm pl-[0.1rem] mt-2 border-b border-white/40 pb-2">
           <button
             type="submit"
             disabled={isLoading}
