@@ -99,8 +99,8 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white/30 flex items-center justify-center z-50 p-2">
-      <div className="bg-gradient-to-br from-neutral-100/80 via-neutral-200 to-neutral-400/70 rounded-lg shadow-2xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
+    <div className="fixed inset-0 bg-white/10 flex items-center justify-center z-50 p-2">
+      <div className="bg-gradient-to-br from-neutral-100/95 via-white/95 to-neutral-100/90 ounded-lg shadow-xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
         {/* Left side - Image Upload or Login Prompt */}
         <div className="w-1/2 flex flex-col items-stretch justify-center border border-dashed border-neutral-700 rounded-md p-4 relative">
           {isAuthenticated ? (
