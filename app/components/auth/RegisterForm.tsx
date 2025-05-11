@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface RegisterFormProps {
   onSuccess?: () => void;
@@ -12,6 +13,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   onSuccess,
   onLoginClick,
 }) => {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -163,7 +165,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           </button>
           <button
             type="button"
-            onClick={onLoginClick}
+            onClick={() => router.push("/")}
             className="text-gray-600 ml-4 font-medium flex-shrink-0 hover:cursor-pointer hover:text-gray-800"
           >
             取消
