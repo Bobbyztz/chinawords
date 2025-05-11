@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
@@ -9,10 +9,13 @@ import { FaUser } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCog } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 export default function SettingsPage() {
   const { data: session, status } = useSession({ required: false });
   const router = useRouter();
+  const [emailDropdownOpen, setEmailDropdownOpen] = useState(false);
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
 
   // Redirect to login if not authenticated
   React.useEffect(() => {
@@ -29,141 +32,216 @@ export default function SettingsPage() {
     );
   }
 
-  // 创建设置页面内容
-  const settingsContent = (
-    <div className="max-w-3xl mx-auto bg-white/80 overflow-hidden">
-      <div className="p-8 md:p-12">
-        <h1 className="text-3xl font-bold mb-10 font-serif-sc text-center text-gray-800">
-          设置
-        </h1>
+  // 创建 Profile 页面内容
+  const profileContent = (
+    <div className="max-w-3xl mx-auto overflow-hidden">
+      <div className="p-6 md:p-8">
+        <div className="space-y-6">
+          {/* Username */}
+          <div className="space-y-2">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+              defaultValue={session?.user?.username || "ehadcn"}
+            />
+            <p className="text-xs text-gray-600">
+              This is your public display name. It can be your real name or a
+              pseudonym. You can only change this once every 30 days.
+            </p>
+          </div>
 
-        {session?.user && (
-          <div className="space-y-10">
-            {/* 用户基本信息 */}
-            <div className="flex items-center justify-center mb-8">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto bg-film-red/90 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-md">
-                  {session.user.username.charAt(0).toUpperCase()}
+          {/* Email */}
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
+            </label>
+            <div className="relative">
+              <button
+                onClick={() => setEmailDropdownOpen(!emailDropdownOpen)}
+                className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
+              >
+                <span className="text-gray-500">
+                  Select a verified email to display
+                </span>
+                <FaChevronDown className="text-gray-400" />
+              </button>
+              {emailDropdownOpen && (
+                <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg">
+                  <ul>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
+                      example@email.com
+                    </li>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
+                      another@email.com
+                    </li>
+                  </ul>
                 </div>
-                <h2 className="text-2xl font-bold font-serif-sc text-film-red">
-                  {session.user.username}
-                </h2>
-                <p className="text-gray-500 mt-1 text-sm flex items-center justify-center">
-                  <FaUser className="mr-2 text-jade-green" />
-                  用户ID: {session.user.id}
-                </p>
-              </div>
+              )}
+            </div>
+            <p className="text-xs text-gray-600">
+              You can manage verified email addresses in your email settings.
+            </p>
+          </div>
+
+          {/* Bio */}
+          <div className="space-y-2">
+            <label
+              htmlFor="bio"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              rows={3}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+              defaultValue="I own a computer."
+            />
+            <p className="text-xs text-gray-600">
+              You can @mention other users and organizations to link to them.
+            </p>
+          </div>
+
+          {/* URLs */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                URLs
+              </label>
+              <p className="text-xs text-gray-600 mb-3">
+                Add links to your website, blog, or social media profiles.
+              </p>
             </div>
 
-            {/* 分隔线 - 中式水墨风格 */}
-            <div className="relative h-px w-full my-6 bg-gray-200 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-              </div>
-            </div>
-
-            {/* 账户信息 */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold font-serif-sc text-gray-700 border-l-2 border-film-red pl-3">
-                账户信息
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-4 rounded-lg transition-all duration-300 hover:bg-gray-50/80 group">
-                  <div className="flex items-center mb-2">
-                    <FaUser className="text-jade-green mr-2 group-hover:text-film-red transition-colors" />
-                    <p className="text-gray-600 text-sm">用户名</p>
-                  </div>
-                  <p className="font-medium text-gray-800 pl-6">
-                    {session.user.username}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-lg transition-all duration-300 hover:bg-gray-50/80 group">
-                  <div className="flex items-center mb-2">
-                    <FaClock className="text-jade-green mr-2 group-hover:text-film-red transition-colors" />
-                    <p className="text-gray-600 text-sm">注册时间</p>
-                  </div>
-                  <p className="font-medium text-gray-800 pl-6">信息不可用</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 分隔线 */}
-            <div className="relative h-px w-full my-6 bg-gray-200 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-              </div>
-            </div>
-
-            {/* 账户设置 */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold font-serif-sc text-gray-700 border-l-2 border-film-red pl-3">
-                账户设置
-              </h3>
-
-              <div className="bg-gray-50/50 p-8 rounded-lg">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 hover:bg-white/70 rounded-lg transition-all duration-300">
-                    <div className="flex items-center">
-                      <FaCog className="text-jade-green mr-3" />
-                      <span className="font-medium text-gray-700">修改密码</span>
-                    </div>
-                    <button className="text-film-red hover:underline text-sm">
-                      更改
-                    </button>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-4 hover:bg-white/70 rounded-lg transition-all duration-300">
-                    <div className="flex items-center">
-                      <FaCog className="text-jade-green mr-3" />
-                      <span className="font-medium text-gray-700">通知设置</span>
-                    </div>
-                    <button className="text-film-red hover:underline text-sm">
-                      管理
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 分隔线 */}
-            <div className="relative h-px w-full my-6 bg-gray-200 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-                <span className="h-1.5 w-1.5 rounded-full bg-jade-green mx-16"></span>
-              </div>
-            </div>
-
-            {/* 我的内容 */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold font-serif-sc text-gray-700 border-l-2 border-film-red pl-3">
-                我的内容
-              </h3>
-
-              <div className="bg-gray-50/50 p-8 rounded-lg text-center">
-                <p className="text-gray-600 mb-6">您还没有上传任何内容</p>
-                <button
-                  onClick={() => router.push("/upload")}
-                  className="group bg-gradient-to-r from-film-red to-film-red/90 text-white py-2.5 px-6 rounded-md transition-all duration-300 font-medium hover:shadow-md"
-                >
-                  <span className="flex items-center justify-center">
-                    <FaFileUpload className="mr-2 group-hover:scale-110 transition-transform" />
-                    上传新内容
-                  </span>
-                </button>
-                <p className="mt-6 text-xs text-gray-500">
-                  在这里查看您的上传历史和内容状态
-                </p>
-              </div>
+            <div className="space-y-3">
+              <input
+                type="url"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                defaultValue="https://ehadcn.com"
+              />
+              <input
+                type="url"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                defaultValue="http://twitter.com/ehadcn"
+              />
+              <button className="text-sm text-gray-700 font-medium px-3 py-1.5 border border-gray-300 rounded hover:bg-gray-50">
+                Add URL
+              </button>
             </div>
           </div>
-        )}
+
+          {/* Update button */}
+          <div className="pt-4">
+            <button className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none">
+              Update profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // 创建 Account 页面内容
+  const accountContent = (
+    <div className="max-w-3xl mx-auto overflow-hidden">
+      <div className="p-6 md:p-8">
+        <h1 className="text-xl font-bold mb-3 text-gray-800">Account</h1>
+        <p className="text-sm text-gray-600 mb-5">
+          Update your account settings. Set your preferred language and
+          timezone.
+        </p>
+
+        <div className="space-y-6">
+          {/* Name */}
+          <div className="space-y-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+              placeholder="Your name"
+            />
+            <p className="text-xs text-gray-600">
+              This is the name that will be displayed on your profile and in
+              emails.
+            </p>
+          </div>
+
+          {/* Date of birth */}
+          <div className="space-y-2">
+            <label
+              htmlFor="dob"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Date of birth
+            </label>
+            <button className="w-full p-2 border border-gray-300 rounded flex justify-between items-center text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400">
+              Pick a date
+            </button>
+            <p className="text-xs text-gray-600">
+              Your date of birth is used to calculate your age.
+            </p>
+          </div>
+
+          {/* Language */}
+          <div className="space-y-2">
+            <label
+              htmlFor="language"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Language
+            </label>
+            <div className="relative">
+              <button
+                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+                className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
+              >
+                <span className="text-gray-500">Select language</span>
+                <FaChevronDown className="text-gray-400" />
+              </button>
+              {languageDropdownOpen && (
+                <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg">
+                  <ul>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
+                      English
+                    </li>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
+                      中文
+                    </li>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
+                      Español
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+            <p className="text-xs text-gray-600">
+              This is the language that will be used in the dashboard.
+            </p>
+          </div>
+
+          {/* Update button */}
+          <div className="pt-4">
+            <button className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none">
+              Update account
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -171,8 +249,12 @@ export default function SettingsPage() {
   // 定义页面标签
   const tabs = [
     {
-      title: "设置",
-      content: settingsContent,
+      title: "Profile",
+      content: profileContent,
+    },
+    {
+      title: "Account",
+      content: accountContent,
     },
   ];
 
