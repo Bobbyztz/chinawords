@@ -5,7 +5,7 @@ import { Plus, X, Loader2, LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface ImageUploadModalProps {
   isOpen: boolean;
@@ -30,7 +30,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
-  
+
   const pathname = usePathname();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,13 +68,18 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         console.error("Upload error:", error);
         if (error instanceof Error) {
           // Handle specific error messages for better user feedback
-          if (error.message.includes("413") || error.message.includes("entity too large")) {
+          if (
+            error.message.includes("413") ||
+            error.message.includes("entity too large")
+          ) {
             setUploadError("图片文件太大，请压缩后重试或使用较小的图片");
           } else {
             setUploadError(error.message || "上传失败，请重试");
           }
         } else {
-          setUploadError(typeof error === "string" ? error : "上传失败，请重试");
+          setUploadError(
+            typeof error === "string" ? error : "上传失败，请重试"
+          );
         }
         setIsUploading(false);
       }
@@ -94,10 +99,10 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white/10 backdrop-blur-sm rounded-md flex items-center justify-center z-50 p-2">
-      <div className="bg-white rounded-lg shadow-xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh]">
+    <div className="fixed inset-0 bg-white/30 flex items-center justify-center z-50 p-2">
+      <div className="bg-gradient-to-br from-neutral-100/80 via-neutral-200 to-neutral-400/70 rounded-lg shadow-2xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
         {/* Left side - Image Upload or Login Prompt */}
-        <div className="w-1/2 flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-md min-h-[300px] relative">
+        <div className="w-1/2 flex flex-col items-center justify-center border border-dashed border-neutral-700 rounded-md min-h-[300px] relative">
           {isAuthenticated ? (
             <>
               <input
@@ -114,34 +119,43 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                     alt="Selected image preview"
                     width={300}
                     height={300}
-                    className="max-w-full max-h-64 object-contain"
+                    className="max-w-full max-h-64 object-contain rounded-md"
                   />
                   <button
                     onClick={handleCancelImage}
-                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1 hover:bg-black/75 transition-colors cursor-pointer"
-                    aria-label="Cancel image selection"
+                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1.5 hover:bg-black/70 transition-colors"
+                    aria-label="Remove image"
                   >
                     <X size={18} />
                   </button>
                 </>
               ) : (
-                <button
+                <div
                   onClick={handlePlusClick}
-                  className="flex flex-col items-center justify-center text-gray-400 hover:text-[#2e8b57] transition-colors cursor-pointer"
+                  className="flex flex-col items-center justify-center text-center p-4 cursor-pointer group"
                 >
-                  <Plus size={48} />
-                  <span className="mt-2 text-sm">选择图片</span>
-                </button>
+                  <Plus
+                    size={48}
+                    className="text-white hover:text-gray-500 transition-colors mb-2"
+                  />
+                  <p className="text-neutral-500 text-sm">
+                    点击或拖拽图片到此处
+                  </p>
+                  <p className="text-xs text-neutral-400 mt-1">
+                    支持 JPG, PNG, GIF, WebP 等格式
+                  </p>
+                </div>
               )}
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center p-6">
-              <LogIn size={48} className="text-gray-400 mb-4" />
-              <h3 className="text-lg font-medium text-gray-700 mb-2">需要登录</h3>
-              <p className="text-gray-500 mb-4">您需要登录才能上传图片</p>
-              <Link 
+            <div className="flex flex-col items-center justify-center text-center p-4">
+              <LogIn size={48} className="text-neutral-400 mb-4" />
+              <p className="text-neutral-400 mb-4">
+                请登录以解锁全部图片上传功能。
+              </p>
+              <Link
                 href={`/login?redirect=${pathname}`}
-                className="px-4 py-2 bg-[#2e8b57] text-white rounded-md hover:bg-[#256d43] transition-colors"
+                className="px-4 py-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-medium rounded-md shadow-md hover:shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-yellow-500"
               >
                 前往登录
               </Link>
@@ -151,15 +165,26 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
         {/* Right side: Inputs and Buttons */}
         <div className="w-1/2 p-2 flex flex-col h-full">
+          {/* Close button for the modal */}
+          <button
+            onClick={handleClose}
+            className="absolute top-3 right-3 text-neutral-400 hover:text-neutral-100 transition-colors z-10"
+            aria-label="Close modal"
+          >
+            <X size={24} />
+          </button>
+
           {isAuthenticated ? (
             <>
               {/* Inputs Container */}
-              <div className="flex-grow flex flex-col space-y-4 mb-4">
+              <div className="flex-grow flex flex-col space-y-4 mb-4 pt-6">
+                {" "}
+                {/* Added pt-6 for spacing from potential close button*/}
                 {/* AI Prompt Section */}
                 <div className="flex flex-col flex-1">
                   <label
                     htmlFor="aiPromptInput"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-neutral-500 mb-1"
                   >
                     AI 提示词
                   </label>
@@ -167,17 +192,16 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                     id="aiPromptInput"
                     value={aiPrompt}
                     onChange={(e) => setAiPrompt(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-md w-full flex-grow resize-none focus:border-gray-400 focus:outline-none"
+                    className="p-2 bg-transparent border border-neutral-500 rounded-md w-full flex-grow resize-none focus:outline-none placeholder-neutral-500 text-neutral-600"
                     placeholder="例如：一张美味的宫保鸡丁特写，色彩鲜艳"
                     rows={3}
                   />
                 </div>
-
                 {/* Alt Text Section */}
                 <div className="flex flex-col flex-1">
                   <label
                     htmlFor="altTextInput"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-neutral-500 mb-1"
                   >
                     图片 Alt 信息
                   </label>
@@ -185,7 +209,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                     id="altTextInput"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-md w-full flex-grow resize-none focus:border-gray-400 focus:outline-none"
+                    className="p-2 border border-neutral-500 rounded-md w-full flex-grow resize-none focus:outline-none placeholder-neutral-500 text-neutral-600"
                     placeholder="例如：宫保鸡丁，四川名菜"
                     rows={3}
                   />
@@ -194,29 +218,31 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
               {/* Error message */}
               {uploadError && (
-                <div className="text-red-500 text-sm mb-2">
+                <div className="text-red-400 text-sm mb-2 text-center p-1 bg-red-900/30 rounded-md">
                   {uploadError}
                 </div>
               )}
-              
+
               {/* Buttons Section */}
-              <div className="flex justify-end space-x-2">
+              <div className="flex justify-end space-x-3">
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
+                  className="px-4 py-2 bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 border border-transparent rounded-md text-sm font-medium text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-red-500 transition-all duration-150 ease-in-out"
                 >
                   取消
                 </button>
                 <button
                   type="button"
                   onClick={handleConfirmUpload}
-                  disabled={!selectedImage || !aiPrompt || !altText || isUploading}
-                  className="px-4 py-2 bg-[#2e8b57] border border-transparent rounded-md text-sm font-medium text-white hover:bg-[#256d43] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2e8b57] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
+                  disabled={
+                    !selectedImage || !aiPrompt || !altText || isUploading
+                  }
+                  className="px-4 py-2 bg-green-800 border border-transparent rounded-md text-sm font-medium text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-yellow-500 transition-all duration-150 ease-in-out disabled:from-neutral-700 disabled:to-neutral-800 disabled:text-neutral-400 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
                 >
                   {isUploading ? (
                     <>
-                      <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                      <Loader2 className="animate-spin h-4 w-4 mr-2 text-white" />
                       上传中...
                     </>
                   ) : (
@@ -227,7 +253,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
             </>
           ) : (
             <div className="flex-grow flex flex-col items-center justify-center">
-              <p className="text-gray-500 text-center">
+              <p className="text-neutral-400 text-center">
                 登录后可以使用完整的图片上传功能，包括添加 AI 提示词和图片描述。
               </p>
             </div>
