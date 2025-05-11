@@ -187,11 +187,11 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               {isUserMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                   <Link
-                    href="/profile"
+                    href="/settings"
                     className={`block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 font-sans-sc`}
                     onClick={() => setIsUserMenuOpen(false)}
                   >
-                    个人资料
+                    设置
                   </Link>
                   <button
                     onClick={handleSignOut}
