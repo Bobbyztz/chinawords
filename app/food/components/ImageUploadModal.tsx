@@ -102,7 +102,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
     <div className="fixed inset-0 bg-white/30 flex items-center justify-center z-50 p-2">
       <div className="bg-gradient-to-br from-neutral-100/80 via-neutral-200 to-neutral-400/70 rounded-lg shadow-2xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
         {/* Left side - Image Upload or Login Prompt */}
-        <div className="w-1/2 flex flex-col items-center justify-center border border-dashed border-neutral-700 rounded-md min-h-[300px] relative">
+        <div className="w-1/2 flex flex-col items-stretch justify-center border border-dashed border-neutral-700 rounded-md p-4 relative">
           {isAuthenticated ? (
             <>
               <input
@@ -113,26 +113,28 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 className="hidden"
               />
               {previewUrl ? (
-                <>
+                <div className="relative w-full flex-grow min-h-0">
+                  {" "}
+                  {/* Wrapper for Image */}
                   <Image
                     src={previewUrl}
                     alt="Selected image preview"
-                    width={300}
-                    height={300}
-                    className="max-w-full max-h-64 object-contain rounded-md"
+                    fill
+                    sizes="(max-width: 1024px) 45vw, 450px"
+                    className="object-contain rounded-md"
                   />
                   <button
                     onClick={handleCancelImage}
-                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1.5 hover:bg-black/70 transition-colors"
+                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1.5 hover:bg-black/70 transition-colors z-10"
                     aria-label="Remove image"
                   >
                     <X size={18} />
                   </button>
-                </>
+                </div>
               ) : (
                 <div
                   onClick={handlePlusClick}
-                  className="flex flex-col items-center justify-center text-center p-4 cursor-pointer group"
+                  className="flex flex-col items-center justify-center text-center p-4 cursor-pointer group w-full flex-grow"
                 >
                   <Plus
                     size={48}
@@ -148,14 +150,14 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               )}
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center p-4">
+            <div className="flex flex-col items-center justify-center text-center p-4 w-full flex-grow">
               <LogIn size={48} className="text-neutral-400 mb-4" />
               <p className="text-neutral-400 mb-4">
                 请登录以解锁全部图片上传功能。
               </p>
               <Link
                 href={`/login?redirect=${pathname}`}
-                className="px-4 py-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-medium rounded-md shadow-md hover:shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-yellow-500"
+                className="px-4 py-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-medium rounded-md shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-yellow-500"
               >
                 前往登录
               </Link>
