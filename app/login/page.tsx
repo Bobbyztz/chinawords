@@ -9,7 +9,6 @@ import RegisterForm from "../components/auth/RegisterForm";
 function LoginFlow() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   const [redirectPath, setRedirectPath] = useState<string>("/");
 
   useEffect(() => {
@@ -33,46 +32,26 @@ function LoginFlow() {
     router.refresh();
   };
 
-  const loginContent = (
-    <div className="w-full">
-      <div className="flex border-b border-gray-200 mb-6">
-        <button
-          className={`flex-1 py-2 font-medium text-center ${
-            activeTab === "login"
-              ? "text-green-600 border-b-2 border-green-600"
-              : "text-gray-700 hover:text-gray-900"
-          }`}
-          onClick={() => setActiveTab("login")}
-        >
-          登录
-        </button>
-        <button
-          className={`flex-1 py-2 font-medium text-center ${
-            activeTab === "register"
-              ? "text-green-600 border-b-2 border-green-600"
-              : "text-gray-700 hover:text-gray-900"
-          }`}
-          onClick={() => setActiveTab("register")}
-        >
-          注册
-        </button>
-      </div>
+  const loginFormContent = (
+    <div className="w-full max-w-md mx-auto py-8 flex items-center justify-center min-h-[calc(100vh-200px)]">
+      <LoginForm onSuccess={handleSuccess} />
+    </div>
+  );
 
-      {activeTab === "login" ? (
-        <LoginForm onSuccess={handleSuccess} />
-      ) : (
-        <RegisterForm
-          onSuccess={handleSuccess}
-          onLoginClick={() => setActiveTab("login")}
-        />
-      )}
+  const registerFormContent = (
+    <div className="w-full max-w-md mx-auto py-8 flex items-center justify-center min-h-[calc(100vh-200px)]">
+      <RegisterForm onSuccess={handleSuccess} />
     </div>
   );
 
   const tabs = [
     {
-      title: "用户账户",
-      content: loginContent,
+      title: "登录",
+      content: loginFormContent,
+    },
+    {
+      title: "注册",
+      content: registerFormContent,
     },
   ];
 
