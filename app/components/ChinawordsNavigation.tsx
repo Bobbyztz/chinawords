@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
@@ -32,6 +32,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   const [isScrolled, setIsScrolled] = useState(!isHomepage);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null); // Ref for the user menu
 
   // Process pathname for title
   const segments = pathname.split("/").filter(Boolean);
@@ -51,6 +52,25 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [isHomepage]);
+
+  useEffect(() => {
+    // Function to handle clicks outside the user menu
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    // Add event listener when the menu is open
+    if (isUserMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isUserMenuOpen]); // Re-run effect if isUserMenuOpen changes
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -185,7 +205,10 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
               {/* User Dropdown Menu */}
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                <div
+                  ref={userMenuRef} // Assign ref to the menu div
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50"
+                >
                   <Link
                     href="/settings"
                     className={`block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 font-sans-sc`}
