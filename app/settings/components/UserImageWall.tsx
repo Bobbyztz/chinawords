@@ -15,7 +15,7 @@ interface UserImage {
 
 // Props for the UserImageWall component
 interface UserImageWallProps {
-  type: "likes" | "collections";
+  type: "likes" | "collections" | "assets";
   title: string;
 }
 
@@ -231,10 +231,10 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
         }
         
         .aspect-ratio-container {
-           /* Replicated from FoodImageCard */
+           /* Match FoodImageStyles exactly */
            position: relative;
            width: 100%;
-           aspect-ratio: 4/3; /* Maintain aspect ratio */
+           padding-bottom: 85%; /* Match FoodImageStyles' 85% ratio instead of 4/3 */
            overflow: hidden;
            flex: 1; /* Allow container to grow/shrink */
            min-height: 0; /* Important for flex containers */

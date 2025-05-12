@@ -261,6 +261,10 @@ export default function SettingsPage() {
       title: "我的收藏",
       content: <UserImageWall type="collections" title="我的收藏" />,
     },
+    {
+      title: "我的财产",
+      content: <UserImageWall type="assets" title="我的财产" />,
+    },
   ];
 
   return <ContentPageLayout tabs={tabs} />;
