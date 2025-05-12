@@ -34,8 +34,13 @@ export default function SettingsPage() {
 
   // 创建 Profile 页面内容
   const profileContent = (
-    <div className="max-w-3xl mx-auto overflow-hidden">
-      <div className="p-6 md:p-8">
+    <div className="w-full max-w-lg mx-auto rounded-lg">
+      <div className="p-6">
+        <h1 className="text-xl font-bold mb-2 text-gray-800">Profile</h1>
+        <p className="text-sm text-gray-600 mb-6">
+          Update your profile information. This information will be displayed
+          publicly.
+        </p>
         <div className="space-y-6">
           {/* Username */}
           <div className="space-y-2">
@@ -50,6 +55,7 @@ export default function SettingsPage() {
               id="username"
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
               defaultValue={session?.user?.username || "ehadcn"}
+              disabled
             />
             <p className="text-xs text-gray-600">
               This is your public display name. It can be your real name or a
@@ -105,7 +111,7 @@ export default function SettingsPage() {
               id="bio"
               rows={3}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
-              defaultValue="I own a computer."
+              defaultValue="Hi, I'm a new user."
             />
             <p className="text-xs text-gray-600">
               You can @mention other users and organizations to link to them.
@@ -127,12 +133,12 @@ export default function SettingsPage() {
               <input
                 type="url"
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
-                defaultValue="https://ehadcn.com"
+                defaultValue="https://url_1.com"
               />
               <input
                 type="url"
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
-                defaultValue="http://twitter.com/ehadcn"
+                defaultValue="https://url_2.com"
               />
               <button className="text-sm text-gray-700 font-medium px-3 py-1.5 border border-gray-300 rounded hover:bg-gray-50">
                 Add URL
@@ -153,10 +159,10 @@ export default function SettingsPage() {
 
   // 创建 Account 页面内容
   const accountContent = (
-    <div className="max-w-3xl mx-auto overflow-hidden">
-      <div className="p-6 md:p-8">
-        <h1 className="text-xl font-bold mb-3 text-gray-800">Account</h1>
-        <p className="text-sm text-gray-600 mb-5">
+    <div className="w-full max-w-lg mx-auto  rounded-lg">
+      <div className="p-6">
+        <h1 className="text-xl font-bold mb-2 text-gray-800">Account</h1>
+        <p className="text-sm text-gray-600 mb-6">
           Update your account settings. Set your preferred language and
           timezone.
         </p>

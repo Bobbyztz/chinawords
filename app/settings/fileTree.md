@@ -19,7 +19,7 @@ The settings page allows users to view and manage their account information and 
 
 ## Features
 
-- Displays user information (username, ID)
+- Displays user information (username (non-editable), ID)
 - Provides options to change password and notification settings
 - Shows user content upload history (placeholder)
 - Protected route (requires authentication)
