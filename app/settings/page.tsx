@@ -32,10 +32,9 @@ export default function SettingsPage() {
   const profileContent = (
     <div className="w-full max-w-lg mx-auto rounded-lg">
       <div className="p-6">
-        <h1 className="text-xl font-bold mb-2 text-gray-800">Profile</h1>
+        <h1 className="text-xl font-bold mb-2 text-gray-800">个人资料</h1>
         <p className="text-sm text-gray-600 mb-6">
-          Update your profile information. This information will be displayed
-          publicly.
+          更新您的个人资料信息。这些信息将公开显示。
         </p>
         <div className="space-y-6">
           {/* Username */}
@@ -44,7 +43,7 @@ export default function SettingsPage() {
               htmlFor="username"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              用户名
             </label>
             <input
               type="text"
@@ -54,8 +53,7 @@ export default function SettingsPage() {
               disabled
             />
             <p className="text-xs text-gray-600">
-              This is your public display name. It can be your real name or a
-              pseudonym. You can only change this once every 30 days.
+              这是您的公开显示名称。它可以是您的真实姓名或昵称。您只能在30天内更改一次。
             </p>
           </div>
 
@@ -65,7 +63,7 @@ export default function SettingsPage() {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              邮箱
             </label>
             <div className="relative">
               <button
@@ -73,7 +71,7 @@ export default function SettingsPage() {
                 className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
               >
                 <span className="text-gray-500">
-                  Select a verified email to display
+                  选择一个已验证的电子邮件地址显示
                 </span>
                 <FaChevronDown className="text-gray-400" />
               </button>
@@ -91,7 +89,7 @@ export default function SettingsPage() {
               )}
             </div>
             <p className="text-xs text-gray-600">
-              You can manage verified email addresses in your email settings.
+              您可以在电子邮件设置中管理已验证的电子邮件地址。
             </p>
           </div>
 
@@ -101,16 +99,16 @@ export default function SettingsPage() {
               htmlFor="bio"
               className="block text-sm font-medium text-gray-700"
             >
-              Bio
+              个人简介
             </label>
             <textarea
               id="bio"
               rows={3}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
-              defaultValue="Hi, I'm a new user."
+              defaultValue="你好，我是新用户。"
             />
             <p className="text-xs text-gray-600">
-              You can @mention other users and organizations to link to them.
+              您可以@提及其他用户和组织以链接到他们。
             </p>
           </div>
 
@@ -118,10 +116,10 @@ export default function SettingsPage() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                URLs
+                网站链接
               </label>
               <p className="text-xs text-gray-600 mb-3">
-                Add links to your website, blog, or social media profiles.
+                添加您的网站、博客或社交媒体个人主页链接。
               </p>
             </div>
 
@@ -137,7 +135,7 @@ export default function SettingsPage() {
                 defaultValue="https://url_2.com"
               />
               <button className="text-sm text-gray-700 font-medium px-3 py-1.5 border border-gray-300 rounded hover:bg-gray-50">
-                Add URL
+                添加链接
               </button>
             </div>
           </div>
@@ -145,7 +143,7 @@ export default function SettingsPage() {
           {/* Update button */}
           <div className="pt-4">
             <button className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none">
-              Update profile
+              更新账户
             </button>
           </div>
         </div>
@@ -157,10 +155,9 @@ export default function SettingsPage() {
   const accountContent = (
     <div className="w-full max-w-lg mx-auto  rounded-lg">
       <div className="p-6">
-        <h1 className="text-xl font-bold mb-2 text-gray-800">Account</h1>
+        <h1 className="text-xl font-bold mb-2 text-gray-800">账户</h1>
         <p className="text-sm text-gray-600 mb-6">
-          Update your account settings. Set your preferred language and
-          timezone.
+          更新您的账户设置。设置您偏好的语言和时区。
         </p>
 
         <div className="space-y-6">
@@ -170,17 +167,16 @@ export default function SettingsPage() {
               htmlFor="name"
               className="block text-sm font-medium text-gray-700"
             >
-              Name
+              名称
             </label>
             <input
               type="text"
               id="name"
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
-              placeholder="Your name"
+              placeholder="你的名称"
             />
             <p className="text-xs text-gray-600">
-              This is the name that will be displayed on your profile and in
-              emails.
+              这是您在个人资料和电子邮件中显示的名称。
             </p>
           </div>
 
@@ -190,14 +186,12 @@ export default function SettingsPage() {
               htmlFor="dob"
               className="block text-sm font-medium text-gray-700"
             >
-              Date of birth
+              生日
             </label>
             <button className="w-full p-2 border border-gray-300 rounded flex justify-between items-center text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400">
-              Pick a date
+              选择日期
             </button>
-            <p className="text-xs text-gray-600">
-              Your date of birth is used to calculate your age.
-            </p>
+            <p className="text-xs text-gray-600">用于计算您的年龄。</p>
           </div>
 
           {/* Language */}
@@ -206,14 +200,14 @@ export default function SettingsPage() {
               htmlFor="language"
               className="block text-sm font-medium text-gray-700"
             >
-              Language
+              语言
             </label>
             <div className="relative">
               <button
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                 className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
               >
-                <span className="text-gray-500">Select language</span>
+                <span className="text-gray-500">选择语言</span>
                 <FaChevronDown className="text-gray-400" />
               </button>
               {languageDropdownOpen && (
@@ -233,14 +227,14 @@ export default function SettingsPage() {
               )}
             </div>
             <p className="text-xs text-gray-600">
-              This is the language that will be used in the dashboard.
+              这是您在仪表板中使用的语言。
             </p>
           </div>
 
           {/* Update button */}
           <div className="pt-4">
             <button className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none">
-              Update account
+              更新账户
             </button>
           </div>
         </div>
@@ -251,11 +245,11 @@ export default function SettingsPage() {
   // 定义页面标签
   const tabs = [
     {
-      title: "Profile",
+      title: "个人资料",
       content: profileContent,
     },
     {
-      title: "Account",
+      title: "账户设置",
       content: accountContent,
     },
   ];
