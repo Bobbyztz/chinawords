@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { Search, Plus, AlertCircle } from "lucide-react";
+import React, { useState } from "react";
+import { Search, Plus } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import FoodImageGrid from "../../food/components/FoodImageGrid";
 import FoodImageStyles from "../../food/components/FoodImageStyles";
