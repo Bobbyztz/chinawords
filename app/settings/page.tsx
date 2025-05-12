@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
 // 使用单个图标导入以避免可能的导入问题
 import { FaChevronDown } from "react-icons/fa";
+import UserImageWall from "./components/UserImageWall";
 
 export default function SettingsPage() {
   const { data: session, status } = useSession({ required: false });
@@ -254,11 +255,11 @@ export default function SettingsPage() {
     },
     {
       title: "我的点赞",
-      content: "",
+      content: <UserImageWall type="likes" title="我的点赞" />,
     },
     {
       title: "我的收藏",
-      content: "",
+      content: <UserImageWall type="collections" title="我的收藏" />,
     },
   ];
 
