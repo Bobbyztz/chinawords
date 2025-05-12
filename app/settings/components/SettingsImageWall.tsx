@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Search, Plus } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 import FoodImageGrid from "../../food/components/FoodImageGrid";
 import FoodImageStyles from "../../food/components/FoodImageStyles";
 import ImageUploadModal from "../../food/components/ImageUploadModal";
@@ -13,17 +12,6 @@ interface FoodImage {
   alt: string;
   author?: string;
   prompt?: string;
-}
-
-interface ApiAsset {
-  id: string;
-  title: string;
-  prompt?: string;
-  fileUri: string;
-  owner?: {
-    id: string;
-    username: string;
-  };
 }
 
 interface SettingsImageWallProps {
@@ -46,12 +34,6 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const { ref: bottomScrollRef, inView: isBottomVisible } = useInView({
-    threshold: 0,
-    rootMargin: "300px 0px",
-  });
 
   const handleOpenUploadModal = () => {
     setIsUploadModalOpen(true);
