@@ -6,7 +6,35 @@ import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
 // 使用单个图标导入以避免可能的导入问题
 import { FaChevronDown } from "react-icons/fa";
-import UserImageWall from "./components/UserImageWall";
+import SettingsImageWall from "./components/SettingsImageWall";
+
+// 定义各个标签页的筛选选项
+const likesFilterOptions = [
+  { id: "all", name: "全部" },
+  { id: "style", name: "风格定义" },
+  { id: "cuisine", name: "菜系" },
+  { id: "ingredient", name: "食材" },
+  { id: "recipe", name: "食谱" },
+  { id: "album", name: "相册" },
+];
+
+const favoritesFilterOptions = [
+  { id: "all", name: "全部" },
+  { id: "style", name: "风格定义" },
+  { id: "cuisine", name: "菜系" },
+  { id: "ingredient", name: "食材" },
+  { id: "recipe", name: "食谱" },
+  { id: "album", name: "相册" },
+];
+
+const assetsFilterOptions = [
+  { id: "all", name: "全部" },
+  { id: "style", name: "风格定义" },
+  { id: "cuisine", name: "菜系" },
+  { id: "ingredient", name: "食材" },
+  { id: "recipe", name: "食谱" },
+  { id: "album", name: "相册" },
+];
 
 export default function SettingsPage() {
   const { data: session, status } = useSession({ required: false });
@@ -255,15 +283,30 @@ export default function SettingsPage() {
     },
     {
       title: "我的点赞",
-      content: <UserImageWall type="likes" title="我的点赞" />,
+      content: (
+        <SettingsImageWall
+          showUploadButton={false}
+          filterOptions={likesFilterOptions}
+        />
+      ),
     },
     {
       title: "我的收藏",
-      content: <UserImageWall type="collections" title="我的收藏" />,
+      content: (
+        <SettingsImageWall
+          showUploadButton={false}
+          filterOptions={favoritesFilterOptions}
+        />
+      ),
     },
     {
       title: "我的财产",
-      content: <UserImageWall type="assets" title="我的财产" />,
+      content: (
+        <SettingsImageWall
+          showUploadButton={false}
+          filterOptions={assetsFilterOptions}
+        />
+      ),
     },
   ];
 
