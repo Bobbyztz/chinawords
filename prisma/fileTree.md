@@ -25,6 +25,7 @@ This directory contains Prisma ORM configuration and migration files for databas
 ## Data Models
 
 ### User Model
+
 - `id` - Auto-incrementing primary key
 - `username` - Unique username (with index)
 - `passwordHash` - Hashed password for authentication
@@ -32,6 +33,7 @@ This directory contains Prisma ORM configuration and migration files for databas
 - `assets` - Relation to Asset model (one-to-many)
 
 ### Asset Model
+
 - `id` - Auto-incrementing primary key
 - `owner` - Relation to User model
 - `ownerId` - Foreign key to User.id
@@ -40,7 +42,23 @@ This directory contains Prisma ORM configuration and migration files for databas
 - `mediaType` - Type of media (0 = image, 1 = video)
 - `fileUri` - URI pointing to the stored file
 - `createdAt` - Timestamp of asset creation
+- `liked` - Number of times the asset has been liked
+- `collected` - Number of times the asset has been collected
+- `copied` - Number of times the asset has been copied
+- `downloaded` - Number of times the asset has been downloaded
 - Indexes on `[ownerId, createdAt]` and `[mediaType, createdAt]` for efficient queries
+
+### UserLikeAsset Model
+
+- 记录用户(User)喜欢(Like)的资产(Asset)的多对多关系
+- 字段：`id`（主键），`userId`（用户 ID），`assetId`（资产 ID）
+- 唯一约束：每个用户对同一资产只能喜欢一次
+
+### UserCollectionAsset Model
+
+- 记录用户(User)收藏(Collection)的资产(Asset)的多对多关系
+- 字段：`id`（主键），`userId`（用户 ID），`assetId`（资产 ID）
+- 唯一约束：每个用户对同一资产只能收藏一次
 
 ## Usage
 

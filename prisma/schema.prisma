@@ -23,6 +23,8 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt // 添加更新时间戳
   assets       Asset[]
+  likes        UserLikeAsset[]
+  collections  UserCollectionAsset[]
 
   @@index([email]) // 为常用查询添加索引
   @@index([username])
@@ -40,8 +42,34 @@ model Asset {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt // 添加更新时间戳
   isPublic    Boolean  @default(true) // 添加可见性控制
+  liked       Int      @default(0) // 被喜欢次数
+  collected   Int      @default(0) // 被收藏次数
+  copied      Int      @default(0) // 被复制次数
+  downloaded  Int      @default(0) // 被下载次数
+  likedBy      UserLikeAsset[]
+  collectedBy  UserCollectionAsset[]
 
   @@index([ownerId, createdAt])
   @@index([mediaType, createdAt])
   @@index([isPublic, createdAt]) // 为公开内容查询添加索引
+}
+
+model UserLikeAsset {
+  id       String  @id @default(uuid())
+  user     User    @relation(fields: [userId], references: [id])
+  userId   String
+  asset    Asset   @relation(fields: [assetId], references: [id])
+  assetId  String
+
+  @@unique([userId, assetId]) // 防止重复喜欢
+}
+
+model UserCollectionAsset {
+  id       String  @id @default(uuid())
+  user     User    @relation(fields: [userId], references: [id])
+  userId   String
+  asset    Asset   @relation(fields: [assetId], references: [id])
+  assetId  String
+
+  @@unique([userId, assetId]) // 防止重复收藏
 }
