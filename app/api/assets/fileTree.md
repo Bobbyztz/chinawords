@@ -5,6 +5,10 @@ This directory contains API routes for managing digital assets (images, videos, 
 ## Files
 
 - **route.ts** - API route handler for asset management (GET and POST methods)
+- **liked.ts** - 获取当前登录用户点赞的所有资源（Asset）
+- **collected.ts** - 获取当前登录用户收藏的所有资源（Asset）
+- **owned.ts** - 获取当前登录用户自己上传的所有资源（Asset）
+- **fileTree.md** - 本文件，记录 assets 相关 API 路由结构和用途
 
 ## Purpose
 
@@ -100,3 +104,10 @@ These endpoints are used by:
 - NextJS: For API route handling
 - Prisma: For database access
 - Authentication: These endpoints should be protected to ensure only authorized users can create assets
+
+## Usage
+
+- `GET /api/assets/liked` - 返回当前用户点赞的所有资源
+- `GET /api/assets/collected` - 返回当前用户收藏的所有资源
+- `GET /api/assets/owned` - 返回当前用户自己上传的所有资源
+- `GET /api/assets` - 返回全部资源（或根据参数筛选）
