@@ -35,119 +35,23 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
   showUploadButton = false,
   filterOptions,
 }) => {
-  const [images, setImages] = useState<FoodImage[]>([]);
+  const [images, setImages] = useState<FoodImage[]>([
+    {
+      id: "placeholder",
+      src: "/images/placeholder.svg",
+      alt: "占位图片",
+      author: "系统",
+    },
+  ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const [loadedImageIds, setLoadedImageIds] = useState<Set<string>>(new Set());
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
   const { ref: bottomScrollRef, inView: isBottomVisible } = useInView({
     threshold: 0,
     rootMargin: "300px 0px",
   });
-
-  const fetchMoreImages = useCallback(
-    async (isInitialLoad = false) => {
-      if (isLoading || (!hasMore && !isInitialLoad)) return;
-
-      setIsLoading(true);
-      if (isInitialLoad) {
-        setImages([]);
-        setLoadedImageIds(new Set());
-        setErrorMessage("");
-      }
-
-      try {
-        const excludeIdsString = Array.from(loadedImageIds).join(",");
-        const response = await fetch(
-          `/api/assets?count=12&excludeIds=${excludeIdsString}`,
-          {
-            headers: {
-              "Cache-Control": "no-cache, no-store, must-revalidate",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          let apiErrorMsg = "获取图片失败";
-          try {
-            const errorResult = await response.json();
-            if (errorResult && errorResult.error) {
-              apiErrorMsg = errorResult.error;
-            }
-          } catch (_error) {
-            // Ignore if cannot parse error JSON
-          }
-          throw new Error(`API Error: ${response.status} - ${apiErrorMsg}`);
-        }
-
-        const result = (await response.json()) as {
-          data: ApiAsset[];
-          hasMore: boolean;
-        };
-
-        if (!result || !result.data) {
-          setErrorMessage(
-            isInitialLoad &&
-              (!result || !result.data || result.data.length === 0)
-              ? "暂无图片数据"
-              : "未能加载更多图片"
-          );
-          setHasMore(false);
-          setIsLoading(false);
-          return;
-        }
-
-        const fetchedApiAssets = result.data;
-        const moreAvailable = result.hasMore;
-
-        const newImages: FoodImage[] = fetchedApiAssets.map((asset) => ({
-          id: asset.id,
-          src: asset.fileUri,
-          alt: asset.title,
-          prompt: asset.prompt || undefined,
-          author: asset.owner?.username || undefined,
-        }));
-
-        if (newImages.length === 0 && isInitialLoad) {
-          setErrorMessage("暂无图片数据");
-        } else if (newImages.length === 0 && !isInitialLoad) {
-          // No new images returned on subsequent loads
-        } else {
-          setErrorMessage("");
-        }
-
-        setImages((prevImages) =>
-          isInitialLoad ? newImages : [...prevImages, ...newImages]
-        );
-
-        const newIds = new Set(newImages.map((img) => img.id));
-        setLoadedImageIds((prevIds) => new Set([...prevIds, ...newIds]));
-        setHasMore(moreAvailable);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-        setErrorMessage(
-          error instanceof Error ? error.message : "获取图片数据时发生未知错误"
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [isLoading, hasMore, loadedImageIds]
-  );
-
-  useEffect(() => {
-    fetchMoreImages(true);
-  }, []);
-
-  useEffect(() => {
-    if (isBottomVisible && hasMore && !isLoading) {
-      fetchMoreImages();
-    }
-  }, [isBottomVisible, hasMore, isLoading, fetchMoreImages]);
 
   const handleOpenUploadModal = () => {
     setIsUploadModalOpen(true);
@@ -258,31 +162,7 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
         </div>
       </div>
 
-      {errorMessage && !isLoading && images.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <AlertCircle className="h-12 w-12 mb-4" />
-          <p>{errorMessage}</p>
-        </div>
-      ) : (
-        <FoodImageGrid
-          images={images}
-          isLoading={isLoading && images.length === 0}
-        />
-      )}
-
-      {hasMore && !errorMessage && (
-        <div
-          ref={bottomScrollRef}
-          className="h-10 flex justify-center items-center"
-        >
-          {isLoading && images.length > 0 && <p>正在加载更多...</p>}
-        </div>
-      )}
-      {!hasMore && images.length > 0 && !errorMessage && (
-        <div className="text-center py-4 text-gray-500">
-          <p>已经到底啦！</p>
-        </div>
-      )}
+      <FoodImageGrid images={images} isLoading={isLoading} />
 
       <FoodImageStyles />
 
