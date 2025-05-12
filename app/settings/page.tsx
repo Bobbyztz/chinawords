@@ -5,10 +5,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
 // 使用单个图标导入以避免可能的导入问题
-import { FaUser } from "react-icons/fa";
-import { FaClock } from "react-icons/fa";
-import { FaFileUpload } from "react-icons/fa";
-import { FaCog } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function SettingsPage() {
