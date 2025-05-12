@@ -252,6 +252,14 @@ export default function SettingsPage() {
       title: "账户设置",
       content: accountContent,
     },
+    {
+      title: "我的点赞",
+      content: "",
+    },
+    {
+      title: "我的收藏",
+      content: "",
+    },
   ];
 
   return <ContentPageLayout tabs={tabs} />;
