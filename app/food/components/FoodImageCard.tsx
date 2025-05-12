@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Heart, Star, Copy } from "lucide-react";
+import { Heart, Star, Copy, Download } from "lucide-react";
 
 interface FoodImageProps {
   id: string;
@@ -21,6 +21,23 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   prompt,
 }) => {
   const [isFlashing, setIsFlashing] = useState(false);
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(src);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = alt;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Failed to download image:', err);
+    }
+  };
 
   const handleCopyPrompt = async () => {
     const textToCopy =
@@ -95,6 +112,11 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
             size={14}
             className="cursor-pointer hover:text-blue-500 pointer-events-auto"
             onClick={handleCopyPrompt}
+          />
+          <Download
+            size={14}
+            className="cursor-pointer hover:text-green-500 pointer-events-auto"
+            onClick={handleDownload}
           />
         </div>
       </div>
