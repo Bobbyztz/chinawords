@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, AlertCircle, Heart, Star, Copy, Download } from "lucide-react";
+import { Search, Download, Copy, Heart, Star } from "lucide-react";
 import Image from "next/image";
 
 // Reuse the FoodImage interface
@@ -27,7 +27,7 @@ const UserImageCard: React.FC<{ image: UserImage }> = ({ image }) => {
       const response = await fetch(image.src);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = image.alt;
       document.body.appendChild(a);
@@ -35,7 +35,7 @@ const UserImageCard: React.FC<{ image: UserImage }> = ({ image }) => {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (err) {
-      console.error('Failed to download image:', err);
+      console.error("Failed to download image:", err);
       // TODO: Add user feedback for download failure
     }
   };
@@ -60,7 +60,7 @@ const UserImageCard: React.FC<{ image: UserImage }> = ({ image }) => {
       }, 100);
     } catch (err) {
       console.error("Failed to copy text: ", err);
-       // TODO: Add user feedback for copy failure
+      // TODO: Add user feedback for copy failure
     }
   };
 
@@ -79,7 +79,9 @@ const UserImageCard: React.FC<{ image: UserImage }> = ({ image }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
           style={{ objectFit: "cover", objectPosition: "center" }}
           priority={false} // Assuming these aren't priority in settings
-          className={`transition-opacity duration-50 ${isFlashing ? "opacity-50" : "opacity-100"}`}
+          className={`transition-opacity duration-50 ${
+            isFlashing ? "opacity-50" : "opacity-100"
+          }`}
         />
         {/* Container for description, handles sizing, positioning, and hover effect */}
         <div className="absolute bottom-0 left-0 w-full h-[35%] px-2 pt-2 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 overflow-hidden">
@@ -158,9 +160,7 @@ const UserImageGrid: React.FC<{ images: UserImage[]; isLoading: boolean }> = ({
 
 const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  
+
   // Dummy data - single Unsplash image as requested
   const dummyImages: UserImage[] = [];
 
@@ -170,9 +170,9 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
     src: "https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1129&q=80",
     alt: type === "likes" ? "我喜欢的中国美食" : "我收藏的中国美食",
     prompt: "精美的中国传统菜肴，色香味俱全，令人垂涎欲滴。",
-    author: "Unsplash"
+    author: "Unsplash",
   };
-  
+
   dummyImages.push(placeholderImage);
 
   return (
@@ -197,14 +197,7 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
         </div>
       </div>
 
-      {errorMessage && !isLoading && dummyImages.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <AlertCircle className="h-12 w-12 mb-4" />
-          <p>{errorMessage}</p>
-        </div>
-      ) : (
-        <UserImageGrid images={dummyImages} isLoading={isLoading} />
-      )}
+      <UserImageGrid images={dummyImages} isLoading={false} />
 
       {/* Use styles similar to FoodImageStyles for the card appearance */}
       <style jsx global>{`
@@ -219,7 +212,7 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
           flex-direction: column;
           width: 100%;
           height: 100%;
-          overflow: hidden; 
+          overflow: hidden;
         }
 
         .image-card:hover {
@@ -229,17 +222,17 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
           flex: 1;
           min-height: 0;
         }
-        
+
         .aspect-ratio-container {
-           /* Match FoodImageStyles exactly */
-           position: relative;
-           width: 100%;
-           padding-bottom: 85%; /* Match FoodImageStyles' 85% ratio instead of 4/3 */
-           overflow: hidden;
-           flex: 1; /* Allow container to grow/shrink */
-           min-height: 0; /* Important for flex containers */
+          /* Match FoodImageStyles exactly */
+          position: relative;
+          width: 100%;
+          padding-bottom: 85%; /* Match FoodImageStyles' 85% ratio instead of 4/3 */
+          overflow: hidden;
+          flex: 1; /* Allow container to grow/shrink */
+          min-height: 0; /* Important for flex containers */
         }
-        
+
         /* Optional: Frosted glass effect on hover (from FoodImageStyles) */
         /* .aspect-ratio-container::after {
           content: "";
@@ -261,7 +254,7 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
           opacity: 1;
           visibility: visible;
         } */
-        
+
         /* Styles for the caption area BELOW the image */
         .image-caption-area {
           background-color: white; /* Initial white background */
@@ -273,13 +266,13 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
           overflow: hidden;
           transition: background-color 0.3s ease-in-out;
         }
-        
+
         .alt-text-display {
           opacity: 1;
           transition: opacity 0.3s ease-in-out;
           line-height: 24px;
         }
-        
+
         .caption-hover-icons {
           opacity: 0;
           pointer-events: none; /* Initially not interactive */
@@ -287,17 +280,22 @@ const UserImageWall: React.FC<UserImageWallProps> = ({ type, title }) => {
           height: 24px;
           line-height: 24px;
         }
-        
+
         /* HOVER STATES for caption area */
         .image-card:hover .image-caption-area {
-           background-color: rgba(128, 128, 128, 0.4); /* Semi-transparent gray on hover */
+          background-color: rgba(
+            128,
+            128,
+            128,
+            0.4
+          ); /* Semi-transparent gray on hover */
         }
-        
+
         .image-card:hover .alt-text-display {
           opacity: 0 !important; /* Hide alt text */
           pointer-events: none !important;
         }
-        
+
         .image-card:hover .caption-hover-icons {
           opacity: 1 !important; /* Show icons */
           pointer-events: auto !important; /* Make icons clickable */
