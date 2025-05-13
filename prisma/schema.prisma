@@ -1,6 +1,3 @@
-// Prisma schema for MVP: User & Asset
-// Database: PostgreSQL
-
 generator client {
   provider        = "prisma-client-js"
   output          = "../node_modules/.prisma/client"
@@ -14,62 +11,62 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid()) // 使用UUID代替自增整数，提高安全性
-  email        String?  @unique // 可选电子邮件，支持Supabase身份验证
-  username     String   @unique
+  id           String                @id @default(uuid())
+  username     String                @unique
   passwordHash String
-  displayName  String?  // 可选显示名称
-  avatarUrl    String?  // 可选头像URL
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt // 添加更新时间戳
+  createdAt    DateTime              @default(now())
+  avatarUrl    String?
+  displayName  String?
+  email        String?               @unique
+  updatedAt    DateTime              @updatedAt
   assets       Asset[]
-  likes        UserLikeAsset[]
   collections  UserCollectionAsset[]
+  likes        UserLikeAsset[]
 
-  @@index([email]) // 为常用查询添加索引
+  @@index([email])
   @@index([username])
 }
 
 model Asset {
-  id          String   @id @default(uuid()) // 使用UUID
-  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade) // 添加级联删除
-  ownerId     String   // 更新为String类型以匹配User.id
-  title       String   // 标题/说明（从ImageUploadModal中使用altText填充）
-  prompt      String?  // AI生成提示（如果适用）
-  mediaType   Int      // 0 = image, 1 = video
-  fileUri     String   // Vercel Blob或其他存储的URL
-  metadata    Json?    // 保留用于将来扩展（如图片尺寸、类型等）
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt // 添加更新时间戳
-  isPublic    Boolean  @default(true) // 添加可见性控制
-  liked       Int      @default(0) // 被喜欢次数
-  collected   Int      @default(0) // 被收藏次数
-  copied      Int      @default(0) // 被复制次数
-  downloaded  Int      @default(0) // 被下载次数
-  likedBy      UserLikeAsset[]
-  collectedBy  UserCollectionAsset[]
+  id          String                @id @default(uuid())
+  ownerId     String
+  title       String
+  prompt      String?
+  mediaType   Int
+  fileUri     String
+  createdAt   DateTime              @default(now())
+  isPublic    Boolean               @default(true)
+  metadata    Json?
+  updatedAt   DateTime              @updatedAt
+  collected   Int                   @default(0)
+  copied      Int                   @default(0)
+  downloaded  Int                   @default(0)
+  liked       Int                   @default(0)
+  owner       User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  collectedBy UserCollectionAsset[]
+  likedBy     UserLikeAsset[]
 
   @@index([ownerId, createdAt])
   @@index([mediaType, createdAt])
-  @@index([isPublic, createdAt]) // 为公开内容查询添加索引
+  @@index([isPublic, createdAt])
 }
 
 model UserLikeAsset {
-  id       String  @id @default(uuid())
-  user     User    @relation(fields: [userId], references: [id])
-  userId   String
-  asset    Asset   @relation(fields: [assetId], references: [id])
-  assetId  String
+  id      String @id @default(uuid())
+  userId  String
+  assetId String
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 
-  @@unique([userId, assetId]) // 防止重复喜欢
+  @@unique([userId, assetId])
 }
 
 model UserCollectionAsset {
-  id       String  @id @default(uuid())
-  user     User    @relation(fields: [userId], references: [id])
-  userId   String
-  asset    Asset   @relation(fields: [assetId], references: [id])
-  assetId  String
+  id      String @id @default(uuid())
+  userId  String
+  assetId String
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 
-  @@unique([userId, assetId]) // 防止重复收藏
+  @@unique([userId, assetId])
 }

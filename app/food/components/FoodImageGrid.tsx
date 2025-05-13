@@ -14,9 +14,14 @@ interface FoodImage {
 interface FoodImageGridProps {
   images: FoodImage[];
   isLoading: boolean;
+  emptyText?: string;
 }
 
-const FoodImageGrid: React.FC<FoodImageGridProps> = ({ images, isLoading }) => {
+const FoodImageGrid: React.FC<FoodImageGridProps> = ({
+  images,
+  isLoading,
+  emptyText,
+}) => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -27,8 +32,11 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({ images, isLoading }) => {
 
   if (images.length === 0) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500">没有找到相关菜系的图片</p>
+      <div className="flex flex-col justify-center items-center h-64">
+        <span className="text-3xl mb-2">🍥</span>
+        <p className="text-gray-500 text-base font-mono">
+          {emptyText || "没有找到相关菜系的图片"}
+        </p>
       </div>
     );
   }

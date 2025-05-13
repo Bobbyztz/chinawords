@@ -2,12 +2,12 @@
 
 This directory contains API routes for managing digital assets (images, videos, etc.) in the application.
 
-## Files
+## Files & Directories
 
 - **route.ts** - API route handler for asset management (GET and POST methods)
-- **liked.ts** - 获取当前登录用户点赞的所有资源（Asset）
-- **collected.ts** - 获取当前登录用户收藏的所有资源（Asset）
-- **owned.ts** - 获取当前登录用户自己上传的所有资源（Asset）
+- **liked/route.ts** - 获取当前登录用户点赞的所有资源（Asset）
+- **collected/route.ts** - 获取当前登录用户收藏的所有资源（Asset）
+- **owned/route.ts** - 获取当前登录用户自己上传的所有资源（Asset）
 - **fileTree.md** - 本文件，记录 assets 相关 API 路由结构和用途
 
 ## Purpose

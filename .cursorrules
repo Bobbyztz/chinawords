@@ -51,6 +51,6 @@ Database
 - We use Prisma for database.
 - We use Supabase for authentication.
 
-Follow Next.js docs for Data Fetching, Rendering, and Routing.
+Follow Next.js app router docs for Data Fetching, Rendering, and Routing.
 
-For every level of the file system, there will be one or more markdown files with 'fileTree' prefix. These files are used to record the file structure and there key functions.Check them before update the codebase. Also, please update them if they miss content or have redundant content.
+For every level of the file system, there will be one or more markdown files with 'fileTree' prefix. These files are used to record the file structure and their key functionalities. Check them before update the codebase. Also, please update them if they miss content, make mistake or have redundant content.

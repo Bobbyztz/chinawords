@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Plus } from "lucide-react";
 import FoodImageGrid from "../../food/components/FoodImageGrid";
 import FoodImageStyles from "../../food/components/FoodImageStyles";
@@ -19,47 +19,82 @@ interface SettingsImageWallProps {
   filterOptions: Array<{ id: string; name: string }>;
 }
 
-const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
+const filterToApi: Record<string, string> = {
+  likes: "/api/assets/liked",
+  collected: "/api/assets/collected",
+  owned: "/api/assets/owned",
+};
+
+function getApiByTab(tab: string): string {
+  if (tab === "我的点赞") return filterToApi.likes;
+  if (tab === "我的收藏") return filterToApi.collected;
+  if (tab === "我的财产") return filterToApi.owned;
+  return filterToApi.owned;
+}
+
+export function SettingsImageWall({
   showUploadButton = false,
   filterOptions,
-}) => {
-  const [images, setImages] = useState<FoodImage[]>([
-    {
-      id: "placeholder",
-      src: "/images/placeholder.svg",
-      alt: "占位图片",
-      author: "系统",
-    },
-  ]);
+}: SettingsImageWallProps) {
+  const [images, setImages] = useState<FoodImage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedFilter, setSelectedFilter] = useState<string>("all");
+  const [selectedFilter, setSelectedFilter] = useState<string>(
+    filterOptions[0]?.id || "all"
+  );
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  const handleOpenUploadModal = () => {
-    setIsUploadModalOpen(true);
-  };
+  // 获取当前 tab 名称（通过 window.location.hash 或 props 传递更优，这里假设用 filterOptions[0].name 作为 tab 名）
+  // 你可以根据实际 tab 传递方式调整 getApiByTab 的参数
+  const [tabName, setTabName] = useState<string>("");
+  useEffect(() => {
+    // 尝试从父组件传递 tab 名称，或用 URL/hash 判断
+    // 这里假设用 document.title 或 filterOptions[0].name
+    setTabName(document.title || "我的财产");
+  }, []);
 
-  const handleCloseUploadModal = () => {
-    setIsUploadModalOpen(false);
-  };
+  useEffect(() => {
+    let ignore = false;
+    async function fetchImages() {
+      setIsLoading(true);
+      let apiUrl = getApiByTab(tabName);
+      try {
+        const res = await fetch(apiUrl, { credentials: "include" });
+        if (!res.ok) throw new Error("获取图片失败");
+        const data = await res.json();
+        if (ignore) return;
+        const mapped: FoodImage[] = (data || []).map((item: any) => ({
+          id: item.id,
+          src: item.fileUri,
+          alt: item.title,
+          author: item.owner?.username || "", // 需要后端返回 owner
+          prompt: item.prompt,
+        }));
+        setImages(mapped);
+      } catch (e) {
+        setImages([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchImages();
+    return () => {
+      ignore = true;
+    };
+  }, [tabName]);
+
+  const handleOpenUploadModal = () => setIsUploadModalOpen(true);
+  const handleCloseUploadModal = () => setIsUploadModalOpen(false);
 
   const handleUpload = async (file: File, prompt: string, altText: string) => {
     try {
       const { upload } = await import("@vercel/blob/client");
-
       setIsLoading(true);
-
       const sessionResponse = await fetch("/api/auth/session");
       const sessionData = await sessionResponse.json();
       const userId = sessionData?.user?.id;
-
-      if (!userId) {
-        throw new Error("您需要登录才能上传图片");
-      }
-
+      if (!userId) throw new Error("您需要登录才能上传图片");
       const fileExtension = file.name.split(".").pop() || "";
       const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
-
       const newBlob = await upload(uniqueFileName, file, {
         access: "public",
         handleUploadUrl: "/api/upload-url",
@@ -70,9 +105,7 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
           originalFilename: file.name,
         }),
       });
-
       await new Promise((resolve) => setTimeout(resolve, 2500));
-
       const newImage: FoodImage = {
         id: `uploaded-${Date.now()}`,
         src: newBlob.url,
@@ -80,21 +113,27 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
         prompt: prompt,
         author: "You",
       };
-
       setImages((prevImages) => [newImage, ...prevImages]);
-
       handleCloseUploadModal();
     } catch (error) {
       console.error("Error uploading image:", error);
       if (error instanceof Error) {
-        const errorMsg = error.message;
-        alert(`上传失败: ${errorMsg}`);
+        alert(`上传失败: ${error.message}`);
       } else {
         alert("上传失败，请重试");
       }
       setIsLoading(false);
     }
   };
+
+  // 可爱空状态文案
+  function getEmptyText(tab: string) {
+    if (tab === "我的点赞") return "暂无点赞，快去心动一张吧！";
+    if (tab === "我的收藏") return "还没有收藏，遇到喜欢的就收进小口袋吧！";
+    if (tab === "我的财产")
+      return "你还没有上传任何作品，快来创造你的第一个宝藏吧！";
+    return "这里空空如也，快去发现更多精彩吧！";
+  }
 
   return (
     <div
@@ -112,7 +151,6 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
                 placeholder="搜索..."
               />
             </div>
-
             <div className="flex items-center space-x-3 pl-24">
               {filterOptions.map((option) => (
                 <span
@@ -129,7 +167,6 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
               ))}
             </div>
           </div>
-
           {showUploadButton && (
             <div className="ml-auto">
               <button
@@ -143,11 +180,12 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
           )}
         </div>
       </div>
-
-      <FoodImageGrid images={images} isLoading={isLoading} />
-
+      <FoodImageGrid
+        images={images}
+        isLoading={isLoading}
+        emptyText={getEmptyText(tabName)}
+      />
       <FoodImageStyles />
-
       <ImageUploadModal
         isOpen={isUploadModalOpen}
         onClose={handleCloseUploadModal}
@@ -155,6 +193,6 @@ const SettingsImageWall: React.FC<SettingsImageWallProps> = ({
       />
     </div>
   );
-};
+}
 
 export default SettingsImageWall;
