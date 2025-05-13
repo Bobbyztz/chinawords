@@ -12,6 +12,7 @@ import NewHomePage_FoodGallery from "./components/homepage/NewHomePage_FoodGalle
 import NewHomePage_Records from "./components/homepage/NewHomePage_Records";
 import NewHomePage_Activities from "./components/homepage/NewHomePage_Activities";
 import NewHomePage_NewsletterBio from "./components/homepage/NewHomePage_NewsletterBio";
+import NewHomePage_ProjectProgress from "./components/homepage/NewHomePage_ProjectProgress";
 
 export default function HomePage() {
   const sectionsRef = useRef<HTMLElement[]>([]);
@@ -95,6 +96,9 @@ export default function HomePage() {
           heroData={heroData}
           registerSection={registerSection}
         />
+
+        {/* Project Progress Section */}
+        <NewHomePage_ProjectProgress registerSection={registerSection} />
 
         {/* Basic Themes Section */}
         <NewHomePage_BasicThemes
