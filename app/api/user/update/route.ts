@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { prisma } from "@/lib/prisma";
 
+// Define an interface for the update data
+interface UserUpdateData {
+  displayName?: string;
+  language?: string;
+}
+
 export async function PUT(req: NextRequest) {
   try {
     // Get the user token
@@ -27,7 +33,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Prepare update data - Check for undefined specifically, allow empty strings
-    const updateData: any = {};
+    const updateData: UserUpdateData = {};
     if (name !== undefined) updateData.displayName = name;
     if (language !== undefined) updateData.language = language;
 

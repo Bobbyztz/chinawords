@@ -2,6 +2,37 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { NextAuthOptions } from "next-auth";
+import type { User } from "next-auth";
+
+// Extend the Session and JWT types to include our custom properties
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      username: string;
+      displayName: string | null;
+      language: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+
+  interface User {
+    username: string;
+    displayName?: string;
+    language?: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    username: string;
+    displayName?: string;
+    language?: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,7 +42,9 @@ export const authOptions: NextAuthOptions = {
         username: { label: "用户名", type: "text" },
         password: { label: "密码", type: "password" },
       },
-      async authorize(credentials) {
+      // We need to include req parameter for NextAuth typing but we don't use it
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async authorize(credentials, req) {
         if (!credentials?.username || !credentials?.password) {
           return null;
         }
@@ -38,13 +71,17 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          // Return user object without password
+          // Return user object that conforms to the User type
           return {
             id: user.id.toString(),
+            name: user.displayName || user.username,
+            email: user.email || undefined,
+            image: user.avatarUrl || undefined,
+            // Custom properties for JWT
             username: user.username,
-            displayName: user.displayName || null,
+            displayName: user.displayName || undefined,
             language: user.language || "chinese",
-          };
+          } as User;
         } catch (error) {
           console.error("Error in authorize:", error);
           return null;
@@ -80,7 +117,8 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (freshUser) {
-          token.displayName = freshUser.displayName;
+          // Convert null to undefined to match the expected type
+          token.displayName = freshUser.displayName || undefined;
           token.language = freshUser.language;
         }
       }
@@ -92,7 +130,7 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
-        session.user.displayName = (token.displayName as string) || null;
+        session.user.displayName = token.displayName as string | null;
         session.user.language = (token.language as string) || "chinese";
       }
       return session;
