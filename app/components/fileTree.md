@@ -11,6 +11,10 @@ This directory contains reusable UI components used throughout the application.
 - **auth/LoginForm.tsx** - Form component for user login with validation and error handling
 - **auth/RegisterForm.tsx** - Form component for user registration with validation and error handling
 
+## UI Components
+
+- **ui/select.tsx** - Shadcn UI Select component for dropdown selections based on Radix UI primitives
+
 ## Utility Components
 
 - **ContentPageLayout.tsx** - Universal layout component for content pages with tabs, background image and navigation
@@ -23,4 +27,4 @@ This directory contains reusable UI components used throughout the application.
 - **UnderConstructionContent.tsx** provides placeholder tabs for pages that are still under construction
 - **TabComponent.tsx** is used by ContentPageLayout to display content in tabs with hover-to-switch functionality
 - The new homepage (`app/page.tsx`) uses components from the `app/components/homepage/` directory
-
+- **ui/select.tsx** is used in forms and settings pages for accessible dropdown selections

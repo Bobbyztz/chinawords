@@ -1,12 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
-// 使用单个图标导入以避免可能的导入问题
-import { FaChevronDown } from "react-icons/fa";
 import SettingsImageWall from "./components/SettingsImageWall";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 
 // 定义各个标签页的筛选选项
 const likesFilterOptions = [
@@ -39,8 +44,6 @@ const assetsFilterOptions = [
 export default function SettingsPage() {
   const { data: session, status } = useSession({ required: false });
   const router = useRouter();
-  const [emailDropdownOpen, setEmailDropdownOpen] = useState(false);
-  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
 
   // Redirect to login if not authenticated
   React.useEffect(() => {
@@ -94,29 +97,19 @@ export default function SettingsPage() {
             >
               邮箱
             </label>
-            <div className="relative">
-              <button
-                onClick={() => setEmailDropdownOpen(!emailDropdownOpen)}
-                className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
-              >
-                <span className="text-gray-500">
-                  选择一个已验证的电子邮件地址显示
-                </span>
-                <FaChevronDown className="text-gray-400" />
-              </button>
-              {emailDropdownOpen && (
-                <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg">
-                  <ul>
-                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      example@email.com
-                    </li>
-                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      another@email.com
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="选择一个已验证的电子邮件地址显示" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="example@email.com">
+                  example@email.com
+                </SelectItem>
+                <SelectItem value="another@email.com">
+                  another@email.com
+                </SelectItem>
+              </SelectContent>
+            </Select>
             <p className="text-xs text-gray-600">
               您可以在电子邮件设置中管理已验证的电子邮件地址。
             </p>
@@ -231,30 +224,16 @@ export default function SettingsPage() {
             >
               语言
             </label>
-            <div className="relative">
-              <button
-                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-                className="w-full p-2 border border-gray-300 rounded flex justify-between items-center focus:outline-none focus:ring-1 focus:ring-gray-400"
-              >
-                <span className="text-gray-500">选择语言</span>
-                <FaChevronDown className="text-gray-400" />
-              </button>
-              {languageDropdownOpen && (
-                <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg">
-                  <ul>
-                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      English
-                    </li>
-                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      中文
-                    </li>
-                    <li className="p-2 hover:bg-gray-100 cursor-pointer">
-                      Español
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="选择语言" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="english">English</SelectItem>
+                <SelectItem value="chinese">中文</SelectItem>
+                <SelectItem value="spanish">Español</SelectItem>
+              </SelectContent>
+            </Select>
             <p className="text-xs text-gray-600">
               这是您在仪表板中使用的语言。
             </p>
