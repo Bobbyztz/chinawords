@@ -87,24 +87,22 @@ const TableOfContents: React.FC<{
 // Example TOC items with active states
 const leftTocItems = [
   { title: "美食图片墙", url: "#research", active: true },
-  { title: "浏览器插件说明", url: "#requirements" },
-  { title: "浏览器插件下载", url: "#design" },
+  { title: "浏览器插件", url: "#requirements" },
+  { title: "个人资料", url: "#design" },
 ];
 
 const CenterTocItems = [
-  { title: "风格定义图片", url: "#development", active: true },
+  { title: "个性食谱定制", url: "#deployment", active: true },
+  { title: "相册制作栏目", url: "#deployment" },
+  { title: "风格定义图片", url: "#development" },
   { title: "地方菜系图片", url: "#testing" },
   { title: "食材溯源展示", url: "#deployment" },
-  { title: "个性食谱定制", url: "#deployment" },
-  { title: "相册制作栏目", url: "#deployment" },
 ];
 
 const rightTocItems = [
-  { title: "风格定义图片", url: "#development", active: true },
-  { title: "地方菜系图片", url: "#testing" },
-  { title: "食材溯源展示", url: "#deployment" },
-  { title: "个性食谱定制", url: "#deployment" },
-  { title: "相册制作栏目", url: "#deployment" },
+  { title: "衣·时尚传承", url: "#development", active: true },
+  { title: "住·空间美学", url: "#testing" },
+  { title: "行·绿色出行", url: "#deployment" },
 ];
 
 const NewHomePage_ProjectProgress: React.FC<
@@ -153,7 +151,7 @@ const NewHomePage_ProjectProgress: React.FC<
                 <h3 className="text-lg font-semibold mb-6">未开始</h3>
                 <TableOfContents
                   items={rightTocItems}
-                  title="/food"
+                  title="others"
                   colorScheme="red"
                 />
               </div>
