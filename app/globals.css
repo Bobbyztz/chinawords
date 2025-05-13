@@ -130,8 +130,8 @@ section > div.absolute {
 
 /* Fix autofill background color */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px transparent inset !important;
   -webkit-text-fill-color: var(--ink-dark) !important;
@@ -161,4 +161,13 @@ input:autofill {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+/* Toast notification styles */
+.toaster-elevated [data-sonner-toast] {
+  margin-top: -16px !important; /* 提高顶部位置 */
+}
+
+.toaster-elevated [data-sonner-toaster][data-position^="top"] {
+  top: 10px;
 }

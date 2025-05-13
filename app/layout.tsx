@@ -96,7 +96,20 @@ export default function RootLayout({
         <Providers>
           {children}
           <Analytics />
-          <Toaster position="top-center" richColors closeButton />
+          <Toaster
+            position="top-center"
+            richColors
+            closeButton
+            className="toaster-elevated"
+            toastOptions={{
+              style: {
+                background: "rgba(248, 248, 248, 0.9)",
+                border: "1px solid rgba(0, 0, 0, 0.1)",
+                paddingTop: "13px",
+                paddingBottom: "13px",
+              },
+            }}
+          />
         </Providers>
       </body>
     </html>
