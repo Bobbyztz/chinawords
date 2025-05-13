@@ -17,6 +17,7 @@ interface FoodImage {
 interface SettingsImageWallProps {
   showUploadButton?: boolean;
   filterOptions: Array<{ id: string; name: string }>;
+  mainCategory: "likes" | "collected" | "owned";
 }
 
 const filterToApi: Record<string, string> = {
@@ -25,41 +26,57 @@ const filterToApi: Record<string, string> = {
   owned: "/api/assets/owned",
 };
 
-function getApiByTab(tab: string): string {
-  if (tab === "我的点赞") return filterToApi.likes;
-  if (tab === "我的收藏") return filterToApi.collected;
-  if (tab === "我的财产") return filterToApi.owned;
-  return filterToApi.owned;
+function getApiByFilterId(filterId: string): string {
+  return filterToApi[filterId] || filterToApi.owned;
 }
 
 export function SettingsImageWall({
   showUploadButton = false,
   filterOptions,
+  mainCategory,
 }: SettingsImageWallProps) {
+  console.log(
+    "[SettingsImageWall] Received filterOptions prop:",
+    JSON.stringify(filterOptions)
+  );
+
   const [images, setImages] = useState<FoodImage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedFilter, setSelectedFilter] = useState<string>(
-    filterOptions[0]?.id || "all"
-  );
+  const [selectedFilter, setSelectedFilter] = useState<string>(() => {
+    const initialId = filterOptions?.[0]?.id || "all";
+    console.log(
+      `[SettingsImageWall] Initializing selectedFilter with: ${initialId} (derived from filterOptions[0]?.id or default 'all')`
+    );
+    return initialId;
+  });
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   // 获取当前 tab 名称（通过 window.location.hash 或 props 传递更优，这里假设用 filterOptions[0].name 作为 tab 名）
   // 你可以根据实际 tab 传递方式调整 getApiByTab 的参数
-  const [tabName, setTabName] = useState<string>("");
-  useEffect(() => {
-    // 尝试从父组件传递 tab 名称，或用 URL/hash 判断
-    // 这里假设用 document.title 或 filterOptions[0].name
-    setTabName(document.title || "我的财产");
-  }, []);
+  // const [tabName, setTabName] = useState<string>("");
+  // useEffect(() => {
+  //   // 尝试从父组件传递 tab 名称，或用 URL/hash 判断
+  //   // 这里假设用 document.title 或 filterOptions[0].name
+  //   setTabName(document.title || "我的财产");
+  // }, []);
 
   useEffect(() => {
     let ignore = false;
     async function fetchImages() {
       setIsLoading(true);
-      const apiUrl = getApiByTab(tabName);
+      const apiUrl = getApiByFilterId(mainCategory);
+      console.log(
+        `[SettingsImageWall] Attempting to fetch: ${apiUrl}, mainCategory: ${mainCategory}, selectedFilter (for sub-filtering): ${selectedFilter}`
+      );
       try {
         const res = await fetch(apiUrl, { credentials: "include" });
-        if (!res.ok) throw new Error("获取图片失败");
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error(
+            `[SettingsImageWall] Fetch error: ${res.status} ${res.statusText} for ${apiUrl}. Response: ${errorText}`
+          );
+          throw new Error(`获取图片失败: ${res.status}`);
+        }
         const data = await res.json();
         if (ignore) return;
         interface ApiImage {
@@ -77,7 +94,8 @@ export function SettingsImageWall({
           prompt: item.prompt,
         }));
         setImages(mapped);
-      } catch {
+      } catch (error) {
+        console.error("[SettingsImageWall] Error in fetchImages:", error);
         setImages([]);
       } finally {
         setIsLoading(false);
@@ -87,7 +105,7 @@ export function SettingsImageWall({
     return () => {
       ignore = true;
     };
-  }, [tabName]);
+  }, [mainCategory, selectedFilter]);
 
   const handleOpenUploadModal = () => setIsUploadModalOpen(true);
   const handleCloseUploadModal = () => setIsUploadModalOpen(false);
@@ -135,12 +153,22 @@ export function SettingsImageWall({
 
   // 可爱空状态文案
   function getEmptyText(tab: string) {
-    if (tab === "我的点赞") return "暂无点赞，快去心动一张吧！";
-    if (tab === "我的收藏") return "还没有收藏，遇到喜欢的就收进小口袋吧！";
-    if (tab === "我的财产")
+    if (mainCategory === "likes") return "暂无点赞，快去心动一张吧！";
+    if (mainCategory === "collected")
+      return "还没有收藏，遇到喜欢的就收进小口袋吧！";
+    if (mainCategory === "owned")
       return "你还没有上传任何作品，快来创造你的第一个宝藏吧！";
     return "这里空空如也，快去发现更多精彩吧！";
   }
+
+  const getCurrentTabName = () => {
+    const currentFilterOption = filterOptions.find(
+      (option) => option.id === selectedFilter
+    );
+    return currentFilterOption
+      ? currentFilterOption.name
+      : filterOptions[0]?.name || "全部";
+  };
 
   return (
     <div
@@ -159,10 +187,15 @@ export function SettingsImageWall({
               />
             </div>
             <div className="flex items-center space-x-3 pl-24">
-              {filterOptions.map((option) => (
+              {(filterOptions || []).map((option) => (
                 <span
                   key={option.id}
-                  onClick={() => setSelectedFilter(option.id)}
+                  onClick={() => {
+                    console.log(
+                      `[SettingsImageWall] Tab clicked. option.id: "${option.id}", option.name: "${option.name}". Calling setSelectedFilter with "${option.id}".`
+                    );
+                    setSelectedFilter(option.id);
+                  }}
                   className={`cursor-pointer text-sm py-0 ${
                     selectedFilter === option.id
                       ? "text-[#2e8b57]"
@@ -190,7 +223,7 @@ export function SettingsImageWall({
       <FoodImageGrid
         images={images}
         isLoading={isLoading}
-        emptyText={getEmptyText(tabName)}
+        emptyText={getEmptyText(mainCategory)}
       />
       <FoodImageStyles />
       <ImageUploadModal

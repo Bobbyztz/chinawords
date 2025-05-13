@@ -287,6 +287,7 @@ export default function SettingsPage() {
         <SettingsImageWall
           showUploadButton={false}
           filterOptions={likesFilterOptions}
+          mainCategory="likes"
         />
       ),
     },
@@ -296,6 +297,7 @@ export default function SettingsPage() {
         <SettingsImageWall
           showUploadButton={false}
           filterOptions={favoritesFilterOptions}
+          mainCategory="collected"
         />
       ),
     },
@@ -303,8 +305,9 @@ export default function SettingsPage() {
       title: "我的财产",
       content: (
         <SettingsImageWall
-          showUploadButton={false}
+          showUploadButton={true}
           filterOptions={assetsFilterOptions}
+          mainCategory="owned"
         />
       ),
     },
