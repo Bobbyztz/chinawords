@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ContentPageLayout from "../components/ContentPageLayout";
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
+import { toast } from "sonner";
 
 // 定义各个标签页的筛选选项
 const likesFilterOptions = [
@@ -42,8 +43,11 @@ const assetsFilterOptions = [
 ];
 
 export default function SettingsPage() {
-  const { data: session, status } = useSession({ required: false });
+  const { data: session, status, update } = useSession({ required: false });
   const router = useRouter();
+  const [name, setName] = useState("");
+  const [language, setLanguage] = useState("chinese");
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // Redirect to login if not authenticated
   React.useEffect(() => {
@@ -51,6 +55,59 @@ export default function SettingsPage() {
       router.push("/login");
     }
   }, [status, router]);
+
+  // Load user data once session is available
+  useEffect(() => {
+    if (session?.user) {
+      // If the user has a displayName, use it
+      if (session.user.displayName) {
+        setName(session.user.displayName);
+      }
+
+      // If the user has a language preference, use it
+      if (session.user.language) {
+        setLanguage(session.user.language);
+      }
+    }
+  }, [session]);
+
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+  };
+
+  const handleUpdateAccount = async () => {
+    setIsUpdating(true);
+    try {
+      const response = await fetch("/api/user/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          language,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update account");
+      }
+
+      // Update the session with new data
+      await update();
+
+      // Force a reload of the page to ensure session data is refreshed
+      window.location.reload();
+
+      toast.success("账户已更新");
+    } catch (error) {
+      console.error("Error updating account:", error);
+      toast.error("更新失败，请重试");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -175,7 +232,7 @@ export default function SettingsPage() {
 
   // 创建 Account 页面内容
   const accountContent = (
-    <div className="w-full max-w-lg mx-auto  rounded-lg">
+    <div className="w-full max-w-lg mx-auto rounded-lg">
       <div className="p-6">
         <h1 className="text-xl font-bold mb-2 text-gray-800">账户</h1>
         <p className="text-sm text-gray-600 mb-6">
@@ -196,6 +253,8 @@ export default function SettingsPage() {
               id="name"
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
               placeholder="你的名称"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <p className="text-xs text-gray-600">
               这是您在个人资料和电子邮件中显示的名称。
@@ -224,7 +283,7 @@ export default function SettingsPage() {
             >
               语言
             </label>
-            <Select>
+            <Select value={language} onValueChange={handleLanguageChange}>
               <SelectTrigger>
                 <SelectValue placeholder="选择语言" />
               </SelectTrigger>
@@ -241,8 +300,12 @@ export default function SettingsPage() {
 
           {/* Update button */}
           <div className="pt-4">
-            <button className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none">
-              更新账户
+            <button
+              className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 focus:outline-none disabled:opacity-50"
+              onClick={handleUpdateAccount}
+              disabled={isUpdating}
+            >
+              {isUpdating ? "更新中..." : "更新账户"}
             </button>
           </div>
         </div>

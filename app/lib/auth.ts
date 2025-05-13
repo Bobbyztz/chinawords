@@ -42,6 +42,8 @@ export const authOptions: NextAuthOptions = {
           return {
             id: user.id.toString(),
             username: user.username,
+            displayName: user.displayName || null,
+            language: user.language || "chinese",
           };
         } catch (error) {
           console.error("Error in authorize:", error);
@@ -55,12 +57,34 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       // Add user info to token when signing in
       if (user) {
         token.id = user.id;
         token.username = user.username;
+        token.displayName = user.displayName;
+        token.language = user.language;
       }
+
+      // Handle session update (from useSession().update())
+      if (trigger === "update" && session) {
+        // If session is updated, fetch fresh user data
+        const freshUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: {
+            id: true,
+            username: true,
+            displayName: true,
+            language: true,
+          },
+        });
+
+        if (freshUser) {
+          token.displayName = freshUser.displayName;
+          token.language = freshUser.language;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -68,6 +92,8 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
+        session.user.displayName = (token.displayName as string) || null;
+        session.user.language = (token.language as string) || "chinese";
       }
       return session;
     },

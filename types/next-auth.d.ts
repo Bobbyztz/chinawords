@@ -11,6 +11,10 @@ declare module "next-auth" {
       id: string;
       /** The user's username */
       username: string;
+      /** The user's display name */
+      displayName?: string;
+      /** The user's preferred language */
+      language?: string;
     } & DefaultSession["user"];
   }
 
@@ -19,6 +23,10 @@ declare module "next-auth" {
     id: string;
     /** The user's username */
     username: string;
+    /** The user's display name */
+    displayName?: string;
+    /** The user's preferred language */
+    language?: string;
   }
 }
 
@@ -29,5 +37,9 @@ declare module "next-auth/jwt" {
     id: string;
     /** The user's username */
     username: string;
+    /** The user's display name */
+    displayName?: string;
+    /** The user's preferred language */
+    language?: string;
   }
 }

@@ -18,6 +18,7 @@ model User {
   avatarUrl    String?
   displayName  String?
   email        String?               @unique
+  language     String                @default("chinese")
   updatedAt    DateTime              @updatedAt
   assets       Asset[]
   collections  UserCollectionAsset[]
