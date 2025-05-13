@@ -12,10 +12,32 @@ interface TocItem {
 }
 
 // Custom TOC component styled like Fumadocs
-const TableOfContents: React.FC<{ items: TocItem[]; title?: string }> = ({
-  items,
-  title = "On this page",
-}) => {
+const TableOfContents: React.FC<{
+  items: TocItem[];
+  title?: string;
+  colorScheme?: "green" | "blue" | "red";
+}> = ({ items, title = "On this page", colorScheme = "blue" }) => {
+  // Color mapping based on the colorScheme
+  const colors = {
+    green: {
+      hover: "hover:text-emerald-600",
+      active: "text-emerald-700 font-medium",
+      indicator: "bg-emerald-600",
+    },
+    blue: {
+      hover: "hover:text-blue-500",
+      active: "text-blue-500 font-medium",
+      indicator: "bg-blue-500",
+    },
+    red: {
+      hover: "hover:text-red-600",
+      active: "text-red-700 font-medium",
+      indicator: "bg-red-600",
+    },
+  };
+
+  const currentColor = colors[colorScheme];
+
   return (
     <div className="pr-4">
       <div className="flex items-center text-gray-500 mb-4 text-sm">
@@ -42,12 +64,16 @@ const TableOfContents: React.FC<{ items: TocItem[]; title?: string }> = ({
           <div key={index} className="mb-3">
             <a
               href={item.url}
-              className={`block py-1.5 text-sm hover:text-blue-500 transition-colors relative ${
-                item.active ? "text-blue-500 font-medium" : "text-gray-600"
+              className={`block py-1.5 text-sm ${
+                currentColor.hover
+              } transition-colors relative ${
+                item.active ? currentColor.active : "text-gray-600"
               }`}
             >
               {item.active && (
-                <span className="absolute -left-[17px] top-0 bottom-0 w-0.5 bg-blue-500 rounded-full"></span>
+                <span
+                  className={`absolute -left-[17px] top-0 bottom-0 w-0.5 ${currentColor.indicator} rounded-full`}
+                ></span>
               )}
               {item.title}
             </a>
@@ -92,7 +118,7 @@ const NewHomePage_ProjectProgress: React.FC<
     >
       <div className="bg-white/30 backdrop-blur-sm rounded-lg shadow-lg w-full h-[calc(100%-9px)] overflow-y-auto">
         <div className="h-full p-6">
-          <h2 className="text-3xl font-bold text-center pt-10 mb-11 font-serif-sc">
+          <h2 className="text-3xl font-bold text-center pt-10 mb-10 font-serif-sc">
             项目进度
           </h2>
 
@@ -100,24 +126,36 @@ const NewHomePage_ProjectProgress: React.FC<
             {/* Left TOC */}
             <div className="w-full md:w-1/3">
               <div className="p-5 flex flex-col items-center">
-                <h3 className="text-xl font-bold mb-6">已完成</h3>
-                <TableOfContents items={leftTocItems} title="/food" />
+                <h3 className="text-lg font-semibold mb-6">已完成</h3>
+                <TableOfContents
+                  items={leftTocItems}
+                  title="/food"
+                  colorScheme="green"
+                />
               </div>
             </div>
 
             {/* center TOC */}
             <div className="w-full md:w-1/3">
               <div className="p-5 flex flex-col items-center">
-                <h3 className="text-xl font-bold mb-6">进行中</h3>
-                <TableOfContents items={CenterTocItems} title="/food" />
+                <h3 className="text-lg font-semibold mb-6">进行中</h3>
+                <TableOfContents
+                  items={CenterTocItems}
+                  title="/food"
+                  colorScheme="blue"
+                />
               </div>
             </div>
 
             {/* right TOC */}
             <div className="w-full md:w-1/3">
               <div className="p-5 flex flex-col items-center">
-                <h3 className="text-xl font-bold mb-6">未开始</h3>
-                <TableOfContents items={rightTocItems} title="/food" />
+                <h3 className="text-lg font-semibold mb-6">未开始</h3>
+                <TableOfContents
+                  items={rightTocItems}
+                  title="/food"
+                  colorScheme="red"
+                />
               </div>
             </div>
           </div>
