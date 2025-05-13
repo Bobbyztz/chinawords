@@ -56,21 +56,28 @@ export function SettingsImageWall({
     let ignore = false;
     async function fetchImages() {
       setIsLoading(true);
-      let apiUrl = getApiByTab(tabName);
+      const apiUrl = getApiByTab(tabName);
       try {
         const res = await fetch(apiUrl, { credentials: "include" });
         if (!res.ok) throw new Error("获取图片失败");
         const data = await res.json();
         if (ignore) return;
-        const mapped: FoodImage[] = (data || []).map((item: any) => ({
+        interface ApiImage {
+          id: string;
+          fileUri: string;
+          title: string;
+          owner?: { username?: string };
+          prompt?: string;
+        }
+        const mapped: FoodImage[] = (data || []).map((item: ApiImage) => ({
           id: item.id,
           src: item.fileUri,
           alt: item.title,
-          author: item.owner?.username || "", // 需要后端返回 owner
+          author: item.owner?.username || "",
           prompt: item.prompt,
         }));
         setImages(mapped);
-      } catch (e) {
+      } catch {
         setImages([]);
       } finally {
         setIsLoading(false);
