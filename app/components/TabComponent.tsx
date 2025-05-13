@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 interface TabItem {
   title: string;
   content: React.ReactNode;
+  slug?: string; // Optional slug for URL
 }
 
 interface TabComponentProps {
@@ -15,41 +16,47 @@ interface TabComponentProps {
 const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const tabParam = searchParams.get("tab");
+  const tabParam = searchParams.get("view");
+
+  // Generate slugs for tabs that don't have them
+  const tabsWithSlugs = tabs.map((tab, index) => ({
+    ...tab,
+    slug: tab.slug || tab.title.toLowerCase().replace(/\s+/g, "-"),
+  }));
+
+  // Find the index of the active tab based on the slug in URL
+  const findTabIndexBySlug = (slug: string) => {
+    const index = tabsWithSlugs.findIndex((tab) => tab.slug === slug);
+    return index >= 0 ? index : 0;
+  };
 
   // Initialize activeTab from URL or default to 0
   const [activeTab, setActiveTab] = useState(() => {
-    const tabIndex = tabParam ? parseInt(tabParam, 10) : 0;
-    return isNaN(tabIndex) || tabIndex < 0 || tabIndex >= tabs.length
-      ? 0
-      : tabIndex;
+    return tabParam ? findTabIndexBySlug(tabParam) : 0;
   });
 
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Initialize content refs
   useEffect(() => {
-    // This ensures the refs are properly set up
     contentRefs.current = contentRefs.current.slice(0, tabs.length);
   }, [tabs.length]);
 
   // Update activeTab when URL parameter changes
   useEffect(() => {
     if (tabParam) {
-      const tabIndex = parseInt(tabParam, 10);
-      if (!isNaN(tabIndex) && tabIndex >= 0 && tabIndex < tabs.length) {
-        setActiveTab(tabIndex);
-      }
+      const index = findTabIndexBySlug(tabParam);
+      setActiveTab(index);
     }
-  }, [tabParam, tabs.length]);
+  }, [tabParam]);
 
   // Handle tab change and update URL
   const handleTabChange = (index: number) => {
     setActiveTab(index);
 
-    // Update URL with the new tab parameter
+    // Update URL with the new tab slug
     const params = new URLSearchParams(searchParams.toString());
-    params.set("tab", index.toString());
+    params.set("view", tabsWithSlugs[index].slug as string);
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -58,7 +65,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
       {/* Tab Navigation - Horizontal on mobile, Vertical on desktop */}
       <div className="w-full md:w-40 flex-shrink-0 z-10 mb-4 md:mb-0">
         <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
-          {tabs.map((tab, index) => (
+          {tabsWithSlugs.map((tab, index) => (
             <li
               key={index}
               className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${

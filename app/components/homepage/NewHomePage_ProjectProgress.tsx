@@ -86,17 +86,17 @@ const TableOfContents: React.FC<{
 
 // Example TOC items with active states
 const leftTocItems = [
-  { title: "美食图片墙", url: "/food?tab=0", active: true },
-  { title: "浏览器插件", url: "/food?tab=6" },
-  { title: "个人资料", url: "/profile" },
+  { title: "美食图片墙", url: "/food?view=图片墙总览", active: true },
+  { title: "浏览器插件", url: "/food?view=浏览器插件" },
+  { title: "个人资料", url: "/settings" },
 ];
 
 const CenterTocItems = [
-  { title: "个性食谱定制", url: "/food?tab=4", active: true },
-  { title: "相册制作栏目", url: "/food?tab=5" },
-  { title: "风格定义图片", url: "/food?tab=1" },
-  { title: "地方菜系图片", url: "/food?tab=2" },
-  { title: "食材溯源展示", url: "/food?tab=3" },
+  { title: "个性食谱定制", url: "/food?view=个性食谱", active: true },
+  { title: "相册制作栏目", url: "/food?view=相册制作" },
+  { title: "风格定义图片", url: "/food?view=风格定义" },
+  { title: "地方菜系图片", url: "/food?view=地方菜系" },
+  { title: "食材溯源展示", url: "/food?view=食材溯源" },
 ];
 
 const rightTocItems = [
