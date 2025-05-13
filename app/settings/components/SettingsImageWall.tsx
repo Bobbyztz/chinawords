@@ -152,7 +152,7 @@ export function SettingsImageWall({
   };
 
   // 可爱空状态文案
-  function getEmptyText(tab: string) {
+  function getEmptyText() {
     if (mainCategory === "likes") return "暂无点赞，快去心动一张吧！";
     if (mainCategory === "collected")
       return "还没有收藏，遇到喜欢的就收进小口袋吧！";
@@ -160,15 +160,6 @@ export function SettingsImageWall({
       return "你还没有上传任何作品，快来创造你的第一个宝藏吧！";
     return "这里空空如也，快去发现更多精彩吧！";
   }
-
-  const getCurrentTabName = () => {
-    const currentFilterOption = filterOptions.find(
-      (option) => option.id === selectedFilter
-    );
-    return currentFilterOption
-      ? currentFilterOption.name
-      : filterOptions[0]?.name || "全部";
-  };
 
   return (
     <div
@@ -223,7 +214,7 @@ export function SettingsImageWall({
       <FoodImageGrid
         images={images}
         isLoading={isLoading}
-        emptyText={getEmptyText(mainCategory)}
+        emptyText={getEmptyText()}
       />
       <FoodImageStyles />
       <ImageUploadModal
