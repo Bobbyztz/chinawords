@@ -103,6 +103,7 @@ const rightTocItems = [
   { title: "衣·时尚传承", url: "#development", active: true },
   { title: "住·空间美学", url: "#testing" },
   { title: "行·绿色出行", url: "#deployment" },
+  { title: "...", url: "#others" },
 ];
 
 const NewHomePage_ProjectProgress: React.FC<
