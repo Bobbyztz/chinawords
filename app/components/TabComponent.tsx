@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
 interface TabItem {
   title: string;
@@ -13,46 +14,40 @@ interface TabComponentProps {
   tabs: TabItem[];
 }
 
-const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
+// Client component that uses useSearchParams
+const TabSelector: React.FC<{
+  tabs: TabItem[];
+  onTabChange: (index: number) => void;
+  activeTab: number;
+}> = ({ tabs, onTabChange, activeTab }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const tabParam = searchParams.get("view");
 
-  // Generate slugs for tabs that don't have them
-  const tabsWithSlugs = tabs.map((tab, index) => ({
+  const tabsWithSlugs = tabs.map((tab) => ({
     ...tab,
     slug: tab.slug || tab.title.toLowerCase().replace(/\s+/g, "-"),
   }));
 
-  // Find the index of the active tab based on the slug in URL
-  const findTabIndexBySlug = (slug: string) => {
-    const index = tabsWithSlugs.findIndex((tab) => tab.slug === slug);
-    return index >= 0 ? index : 0;
-  };
-
-  // Initialize activeTab from URL or default to 0
-  const [activeTab, setActiveTab] = useState(() => {
-    return tabParam ? findTabIndexBySlug(tabParam) : 0;
-  });
-
-  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Initialize content refs
-  useEffect(() => {
-    contentRefs.current = contentRefs.current.slice(0, tabs.length);
-  }, [tabs.length]);
+  const findTabIndexBySlug = useCallback(
+    (slug: string) => {
+      const index = tabsWithSlugs.findIndex((tab) => tab.slug === slug);
+      return index >= 0 ? index : 0;
+    },
+    [tabsWithSlugs]
+  );
 
   // Update activeTab when URL parameter changes
   useEffect(() => {
     if (tabParam) {
       const index = findTabIndexBySlug(tabParam);
-      setActiveTab(index);
+      onTabChange(index);
     }
-  }, [tabParam]);
+  }, [tabParam, findTabIndexBySlug, onTabChange]);
 
   // Handle tab change and update URL
   const handleTabChange = (index: number) => {
-    setActiveTab(index);
+    onTabChange(index);
 
     // Update URL with the new tab slug
     const params = new URLSearchParams(searchParams.toString());
@@ -61,29 +56,63 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
   };
 
   return (
+    <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
+      {tabsWithSlugs.map((tab, index) => (
+        <li
+          key={index}
+          className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${
+            activeTab === index ? "md:rounded-r-lg" : ""
+          }`}
+          onClick={() => handleTabChange(index)}
+        >
+          {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
+          <span
+            className={`inline-block px-2 text-sm ${
+              activeTab === index ? "font-bold text-[#2e8b57]" : ""
+            }`}
+          >
+            {tab.title}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
+  // Use a default tab index without relying on search params for the initial state
+  const [activeTab, setActiveTab] = useState(0);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Initialize content refs
+  useEffect(() => {
+    contentRefs.current = contentRefs.current.slice(0, tabs.length);
+  }, [tabs.length]);
+
+  return (
     <div className="relative flex flex-col md:flex-row w-[95%] pt-4 md:pt-4 h-full mx-auto text-gray-700">
       {/* Tab Navigation - Horizontal on mobile, Vertical on desktop */}
       <div className="w-full md:w-40 flex-shrink-0 z-10 mb-4 md:mb-0">
-        <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
-          {tabsWithSlugs.map((tab, index) => (
-            <li
-              key={index}
-              className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${
-                activeTab === index ? "md:rounded-r-lg" : ""
-              }`}
-              onClick={() => handleTabChange(index)}
-            >
-              {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
-              <span
-                className={`inline-block px-2 text-sm ${
-                  activeTab === index ? "font-bold text-[#2e8b57]" : ""
-                }`}
-              >
-                {tab.title}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Suspense
+          fallback={
+            <ul className="w-full flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
+              {tabs.map((tab, index) => (
+                <li
+                  key={index}
+                  className="text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0"
+                >
+                  <span className="inline-block px-2 text-sm">{tab.title}</span>
+                </li>
+              ))}
+            </ul>
+          }
+        >
+          <TabSelector
+            tabs={tabs}
+            onTabChange={setActiveTab}
+            activeTab={activeTab}
+          />
+        </Suspense>
       </div>
 
       {/* Tab Content */}

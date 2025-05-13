@@ -100,7 +100,7 @@ const CenterTocItems = [
 ];
 
 const rightTocItems = [
-  { title: "衣·时尚传承", url: "/clothing", active: true },
+  { title: "衣·时尚传承", url: "/fashion", active: true },
   { title: "住·空间美学", url: "/living" },
   { title: "行·绿色出行", url: "/travel" },
   { title: "...", url: "#others" },
