@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 interface TabItem {
   title: string;
@@ -12,7 +13,18 @@ interface TabComponentProps {
 }
 
 const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const tabParam = searchParams.get("tab");
+
+  // Initialize activeTab from URL or default to 0
+  const [activeTab, setActiveTab] = useState(() => {
+    const tabIndex = tabParam ? parseInt(tabParam, 10) : 0;
+    return isNaN(tabIndex) || tabIndex < 0 || tabIndex >= tabs.length
+      ? 0
+      : tabIndex;
+  });
+
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Initialize content refs
@@ -20,6 +32,26 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
     // This ensures the refs are properly set up
     contentRefs.current = contentRefs.current.slice(0, tabs.length);
   }, [tabs.length]);
+
+  // Update activeTab when URL parameter changes
+  useEffect(() => {
+    if (tabParam) {
+      const tabIndex = parseInt(tabParam, 10);
+      if (!isNaN(tabIndex) && tabIndex >= 0 && tabIndex < tabs.length) {
+        setActiveTab(tabIndex);
+      }
+    }
+  }, [tabParam, tabs.length]);
+
+  // Handle tab change and update URL
+  const handleTabChange = (index: number) => {
+    setActiveTab(index);
+
+    // Update URL with the new tab parameter
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", index.toString());
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="relative flex flex-col md:flex-row w-[95%] pt-4 md:pt-4 h-full mx-auto text-gray-700">
@@ -32,7 +64,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs }) => {
               className={`text-center leading-9 cursor-pointer transition-all duration-300 whitespace-nowrap px-3 md:px-0 ${
                 activeTab === index ? "md:rounded-r-lg" : ""
               }`}
-              onClick={() => setActiveTab(index)}
+              onClick={() => handleTabChange(index)}
             >
               {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
               <span
