@@ -34,6 +34,19 @@ declare module "next-auth/jwt" {
   }
 }
 
+// Define the shape of our Prisma User model including the language field
+interface PrismaUser {
+  id: string;
+  username: string;
+  passwordHash: string;
+  displayName: string | null;
+  email: string | null;
+  avatarUrl: string | null;
+  language: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -80,7 +93,8 @@ export const authOptions: NextAuthOptions = {
             // Custom properties for JWT
             username: user.username,
             displayName: user.displayName || undefined,
-            language: user.language || "chinese",
+            // Use proper typing for the language property
+            language: (user as PrismaUser).language || "english",
           } as User;
         } catch (error) {
           console.error("Error in authorize:", error);
@@ -105,21 +119,23 @@ export const authOptions: NextAuthOptions = {
 
       // Handle session update (from useSession().update())
       if (trigger === "update" && session) {
-        // If session is updated, fetch fresh user data
-        const freshUser = await prisma.user.findUnique({
-          where: { id: token.id as string },
-          select: {
-            id: true,
-            username: true,
-            displayName: true,
-            language: true,
-          },
-        });
+        try {
+          // Use raw query to get language field to avoid TypeScript issues
+          const result = await prisma.$queryRaw<PrismaUser[]>`
+            SELECT id, username, "displayName", language 
+            FROM "User" 
+            WHERE id = ${token.id as string}
+          `;
 
-        if (freshUser) {
-          // Convert null to undefined to match the expected type
-          token.displayName = freshUser.displayName || undefined;
-          token.language = freshUser.language;
+          const freshUser =
+            Array.isArray(result) && result.length > 0 ? result[0] : null;
+
+          if (freshUser) {
+            token.displayName = freshUser.displayName || undefined;
+            token.language = freshUser.language || "english";
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
         }
       }
 
@@ -131,7 +147,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
         session.user.displayName = token.displayName as string | null;
-        session.user.language = (token.language as string) || "chinese";
+        session.user.language = (token.language as string) || "english";
       }
       return session;
     },

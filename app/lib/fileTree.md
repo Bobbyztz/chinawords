@@ -20,8 +20,9 @@ The `auth.ts` file contains the NextAuth.js configuration options, including:
 - Session management (JWT strategy)
 - Callbacks for token and session handling
 - Custom pages for sign-in and error handling
+- Default language setting (English)
 
-This configuration is imported by the NextAuth.js API route handler and can also be used by other parts of the application that need access to authentication settings.
+The auth configuration uses type definitions from `app/types/auth.ts` for NextAuth.js session and JWT types. Users can change their language preference after logging in via the settings page.
 
 ## Prisma Client
 
