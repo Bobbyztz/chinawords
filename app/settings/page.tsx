@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { toast } from "sonner";
+import { Check, Globe, ChevronDown } from "lucide-react";
 
 // 定义各个标签页的筛选选项
 const likesFilterOptions = [
@@ -46,8 +47,57 @@ export default function SettingsPage() {
   const { data: session, status, update } = useSession({ required: false });
   const router = useRouter();
   const [name, setName] = useState("");
-  const [language, setLanguage] = useState("chinese");
+  const [language, setLanguage] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 添加调试日志
+  useEffect(() => {
+    if (session?.user) {
+      console.log("Session user data:", session.user);
+      console.log("Language from session:", session.user.language);
+    }
+  }, [session]);
+
+  // 直接从数据库获取最新用户数据
+  const fetchUserDataDirectly = async () => {
+    try {
+      const response = await fetch("/api/user/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Direct database fetch result:", data.user);
+
+        if (data.user) {
+          if (data.user.displayName) {
+            setName(data.user.displayName);
+          }
+
+          if (data.user.language) {
+            const dbLanguage = data.user.language.toLowerCase();
+            console.log("Language from DB direct:", dbLanguage);
+
+            // 将数据库中的语言值转换为小写并设置
+            if (["english", "chinese", "spanish"].includes(dbLanguage)) {
+              setLanguage(dbLanguage);
+            } else {
+              setLanguage("chinese"); // 默认值
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user data directly:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Redirect to login if not authenticated
   React.useEffect(() => {
@@ -58,18 +108,21 @@ export default function SettingsPage() {
 
   // Load user data once session is available
   useEffect(() => {
+    if (status === "loading") {
+      setIsLoading(true);
+      return;
+    }
+
     if (session?.user) {
       // If the user has a displayName, use it
       if (session.user.displayName) {
         setName(session.user.displayName);
       }
 
-      // If the user has a language preference, use it
-      if (session.user.language) {
-        setLanguage(session.user.language);
-      }
+      // 从数据库直接获取最新值
+      fetchUserDataDirectly();
     }
-  }, [session]);
+  }, [session, status]);
 
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
@@ -94,11 +147,11 @@ export default function SettingsPage() {
         throw new Error(errorData.error || "Failed to update account");
       }
 
-      // Update the session with new data
-      await update();
+      // 更新成功后直接从数据库获取最新数据
+      await fetchUserDataDirectly();
 
-      // Force a reload of the page to ensure session data is refreshed
-      window.location.reload();
+      // 更新会话
+      await update();
 
       toast.success("账户已更新");
     } catch (error) {
@@ -109,7 +162,7 @@ export default function SettingsPage() {
     }
   };
 
-  if (status === "loading") {
+  if (status === "loading" || isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <p className="text-xl font-serif-sc">加载中...</p>
@@ -283,16 +336,81 @@ export default function SettingsPage() {
             >
               语言
             </label>
-            <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="选择语言" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="english">English</SelectItem>
-                <SelectItem value="chinese">中文</SelectItem>
-                <SelectItem value="spanish">Español</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                className="w-full flex items-center justify-between gap-2 p-2 border border-gray-300 rounded transition-colors hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
+              >
+                <div className="flex items-center gap-2 w-full">
+                  <Globe className="h-4 w-4 text-gray-500" />
+                  {!language ? (
+                    <span className="text-center w-full text-gray-500">
+                      选择语言
+                    </span>
+                  ) : (
+                    <span className="text-center w-full">
+                      {language === "english" && "English"}
+                      {language === "chinese" && "中文"}
+                      {language === "spanish" && "Español"}
+                      {!["english", "chinese", "spanish"].includes(
+                        language
+                      ) && <>未知语言: {language}</>}
+                    </span>
+                  )}
+                </div>
+                <ChevronDown className="h-4 w-4 text-gray-500 flex-shrink-0" />
+              </button>
+
+              {languageMenuOpen && (
+                <div className="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg border border-gray-200">
+                  <div className="py-1">
+                    <button
+                      className="w-full text-left px-4 py-2 flex items-center hover:bg-gray-50"
+                      onClick={() => {
+                        handleLanguageChange("english");
+                        setLanguageMenuOpen(false);
+                      }}
+                    >
+                      <div className="flex-grow text-center relative">
+                        <span>English</span>
+                        {language === "english" && (
+                          <Check className="absolute right-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-700" />
+                        )}
+                      </div>
+                    </button>
+                    <button
+                      className="w-full text-left px-4 py-2 flex items-center hover:bg-gray-50"
+                      onClick={() => {
+                        handleLanguageChange("chinese");
+                        setLanguageMenuOpen(false);
+                      }}
+                    >
+                      <div className="flex-grow text-center relative">
+                        <span>中文</span>
+                        {language === "chinese" && (
+                          <Check className="absolute right-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-700" />
+                        )}
+                      </div>
+                    </button>
+                    <button
+                      className="w-full text-left px-4 py-2 flex items-center hover:bg-gray-50"
+                      onClick={() => {
+                        handleLanguageChange("spanish");
+                        setLanguageMenuOpen(false);
+                      }}
+                    >
+                      <div className="flex-grow text-center relative">
+                        <span>Español</span>
+                        {language === "spanish" && (
+                          <Check className="absolute right-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-700" />
+                        )}
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <p className="text-xs text-gray-600">
               这是您在仪表板中使用的语言。
             </p>
