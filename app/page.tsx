@@ -90,7 +90,7 @@ export default function HomePage() {
       </div>
 
       {/* Scroll container without snap points */}
-      <div className="h-screen overflow-y-scroll scroll-smooth relative z-10 no-scrollbar pt-0">
+      <div className="h-screen overflow-y-scroll scroll-smooth relative z-10 no-scrollbar">
         {/* Hero Section */}
         <NewHomePage_Hero
           heroData={heroData}
@@ -149,35 +149,7 @@ export default function HomePage() {
           transition: all 0.3s ease-in-out;
         }
 
-        /* Button hover effect */
-        button:not(:disabled):hover {
-          box-shadow: 0 1px 3px rgba(46, 139, 87, 0.2);
-        }
-
-        /* Refresh button animation */
-        @keyframes subtlePulse {
-          0% {
-            opacity: 0.7;
-          }
-          50% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0.7;
-          }
-        }
-
-        button:not(:disabled):hover::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background: rgba(46, 139, 87, 0.05);
-          animation: subtlePulse 2s infinite ease-in-out;
-          pointer-events: none;
-        }
+        /* Removed problematic global button hover effect */
 
         /* Image hover effect */
         .hover-frame-effect {
