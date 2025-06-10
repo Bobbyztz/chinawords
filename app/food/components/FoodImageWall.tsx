@@ -47,6 +47,9 @@ const FoodImageWall: React.FC = () => {
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  
+  // 将 useSession 移到组件顶层
+  const { data: session } = useSession();
 
   const [loadedImageIds, setLoadedImageIds] = useState<Set<string>>(new Set());
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -160,7 +163,7 @@ const FoodImageWall: React.FC = () => {
   const handleUpload = async (file: File, prompt: string, altText: string) => {
     try {
       const { upload } = await import("@vercel/blob/client");
-      const { data: session } = useSession();
+      // 使用组件顶层已定义的 session 变量
       const userId = session?.user?.id;
 
       if (!userId) {
