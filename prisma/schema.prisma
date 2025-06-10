@@ -19,6 +19,9 @@ model User {
   displayName  String?
   email        String?               @unique
   language     String                @default("chinese")
+  bio          String?
+  websites     Json?                 // Stored as array of URLs
+  dateOfBirth  DateTime?
   updatedAt    DateTime              @updatedAt
   assets       Asset[]
   collections  UserCollectionAsset[]
