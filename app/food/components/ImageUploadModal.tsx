@@ -63,7 +63,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       setUploadError("");
       try {
         await onUpload(selectedImage, aiPrompt, altText);
-        // Modal will be closed by the parent component after successful upload
+        handleClose(); // On success, call the internal close handler to reset state and close modal
       } catch (error) {
         console.error("Upload error:", error);
         if (error instanceof Error) {

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import { Search, Plus, AlertCircle } from "lucide-react";
 import { useInView } from 'react-intersection-observer';
 import FoodImageGrid from "./FoodImageGrid";
@@ -159,18 +160,14 @@ const FoodImageWall: React.FC = () => {
   const handleUpload = async (file: File, prompt: string, altText: string) => {
     try {
       const { upload } = await import("@vercel/blob/client");
-
-      setIsLoading(true);
-
-      const sessionResponse = await fetch("/api/auth/session");
-      const sessionData = await sessionResponse.json();
-      const userId = sessionData?.user?.id;
+      const { data: session } = useSession();
+      const userId = session?.user?.id;
 
       if (!userId) {
         throw new Error("您需要登录才能上传图片");
       }
 
-      const fileExtension = file.name.split(".").pop() || ""; 
+      const fileExtension = file.name.split(".").pop() || "";
       const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
 
       console.log(
@@ -179,41 +176,30 @@ const FoodImageWall: React.FC = () => {
 
       const newBlob = await upload(uniqueFileName, file, {
         access: "public",
-        handleUploadUrl: "/api/upload-url", 
+        handleUploadUrl: "/api/upload-url",
         clientPayload: JSON.stringify({
           prompt,
           altText,
-          userId, 
-          originalFilename: file.name, 
+          userId,
+          originalFilename: file.name,
         }),
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 2500)); 
+      await new Promise((resolve) => setTimeout(resolve, 2500));
 
       const newImage: FoodImage = {
         id: `uploaded-${Date.now()}`,
         src: newBlob.url,
         alt: altText,
         prompt: prompt,
-        author: "You", 
+        author: "You",
       };
 
       setImages((prevImages) => [newImage, ...prevImages]);
-
-      handleCloseUploadModal();
     } catch (error) {
       console.error("Error uploading image:", error);
-      if (error instanceof Error) {
-        const errorMsg = error.message;
-        alert(`上传失败: ${errorMsg}`);
-
-        if (errorMsg.includes("Could not save image details")) {
-          console.error("Database save error - check server logs for details");
-        }
-      } else {
-        alert("上传失败，请重试");
-      }
-      setIsLoading(false);
+      setIsLoading(false); 
+      throw error; 
     }
   };
 
