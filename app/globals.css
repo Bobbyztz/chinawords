@@ -415,7 +415,7 @@ input:autofill {
 }
 
 .nav-link:hover {
-  color: var(--color-film-red);
+  color: var(--color-film-red) !important;
 }
 
 .nav-link:hover::after {

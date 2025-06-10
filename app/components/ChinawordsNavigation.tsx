@@ -191,7 +191,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               <div
                 onClick={toggleUserMenu}
                 onKeyDown={(e) => e.key === "Enter" && toggleUserMenu()}
-                className="nav-link font-medium text-sm hover:text-film-red relative overflow-hidden group cursor-pointer flex items-center gap-1"
+                className="nav-link font-medium text-sm hover:!text-[#C20F1E] relative overflow-hidden group cursor-pointer flex items-center gap-1"
                 role="button"
                 tabIndex={0}
                 aria-haspopup="true"

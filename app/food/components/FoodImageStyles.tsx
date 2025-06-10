@@ -181,11 +181,11 @@ const FoodImageStyles: React.FC = () => {
       }
 
       /* 八大菜系文字样式 */
-      .flex span {
+      .cuisine-filter span {
         position: relative;
       }
 
-      .flex span:hover {
+      .cuisine-filter span:hover {
         color: var(--color-jade-green);
       }
 

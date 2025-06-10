@@ -177,7 +177,7 @@ export function SettingsImageWall({
                 placeholder="搜索..."
               />
             </div>
-            <div className="flex items-center space-x-3 pl-24">
+            <div className="cuisine-filter flex items-center space-x-3 pl-24">
               {(filterOptions || []).map((option) => (
                 <span
                   key={option.id}

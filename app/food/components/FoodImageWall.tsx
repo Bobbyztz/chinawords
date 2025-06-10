@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { Search, Plus, AlertCircle } from "lucide-react";
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
 import ImageUploadModal from "./ImageUploadModal";
 
 // Updated FoodImage interface to align better with API response (AssetWithOwner)
-interface FoodImage { 
+interface FoodImage {
   id: string;
   src: string;
   alt: string;
@@ -43,11 +43,11 @@ const chineseCuisines = [
 
 const FoodImageWall: React.FC = () => {
   const [images, setImages] = useState<FoodImage[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false); 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  
+
   // 将 useSession 移到组件顶层
   const { data: session } = useSession();
 
@@ -56,95 +56,117 @@ const FoodImageWall: React.FC = () => {
 
   const { ref: bottomScrollRef, inView: isBottomVisible } = useInView({
     threshold: 0,
-    rootMargin: "300px 0px", 
+    rootMargin: "300px 0px",
   });
 
-  const fetchMoreImages = useCallback(async (isInitialLoad = false) => {
-    if (isLoading || (!hasMore && !isInitialLoad)) return;
+  const fetchMoreImages = useCallback(
+    async (isInitialLoad = false) => {
+      if (isLoading || (!hasMore && !isInitialLoad)) return;
 
-    setIsLoading(true);
-    if (isInitialLoad) {
-      setImages([]);
-      setLoadedImageIds(new Set());
-      setErrorMessage(""); 
-      // setHasMore(true); 
-    }
+      setIsLoading(true);
+      if (isInitialLoad) {
+        setImages([]);
+        setLoadedImageIds(new Set());
+        setErrorMessage("");
+        // setHasMore(true);
+      }
 
-    try {
-      const excludeIdsString = Array.from(loadedImageIds).join(',');
-      const response = await fetch(`/api/assets?count=12&excludeIds=${excludeIdsString}`, {
-        // cache: "no-store", 
-        headers: {
-          // Pragma: "no-cache",
-          // "Cache-Control": "no-cache, no-store, must-revalidate",
-        },
-      });
-
-      if (!response.ok) {
-        let apiErrorMsg = "获取图片失败";
-        try {
-          const errorResult = await response.json();
-          if (errorResult && errorResult.error) {
-            apiErrorMsg = errorResult.error;
+      try {
+        const excludeIdsString = Array.from(loadedImageIds).join(",");
+        const response = await fetch(
+          `/api/assets?count=12&excludeIds=${excludeIdsString}`,
+          {
+            // cache: "no-store",
+            headers: {
+              // Pragma: "no-cache",
+              // "Cache-Control": "no-cache, no-store, must-revalidate",
+            },
           }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (_error) {
-          // Ignore if cannot parse error JSON
+        );
+
+        if (!response.ok) {
+          let apiErrorMsg = "获取图片失败";
+          try {
+            const errorResult = await response.json();
+            if (errorResult && errorResult.error) {
+              apiErrorMsg = errorResult.error;
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (_error) {
+            // Ignore if cannot parse error JSON
+          }
+          throw new Error(`API Error: ${response.status} - ${apiErrorMsg}`);
         }
-        throw new Error(`API Error: ${response.status} - ${apiErrorMsg}`);
-      }
-      
-      // Type assertion based on the API's response structure
-      const result = await response.json() as { data: ApiAsset[], hasMore: boolean };
 
-      if (!result || !result.data) {
-        setErrorMessage(isInitialLoad && (!result || !result.data || result.data.length === 0) ? "暂无图片数据" : "未能加载更多图片");
-        setHasMore(false); 
+        // Type assertion based on the API's response structure
+        const result = (await response.json()) as {
+          data: ApiAsset[];
+          hasMore: boolean;
+        };
+
+        if (!result || !result.data) {
+          setErrorMessage(
+            isInitialLoad &&
+              (!result || !result.data || result.data.length === 0)
+              ? "暂无图片数据"
+              : "未能加载更多图片"
+          );
+          setHasMore(false);
+          setIsLoading(false);
+          return;
+        }
+
+        const fetchedApiAssets = result.data; // This is ApiAsset[]
+        const moreAvailable = result.hasMore;
+
+        // Map API assets to FoodImage structure
+        const newImages: FoodImage[] = fetchedApiAssets.map((asset) => ({
+          id: asset.id, // Using direct ID from DB
+          src: asset.fileUri,
+          alt: asset.title,
+          prompt: asset.prompt || undefined,
+          author: asset.owner?.username || undefined,
+        }));
+
+        if (newImages.length === 0 && isInitialLoad) {
+          setErrorMessage("暂无图片数据");
+        } else if (newImages.length === 0 && !isInitialLoad) {
+          // No new images returned on subsequent loads, means no more different images
+        } else {
+          setErrorMessage("");
+        }
+
+        setImages((prevImages) =>
+          isInitialLoad ? newImages : [...prevImages, ...newImages]
+        );
+
+        const newIds = new Set(newImages.map((img) => img.id));
+        setLoadedImageIds((prevIds) => new Set([...prevIds, ...newIds]));
+        setHasMore(moreAvailable);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setErrorMessage(
+          error instanceof Error ? error.message : "获取图片数据时发生未知错误"
+        );
+        // Optionally, set hasMore to false on error to prevent repeated failed calls,
+        // or implement a retry mechanism.
+        // setHasMore(false);
+      } finally {
         setIsLoading(false);
-        return;
       }
+    },
+    [isLoading, hasMore, loadedImageIds /*, pageKey */]
+  );
 
-      const fetchedApiAssets = result.data; // This is ApiAsset[]
-      const moreAvailable = result.hasMore;
-
-      // Map API assets to FoodImage structure
-      const newImages: FoodImage[] = fetchedApiAssets.map(asset => ({
-        id: asset.id, // Using direct ID from DB
-        src: asset.fileUri,
-        alt: asset.title,
-        prompt: asset.prompt || undefined,
-        author: asset.owner?.username || undefined,
-      }));
-
-      if (newImages.length === 0 && isInitialLoad) {
-        setErrorMessage("暂无图片数据");
-      } else if (newImages.length === 0 && !isInitialLoad) {
-        // No new images returned on subsequent loads, means no more different images
-      } else {
-        setErrorMessage(""); 
-      }
-      
-      setImages((prevImages) => isInitialLoad ? newImages : [...prevImages, ...newImages]);
-      
-      const newIds = new Set(newImages.map(img => img.id));
-      setLoadedImageIds((prevIds) => new Set([...prevIds, ...newIds]));
-      setHasMore(moreAvailable);
-
-    } catch (error) {
-      console.error("Error fetching images:", error);
-      setErrorMessage(error instanceof Error ? error.message : "获取图片数据时发生未知错误");
-      // Optionally, set hasMore to false on error to prevent repeated failed calls,
-      // or implement a retry mechanism.
-      // setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isLoading, hasMore, loadedImageIds /*, pageKey */]); 
-
-  useEffect(() => {
-    fetchMoreImages(true); 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [/* pageKey */]); 
+  useEffect(
+    () => {
+      fetchMoreImages(true);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [
+      /* pageKey */
+    ]
+  );
 
   useEffect(() => {
     if (isBottomVisible && hasMore && !isLoading) {
@@ -201,8 +223,8 @@ const FoodImageWall: React.FC = () => {
       setImages((prevImages) => [newImage, ...prevImages]);
     } catch (error) {
       console.error("Error uploading image:", error);
-      setIsLoading(false); 
-      throw error; 
+      setIsLoading(false);
+      throw error;
     }
   };
 
@@ -223,7 +245,7 @@ const FoodImageWall: React.FC = () => {
               />
             </div>
 
-            <div className="flex items-center space-x-3 pl-24">
+            <div className="cuisine-filter flex items-center space-x-3 pl-24">
               {chineseCuisines.map((cuisine) => (
                 <span
                   key={cuisine.id}
@@ -258,11 +280,17 @@ const FoodImageWall: React.FC = () => {
           <p>{errorMessage}</p>
         </div>
       ) : (
-        <FoodImageGrid images={images} isLoading={isLoading && images.length === 0} />
+        <FoodImageGrid
+          images={images}
+          isLoading={isLoading && images.length === 0}
+        />
       )}
 
       {hasMore && !errorMessage && (
-        <div ref={bottomScrollRef} className="h-10 flex justify-center items-center">
+        <div
+          ref={bottomScrollRef}
+          className="h-10 flex justify-center items-center"
+        >
           {isLoading && images.length > 0 && <p>正在加载更多美食...</p>}
         </div>
       )}
