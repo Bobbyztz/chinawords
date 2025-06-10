@@ -56,19 +56,22 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
   useEffect(() => {
     // Function to handle clicks outside the user menu
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
     };
 
     // Add event listener when the menu is open
     if (isUserMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     // Cleanup function to remove event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isUserMenuOpen]); // Re-run effect if isUserMenuOpen changes
 
@@ -87,8 +90,12 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
   return (
     <nav
-      className={`nav-chinawords w-full z-10 ${
-        isScrolled ? (isHomepage ? "py-2" : "py-1") : "py-3"
+      className={`w-full z-50 transition-all duration-300 ${
+        !isHomepage
+          ? "fixed top-0 bg-transparent py-3"
+          : isScrolled && isHomepage
+          ? "bg-white/95 backdrop-blur-sm shadow-medium py-2"
+          : "bg-transparent py-3"
       }`}
     >
       <div className="pl-4 pr-6 flex justify-between items-center">
@@ -110,10 +117,15 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {/* Title with breadcrumb navigation */}
           <div className="flex items-center pl-1 h-10">
             <div
-              className={`font-bold font-serif-sc text-black text-xl translate-y-[5px] flex items-center`}
+              className={`font-bold font-serif-sc text-xl translate-y-[5px] flex items-center ${
+                isScrolled && isHomepage ? "text-black" : "text-gray-800"
+              }`}
             >
               {/* Home link */}
-              <Link href="/" className="cursor-pointer hover:text-[#C20F1E]">
+              <Link
+                href="/"
+                className="cursor-pointer hover:text-[#C20F1E] transition-colors duration-200"
+              >
                 China Words
               </Link>
 
@@ -134,7 +146,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                       {/* Clickable segment */}
                       <Link
                         href={segmentPath}
-                        className="cursor-pointer hover:text-[#C20F1E]"
+                        className="cursor-pointer hover:text-[#C20F1E] transition-colors duration-200"
                       >
                         {capitalizedSegment}
                       </Link>
@@ -207,7 +219,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               {isUserMenuOpen && (
                 <div
                   ref={userMenuRef} // Assign ref to the menu div
-                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50"
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-[60] border border-gray-200"
                 >
                   <Link
                     href="/settings"
@@ -249,7 +261,9 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-film-red"
+            className={`h-6 w-6 ${
+              isScrolled && isHomepage ? "text-film-red" : "text-gray-800"
+            }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -270,7 +284,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute w-full overflow-hidden ${
+        className={`md:hidden absolute w-full bg-white/95 backdrop-blur-sm shadow-lg border-t border-gray-200 overflow-hidden transition-all duration-300 ${
           isMobileMenuOpen ? "max-h-96 py-4" : "max-h-0"
         }`}
       >
@@ -284,7 +298,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   <Link
                     key={index}
                     href={link.href}
-                    className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                    className="py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -295,7 +309,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
             {(isHomepage || !isScrolled) && (
               <Link
                 href="/progress"
-                className="py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc"
+                className="py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 项目进度
@@ -307,7 +321,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               <>
                 <Link
                   href="/profile"
-                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc text-sm`}
+                  className={`py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc text-sm`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   个人资料
@@ -317,7 +331,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                     setIsMobileMenuOpen(false);
                     handleSignOut();
                   }}
-                  className={`w-full text-left py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc text-sm`}
+                  className={`w-full text-left py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc text-sm`}
                 >
                   退出登录
                 </button>
@@ -329,7 +343,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                     links.find((link) => link.label === "注册/登录")?.href ||
                     "/login"
                   }
-                  className={`py-2 px-4 hover:bg-ink-gray rounded-md text-dark-gray font-sans-sc text-sm}`}
+                  className={`py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc text-sm`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   注册/登录

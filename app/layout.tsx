@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./assets/textures/paper-texture-refined.css";
+
 import "./assets/textures/chinese-frame.css";
-import "./assets/styles/biophilic-design.css";
-import "./assets/styles/chinawords-design.css";
+
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";

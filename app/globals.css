@@ -1,7 +1,8 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap");
 
 :root {
+  /* === Core Theme: Paper & Ink === */
   /* Paper textures and colors */
   --paper-cream: #f8f5e6;
   --paper-tan: #e8e0cc;
@@ -11,7 +12,25 @@
   /* Ink colors */
   --ink-dark: #333333;
   --ink-blue: #2c3e50;
-  --ink-red: #c0392b;
+  --ink-red: #c0392b; /* For stamps, etc. */
+
+  /* Base theme from paper */
+  --background: var(--paper-white);
+  --foreground: var(--ink-dark);
+
+  /* === Chinawords Design System Palette === */
+  /* Brand color palette */
+  --color-film-red: #c20f1e;
+  --color-jade-green: #2e8b57;
+  --color-ink-gray: #f5f5f5; /* Note: different from ink-dark */
+  --color-porcelain-white: #ffffff;
+  --color-dark-gray: #333333;
+  --color-light-gray: #cccccc;
+
+  /* Accent colors */
+  --color-gold: #d4af37;
+  --color-teal: #008080;
+  --color-terracotta: #e2725b;
 
   /* Washi tape colors */
   --tape-blue: rgba(100, 181, 246, 0.6);
@@ -19,13 +38,20 @@
   --tape-pink: rgba(244, 143, 177, 0.6);
   --tape-green: rgba(129, 199, 132, 0.6);
 
+  /* === System-wide values from Chinawords Design === */
   /* Shadows */
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --shadow-medium: rgba(0, 0, 0, 0.2);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 6px 16px rgba(0, 0, 0, 0.08);
 
-  /* Base theme */
-  --background: var(--paper-white);
-  --foreground: var(--ink-dark);
+  /* Transitions */
+  --transition-slow: 0.5s ease;
+  --transition-medium: 0.3s ease;
+  --transition-fast: 0.15s ease;
+
+  /* Borders */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 16px;
 }
 
 /* 移除对暗色模式的响应，强制使用浅色背景 */
@@ -180,4 +206,219 @@ input:autofill {
 
 .toaster-elevated [data-sonner-toaster][data-position^="top"] {
   top: 10px;
+}
+
+/* === Consolidated Styles from paper-texture-refined.css === */
+
+.paper-bg {
+  background-color: var(--paper-cream);
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 20px 20px, 20px 20px, 100px 100px;
+}
+
+.image-card,
+.image-thumbnail {
+  background-color: var(--paper-white);
+  box-shadow: 0 2px 4px var(--shadow-light);
+  padding: 16px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-card:hover,
+.image-thumbnail:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px var(--shadow-medium);
+}
+
+.handwritten-title {
+  font-family: "Caveat", cursive;
+  color: var(--ink-dark);
+  font-size: 1.1rem;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.handwritten-date {
+  font-family: "Caveat", cursive;
+  color: var(--ink-light);
+  font-size: 0.9rem;
+  line-height: 1.2;
+  font-style: italic;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-family: "Caveat", cursive;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-tab.active {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 4px var(--shadow-medium);
+  transform: translateY(-1px);
+}
+
+.filter-tab:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px var(--shadow-light);
+}
+
+.washi-tape {
+  position: relative;
+}
+
+.washi-tape::before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 15px;
+  background-color: var(--tape-yellow);
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  opacity: 0.8;
+  z-index: 10;
+  box-shadow: 0 1px 2px var(--shadow-light);
+}
+
+.washi-tape.blue::before {
+  background-color: var(--tape-blue);
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.washi-tape.yellow::before {
+  background-color: var(--tape-yellow);
+}
+
+.washi-tape.pink::before {
+  background-color: var(--tape-pink);
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.washi-tape.green::before {
+  background-color: var(--tape-green);
+  transform: translateX(-50%) rotate(1deg);
+}
+
+/* === Consolidated Animations from animations.css === */
+
+@keyframes magnifyIn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(1.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.magnify {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.magnify:hover {
+  animation: magnifyIn 0.3s ease-out forwards;
+  z-index: 100;
+}
+
+.magnify-glass {
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.magnify-glass::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.3s ease;
+  background-repeat: no-repeat;
+  z-index: 1000;
+}
+
+.magnify-glass:hover::after {
+  opacity: 1;
+}
+
+/* Typography - Chinese font classes */
+.font-serif-sc {
+  font-family: "Noto Serif SC", serif;
+}
+
+.font-sans-sc {
+  font-family: "Noto Sans SC", sans-serif;
+}
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
+/* Navigation styles */
+.nav-link {
+  color: var(--color-dark-gray);
+  position: relative;
+  padding: 0.5rem 1rem;
+  transition: color var(--transition-medium);
+  font-family: "Noto Sans SC", sans-serif;
+  white-space: nowrap;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-film-red);
+  transition: width var(--transition-medium), left var(--transition-medium);
+}
+
+.nav-link:hover {
+  color: var(--color-film-red);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
 }

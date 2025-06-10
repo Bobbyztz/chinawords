@@ -68,7 +68,7 @@ const TabSelector: React.FC<{
           {/* Use a fixed-width container with consistent padding to prevent layout shifts */}
           <span
             className={`inline-block px-2 text-sm ${
-              activeTab === index ? "font-bold text-[#2e8b57]" : ""
+              activeTab === index ? "font-bold text-jade-green" : ""
             }`}
           >
             {tab.title}

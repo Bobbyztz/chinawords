@@ -90,7 +90,7 @@ export default function HomePage() {
       </div>
 
       {/* Scroll container without snap points */}
-      <div className="h-screen overflow-y-scroll scroll-smooth relative z-10 no-scrollbar">
+      <div className="h-screen overflow-y-scroll scroll-smooth relative z-10 no-scrollbar pt-0">
         {/* Hero Section */}
         <NewHomePage_Hero
           heroData={heroData}

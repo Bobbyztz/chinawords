@@ -39,7 +39,7 @@ const ContentPageLayout: React.FC<ContentPageLayoutProps> = ({
       <div className="relative z-10 flex flex-col min-h-screen">
         <ChinawordsNavigation links={navigationLinks} />
 
-        <main className="flex-grow flex flex-col">
+        <main className="flex-grow flex flex-col pt-20">
           <div className="flex flex-col flex-grow">
             <div className="flex flex-col gap-y-6 flex-grow">
               {/* Tab component */}

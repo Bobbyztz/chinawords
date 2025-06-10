@@ -57,7 +57,10 @@ const NewHomePage_Hero: React.FC<NewHomePageHeroProps> = ({
               <h1 className="text-5xl font-bold text-film-red mb-6 font-serif-sc">
                 {heroData.title}
               </h1>
-              <p ref={subtitleRef} className="text-xl text-gray-700 mb-8">
+              <p
+                ref={subtitleRef}
+                className="text-xl text-gray-700 mb-8 font-sans-sc"
+              >
                 {heroData.subtitle}
               </p>
               <div className="flex flex-wrap gap-4 justify-center">

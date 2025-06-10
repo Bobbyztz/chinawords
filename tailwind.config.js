@@ -7,53 +7,39 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'leaf-green': 'var(--color-leaf-green)',
-        'moss-green': 'var(--color-moss-green)',
-        'soft-green': 'var(--color-soft-green)',
-        'earth-brown': 'var(--color-earth-brown)',
-        'sand': 'var(--color-sand)',
-        'sky-blue': 'var(--color-sky-blue)',
-        'water-blue': 'var(--color-water-blue)',
-        'stone-gray': 'var(--color-stone-gray)',
-        'sunlight': 'var(--color-sunlight)',
-        'blossom': 'var(--color-blossom)',
-        'berry': 'var(--color-berry)',
-        'background': 'var(--color-background)',
-        'background-alt': 'var(--color-background-alt)',
-        'film-red': 'var(--color-film-red)',
-        'jade-green': 'var(--color-jade-green)',
-        'ink-gray': 'var(--color-ink-gray)',
-        'porcelain-white': 'var(--color-porcelain-white)',
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+
+        // Paper & Ink
+        "paper-cream": "var(--paper-cream)",
+        "paper-tan": "var(--paper-tan)",
+        "paper-gray": "var(--paper-gray)",
+        "paper-white": "var(--paper-white)",
+        "ink-dark": "var(--ink-dark)",
+        "ink-blue": "var(--ink-blue)",
+        "ink-red": "var(--ink-red)",
+
+        // Chinawords Palette
+        "film-red": "var(--color-film-red)",
+        "jade-green": "var(--color-jade-green)",
+        "ink-gray": "var(--color-ink-gray)",
+        "porcelain-white": "var(--color-porcelain-white)",
+        "dark-gray": "var(--color-dark-gray)",
+        "light-gray": "var(--color-light-gray)",
+        gold: "var(--color-gold)",
+        teal: "var(--color-teal)",
+        terracotta: "var(--color-terracotta)",
       },
       boxShadow: {
-        'soft': 'var(--shadow-soft)',
-        'medium': 'var(--shadow-medium)',
+        soft: "var(--shadow-soft)",
+        medium: "var(--shadow-medium)",
       },
-      borderRadius: {
-        'organic': '30% 70% 70% 30% / 30% 30% 70% 70%',
-        'leaf': '0% 50% 0% 50% / 50% 0% 50% 0%',
-        'pebble': '60% 40% 40% 60% / 40% 50% 50% 60%',
-      },
-      animation: {
-        'sway': 'leafSway 4s ease-in-out infinite',
-        'ripple': 'waterRipple 2s ease-out infinite',
-        'drift': 'cloudDrift 60s linear infinite',
-      },
-      keyframes: {
-        leafSway: {
-          '0%, 100%': { transform: 'rotate(0deg)' },
-          '25%': { transform: 'rotate(1deg)' },
-          '75%': { transform: 'rotate(-1deg)' },
-        },
-        waterRipple: {
-          '0%': { transform: 'scale(0)', opacity: 1 },
-          '100%': { transform: 'scale(4)', opacity: 0 },
-        },
-        cloudDrift: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(100%)' },
-        },
-      },
+      fontFamily: {
+        'noto-sans': ['"Noto Sans SC"', 'sans-serif'],
+        'noto-serif': ['"Noto Serif SC"', 'serif'],
+        'playfair': ['"Playfair Display"', 'serif'],
+        'caveat': ['"Caveat"', 'cursive'],
+      }
     },
   },
   plugins: [],

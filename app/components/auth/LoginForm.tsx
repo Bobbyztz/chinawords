@@ -75,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 focus:border-red-500/90 rounded-md focus:outline-none text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none text-gray-700"
             placeholder="请输入用户名"
             disabled={isLoading}
           />
@@ -93,7 +93,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-400/30 focus:border-red-500/90 rounded-md focus:outline-none  text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none  text-gray-700"
             placeholder="请输入密码"
             disabled={isLoading}
           />
@@ -103,7 +103,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="text-red-700 font-medium flex-shrink-0 hover:cursor-pointer hover:text-red-600"
+            className="text-film-red font-medium flex-shrink-0 hover:cursor-pointer hover:text-film-red/90"
           >
             {isLoading ? "登录中..." : "登录"}
           </button>

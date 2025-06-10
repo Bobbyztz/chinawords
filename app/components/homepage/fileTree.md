@@ -19,6 +19,7 @@ This directory contains components specific to the new homepage design.
 - Components are designed to be full-screen height with 16px spacing between them
 - Each component receives a `registerSection` function to register itself for scroll observation
 - Gallery components include image refresh functionality with loading states and blur effects
+- **Theme Alignment**: All components listed in the 'Files' section above have been refactored to consistently use Tailwind CSS utility classes and theme variables defined in `tailwind.config.js` and `globals.css` (e.g., `film-red`, `jade-green`, `ink-dark`, `shadow-medium`). Legacy or hardcoded styles (hex codes, non-standard Tailwind classes like `shadow-lg`) have been replaced to ensure a unified visual appearance and maintainability across the homepage.
 
 ## Implementation Details
 

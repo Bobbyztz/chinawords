@@ -8,7 +8,7 @@ export const getUnderConstructionTabs = () => {
     {
       title: "标签1",
       content: (
-        <div className="text-gray-400 text-center py-16 font-sans-sc">
+        <div className="text-light-gray text-center py-16 font-sans-sc">
           正在建设中，敬请期待！
         </div>
       ),
@@ -16,7 +16,7 @@ export const getUnderConstructionTabs = () => {
     {
       title: "标签2",
       content: (
-        <div className="text-gray-400 text-center py-16 font-sans-sc">
+        <div className="text-light-gray text-center py-16 font-sans-sc">
           正在建设中，敬请期待！
         </div>
       ),
