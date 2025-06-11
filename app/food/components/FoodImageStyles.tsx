@@ -33,16 +33,7 @@ const FoodImageStyles: React.FC = () => {
         min-height: 0; /* Important for flex containers */
       }
 
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+      /* fadeIn animation now handled by Tailwind animate-fadeIn utility */
 
       /* Hover frame effects are defined in app/page.tsx and homepage components */
 
