@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { Search, Plus, AlertCircle } from "lucide-react";
-import { useInView } from "react-intersection-observer";
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
 import ImageUploadModal from "./ImageUploadModal";
@@ -47,39 +46,59 @@ const FoodImageWall: React.FC = () => {
   const [selectedCuisine, setSelectedCuisine] = useState<string>("all");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  // 将 useSession 移到组件顶层
-  const { data: session } = useSession();
-
   const [loadedImageIds, setLoadedImageIds] = useState<Set<string>>(new Set());
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const { ref: bottomScrollRef, inView: isBottomVisible } = useInView({
-    threshold: 0,
-    rootMargin: "300px 0px",
-  });
+  // 使用ref来避免在useCallback中依赖变化的状态
+  const loadedImageIdsRef = useRef<Set<string>>(new Set());
+  const isLoadingRef = useRef<boolean>(false);
+  const hasMoreRef = useRef<boolean>(true);
+
+  // 使用useSession
+  const { data: session } = useSession();
+
+  // 滚动容器的ref
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // 更新ref值
+  useEffect(() => {
+    loadedImageIdsRef.current = loadedImageIds;
+  }, [loadedImageIds]);
+
+  useEffect(() => {
+    isLoadingRef.current = isLoading;
+  }, [isLoading]);
+
+  useEffect(() => {
+    hasMoreRef.current = hasMore;
+  }, [hasMore]);
 
   const fetchMoreImages = useCallback(
     async (isInitialLoad = false) => {
-      if (isLoading || (!hasMore && !isInitialLoad)) return;
+      // 使用ref值来避免闭包问题
+      if (isLoadingRef.current || (!hasMoreRef.current && !isInitialLoad)) {
+        return;
+      }
 
       setIsLoading(true);
       if (isInitialLoad) {
         setImages([]);
         setLoadedImageIds(new Set());
+        loadedImageIdsRef.current = new Set();
         setErrorMessage("");
-        // setHasMore(true);
+        setHasMore(true);
+        hasMoreRef.current = true;
       }
 
       try {
-        const excludeIdsString = Array.from(loadedImageIds).join(",");
+        const excludeIdsString = Array.from(loadedImageIdsRef.current).join(
+          ","
+        );
         const response = await fetch(
-          `/api/assets?count=12&excludeIds=${excludeIdsString}`,
+          `/api/assets?count=20&excludeIds=${excludeIdsString}`,
           {
-            // cache: "no-store",
             headers: {
-              // Pragma: "no-cache",
-              // "Cache-Control": "no-cache, no-store, must-revalidate",
+              "Cache-Control": "no-cache, no-store, must-revalidate",
             },
           }
         );
@@ -112,16 +131,17 @@ const FoodImageWall: React.FC = () => {
               : "未能加载更多图片"
           );
           setHasMore(false);
+          hasMoreRef.current = false;
           setIsLoading(false);
           return;
         }
 
-        const fetchedApiAssets = result.data; // This is ApiAsset[]
+        const fetchedApiAssets = result.data;
         const moreAvailable = result.hasMore;
 
         // Map API assets to FoodImage structure
         const newImages: FoodImage[] = fetchedApiAssets.map((asset) => ({
-          id: asset.id, // Using direct ID from DB
+          id: asset.id,
           src: asset.fileUri,
           alt: asset.title,
           prompt: asset.prompt || undefined,
@@ -131,7 +151,7 @@ const FoodImageWall: React.FC = () => {
         if (newImages.length === 0 && isInitialLoad) {
           setErrorMessage("暂无图片数据");
         } else if (newImages.length === 0 && !isInitialLoad) {
-          // No new images returned on subsequent loads, means no more different images
+          // No new images returned on subsequent loads
         } else {
           setErrorMessage("");
         }
@@ -141,38 +161,69 @@ const FoodImageWall: React.FC = () => {
         );
 
         const newIds = new Set(newImages.map((img) => img.id));
-        setLoadedImageIds((prevIds) => new Set([...prevIds, ...newIds]));
+        const updatedIds = new Set([...loadedImageIdsRef.current, ...newIds]);
+        setLoadedImageIds(updatedIds);
+        loadedImageIdsRef.current = updatedIds;
+
         setHasMore(moreAvailable);
+        hasMoreRef.current = moreAvailable;
       } catch (error) {
         console.error("Error fetching images:", error);
         setErrorMessage(
           error instanceof Error ? error.message : "获取图片数据时发生未知错误"
         );
-        // Optionally, set hasMore to false on error to prevent repeated failed calls,
-        // or implement a retry mechanism.
-        // setHasMore(false);
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading, hasMore, loadedImageIds /*, pageKey */]
+    [] // 移除所有依赖，使用ref来访问最新状态
   );
 
-  useEffect(
-    () => {
-      fetchMoreImages(true);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [
-      /* pageKey */
-    ]
-  );
+  // 滚动事件处理
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isLoadingRef.current || !hasMoreRef.current) {
+      return;
+    }
 
-  useEffect(() => {
-    if (isBottomVisible && hasMore && !isLoading) {
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    // 当滚动到距离底部200px时开始加载
+    const threshold = 200;
+
+    if (scrollTop + clientHeight >= scrollHeight - threshold) {
       fetchMoreImages();
     }
-  }, [isBottomVisible, hasMore, isLoading, fetchMoreImages]);
+  }, [fetchMoreImages]);
+
+  // 初始加载
+  useEffect(() => {
+    fetchMoreImages(true);
+  }, []); // 只在组件挂载时执行一次
+
+  // 绑定滚动事件
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    // 使用节流来优化性能
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener("scroll", throttledHandleScroll, {
+      passive: true,
+    });
+    return () => {
+      container.removeEventListener("scroll", throttledHandleScroll);
+    };
+  }, [handleScroll]);
 
   const handleOpenUploadModal = () => {
     setIsUploadModalOpen(true);
@@ -189,7 +240,6 @@ const FoodImageWall: React.FC = () => {
   ) => {
     try {
       const { upload } = await import("@vercel/blob/client");
-      // 使用组件顶层已定义的 session 变量
       const userId = session?.user?.id;
 
       if (!userId) {
@@ -242,10 +292,11 @@ const FoodImageWall: React.FC = () => {
 
   return (
     <div
+      ref={scrollContainerRef}
       className="w-full overflow-y-auto h-full"
       style={{ minHeight: "calc(90vh - 100px)" }}
     >
-      <div className="mb-4 backdrop-blur-sm  py-2 sticky top-0 z-10 w-auto">
+      <div className="mb-4 backdrop-blur-sm py-2 sticky top-0 z-10 w-auto">
         <div className="flex items-center justify-between px-4 w-full">
           <div className="flex items-center space-x-8">
             <div className="inline-flex items-center border-b-2 border-[#2e8b57] pb-0">
@@ -299,13 +350,11 @@ const FoodImageWall: React.FC = () => {
       )}
 
       {hasMore && !errorMessage && (
-        <div
-          ref={bottomScrollRef}
-          className="h-10 flex justify-center items-center"
-        >
+        <div className="h-10 flex justify-center items-center">
           {isLoading && images.length > 0 && <p>正在加载更多美食...</p>}
         </div>
       )}
+
       {!hasMore && images.length > 0 && !errorMessage && (
         <div className="text-center py-4 text-gray-500">
           <p>所有美食都看遍啦！</p>
