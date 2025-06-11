@@ -10,7 +10,12 @@ import Image from "next/image";
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (file: File, aiPrompt: string, altText: string) => Promise<void>;
+  onUpload: (files: File[], aiPrompt: string, altText: string) => Promise<void>;
+}
+
+interface SelectedImageData {
+  file: File;
+  previewUrl: string;
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
@@ -18,8 +23,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   onClose,
   onUpload,
 }) => {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedImages, setSelectedImages] = useState<SelectedImageData[]>([]);
   const [aiPrompt, setAiPrompt] = useState<string>("");
   const [altText, setAltText] = useState<string>("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -34,35 +38,49 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const pathname = usePathname();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    const files = event.target.files;
+    if (files) {
+      const fileArray = Array.from(files);
+      const remainingSlots = 9 - selectedImages.length;
+      const filesToProcess = fileArray.slice(0, remainingSlots);
+
+      filesToProcess.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const newImageData: SelectedImageData = {
+            file,
+            previewUrl: reader.result as string,
+          };
+
+          setSelectedImages((prev) => {
+            if (prev.length < 9) {
+              return [...prev, newImageData];
+            }
+            return prev;
+          });
+        };
+        reader.readAsDataURL(file);
+      });
     }
   };
 
-  const handleCancelImage = () => {
-    setSelectedImage(null);
-    setPreviewUrl(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Reset file input
-    }
+  const handleRemoveImage = (index: number) => {
+    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handlePlusClick = () => {
-    fileInputRef.current?.click();
+    if (selectedImages.length < 9) {
+      fileInputRef.current?.click();
+    }
   };
 
   const handleConfirmUpload = async () => {
-    if (selectedImage) {
+    if (selectedImages.length > 0) {
       setIsUploading(true);
       setUploadError("");
       try {
-        await onUpload(selectedImage, aiPrompt, altText);
+        const files = selectedImages.map((img) => img.file);
+        await onUpload(files, aiPrompt, altText);
         handleClose(); // On success, call the internal close handler to reset state and close modal
       } catch (error) {
         console.error("Upload error:", error);
@@ -87,8 +105,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   };
 
   const handleClose = () => {
-    setSelectedImage(null);
-    setPreviewUrl(null);
+    setSelectedImages([]);
     setAiPrompt("");
     setAltText("");
     setIsUploading(false);
@@ -98,9 +115,71 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
   if (!isOpen) return null;
 
+  // 生成九宫格布局
+  const renderImageGrid = () => {
+    const gridItems = [];
+
+    // 填充已选择的图片
+    for (let i = 0; i < selectedImages.length; i++) {
+      const imageData = selectedImages[i];
+      gridItems.push(
+        <div
+          key={i}
+          className="relative aspect-square border border-dashed border-neutral-400 rounded-md overflow-hidden bg-neutral-50"
+        >
+          <Image
+            src={imageData.previewUrl}
+            alt={`Selected image ${i + 1}`}
+            fill
+            sizes="(max-width: 1024px) 33vw, 150px"
+            className="object-cover"
+          />
+          <button
+            onClick={() => handleRemoveImage(i)}
+            className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors z-10"
+            aria-label="Remove image"
+          >
+            <X size={14} />
+          </button>
+        </div>
+      );
+    }
+
+    // 填充空的占位符，包括添加按钮
+    const remainingSlots = 9 - selectedImages.length;
+    for (let i = 0; i < remainingSlots; i++) {
+      if (i === 0 && selectedImages.length < 9) {
+        // 第一个空位置放置添加按钮
+        gridItems.push(
+          <div
+            key={`add-${i}`}
+            onClick={handlePlusClick}
+            className="aspect-square border border-dashed border-neutral-400 rounded-md bg-neutral-50 flex flex-col items-center justify-center cursor-pointer hover:border-neutral-500 hover:bg-neutral-100 transition-colors"
+          >
+            <Plus size={24} className="text-neutral-500 mb-1" />
+            <span className="text-xs text-neutral-500 text-center px-1">
+              添加图片
+              <br />({selectedImages.length}/9)
+            </span>
+          </div>
+        );
+      } else {
+        // 其他空位置
+        gridItems.push(
+          <div
+            key={`empty-${i}`}
+            className="aspect-square border border-dashed border-neutral-300 rounded-md bg-neutral-25"
+          />
+        );
+      }
+    }
+
+    return gridItems;
+  };
+
   return (
     <div className="fixed inset-0 bg-white/10 flex items-center justify-center z-50 p-2">
-      <div className="bg-gradient-to-br from-neutral-100/95 via-white/95 to-neutral-100/90 ounded-lg shadow-xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
+      <div className="bg-gradient-to-br from-neutral-100/95 via-white/95 to-neutral-100/90 rounded-lg shadow-xl p-2 w-full max-w-4xl flex gap-6 relative h-[65vh] text-neutral-200">
         {/* Left side - Image Upload or Login Prompt */}
         <div className="w-1/2 flex flex-col items-stretch justify-center border border-dashed border-neutral-700 rounded-md p-4 relative">
           {isAuthenticated ? (
@@ -108,28 +187,16 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               <input
                 type="file"
                 accept="image/*"
+                multiple
                 ref={fileInputRef}
                 onChange={handleImageChange}
                 className="hidden"
               />
-              {previewUrl ? (
-                <div className="relative w-full flex-grow min-h-0">
-                  {" "}
-                  {/* Wrapper for Image */}
-                  <Image
-                    src={previewUrl}
-                    alt="Selected image preview"
-                    fill
-                    sizes="(max-width: 1024px) 45vw, 450px"
-                    className="object-contain rounded-md"
-                  />
-                  <button
-                    onClick={handleCancelImage}
-                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1.5 hover:bg-black/70 transition-colors z-10"
-                    aria-label="Remove image"
-                  >
-                    <X size={18} />
-                  </button>
+              {selectedImages.length > 0 ? (
+                <div className="w-full h-full">
+                  <div className="grid grid-cols-3 gap-2 h-full">
+                    {renderImageGrid()}
+                  </div>
                 </div>
               ) : (
                 <div
@@ -145,6 +212,9 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                   </p>
                   <p className="text-xs text-neutral-400 mt-1">
                     支持 JPG, PNG, GIF, WebP 等格式
+                  </p>
+                  <p className="text-xs text-neutral-400 mt-1">
+                    最多可选择 9 张图片
                   </p>
                 </div>
               )}
@@ -215,6 +285,9 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                     placeholder="例如：宫保鸡丁，四川名菜"
                     rows={3}
                   />
+                  <p className="text-xs text-neutral-400 mt-1">
+                    此提示词和Alt信息将应用于所有上传的图片
+                  </p>
                 </div>
               </div>
 
@@ -238,7 +311,10 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                   type="button"
                   onClick={handleConfirmUpload}
                   disabled={
-                    !selectedImage || !aiPrompt || !altText || isUploading
+                    selectedImages.length === 0 ||
+                    !aiPrompt ||
+                    !altText ||
+                    isUploading
                   }
                   className="px-4 py-2 bg-green-800 border border-transparent rounded-md text-sm font-medium text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-yellow-500 transition-all duration-150 ease-in-out disabled:from-neutral-700 disabled:to-neutral-800 disabled:text-neutral-400 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
                 >
@@ -248,7 +324,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                       上传中...
                     </>
                   ) : (
-                    "确认上传"
+                    `确认上传 (${selectedImages.length})`
                   )}
                 </button>
               </div>

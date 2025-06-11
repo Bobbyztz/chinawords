@@ -4,7 +4,8 @@ This directory contains components specific to the Food page.
 
 ## Files
 
-- **FoodImageWall.tsx** - Main component for displaying food images. It handles image uploads (generating unique filenames using UUIDs to prevent conflicts), manages image display state, and provides filtering by the eight major Chinese cuisine styles (八大菜系)
+- **FoodImageWall.tsx** - Main component for displaying food images. It handles multiple image uploads (generating unique filenames using UUIDs to prevent conflicts), manages image display state, and provides filtering by the eight major Chinese cuisine styles (八大菜系)
+- **ImageUploadModal.tsx** - Modal component for uploading multiple food images (up to 9 images) with a shared AI prompt and alt text. Features a nine-grid layout for image preview and drag-and-drop functionality
 - **FoodImageCard.tsx** - Reusable component for displaying individual food images with styling and hover effects
 - **FoodImageGrid.tsx** - Component that renders the grid of food images using the FoodImageCard component
 - **FoodImageStyles.tsx** - Component containing all the CSS styles for the food image display
@@ -13,6 +14,14 @@ This directory contains components specific to the Food page.
 - **StyleDefinition.tsx** - Component that displays placeholder content for food traceability information ("食材溯源")
 
 ## Component Features
+
+- **多图片上传** (Multiple Image Upload) - The upload modal supports uploading up to 9 images simultaneously:
+
+  - Nine-grid layout for image preview
+  - Shared AI prompt and alt text for all uploaded images
+  - Individual image removal functionality
+  - Support for JPG, PNG, GIF, WebP formats
+  - Parallel upload processing for better performance
 
 - **八大菜系筛选** (Eight Major Cuisine Styles Filter) - Buttons at the top of the food image wall allow filtering images by the eight major Chinese cuisine styles:
   - 鲁菜 (Lu Cuisine) - Shandong cuisine
@@ -35,3 +44,9 @@ This directory contains components specific to the Food page.
 - Implements a Kanban-style board for user suggestions with upvoting functionality
 - Uses responsive grid layout that adapts to different screen sizes
 - Provides interactive UI elements for adding new suggestions and upvoting existing ones
+- **Upload Modal Features**:
+  - Grid-based image preview (3x3 layout)
+  - Dynamic add button positioning
+  - File validation and error handling
+  - Session-based authentication check
+  - Real-time upload progress indication

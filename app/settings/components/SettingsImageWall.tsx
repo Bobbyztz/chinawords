@@ -110,7 +110,11 @@ export function SettingsImageWall({
   const handleOpenUploadModal = () => setIsUploadModalOpen(true);
   const handleCloseUploadModal = () => setIsUploadModalOpen(false);
 
-  const handleUpload = async (file: File, prompt: string, altText: string) => {
+  const handleUpload = async (
+    files: File[],
+    prompt: string,
+    altText: string
+  ) => {
     try {
       const { upload } = await import("@vercel/blob/client");
       setIsLoading(true);
@@ -118,30 +122,42 @@ export function SettingsImageWall({
       const sessionData = await sessionResponse.json();
       const userId = sessionData?.user?.id;
       if (!userId) throw new Error("您需要登录才能上传图片");
-      const fileExtension = file.name.split(".").pop() || "";
-      const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
-      const newBlob = await upload(uniqueFileName, file, {
-        access: "public",
-        handleUploadUrl: "/api/upload-url",
-        clientPayload: JSON.stringify({
-          prompt,
-          altText,
-          userId,
-          originalFilename: file.name,
-        }),
+
+      // 并行上传所有文件
+      const uploadPromises = files.map(async (file, index) => {
+        const fileExtension = file.name.split(".").pop() || "";
+        const uniqueFileName = `${crypto.randomUUID()}.${fileExtension}`;
+        const newBlob = await upload(uniqueFileName, file, {
+          access: "public",
+          handleUploadUrl: "/api/upload-url",
+          clientPayload: JSON.stringify({
+            prompt,
+            altText,
+            userId,
+            originalFilename: file.name,
+          }),
+        });
+
+        return {
+          id: `uploaded-${Date.now()}-${index}`,
+          src: newBlob.url,
+          alt: altText,
+          prompt: prompt,
+          author: "You",
+        } as FoodImage;
       });
+
+      // 等待所有文件上传完成
+      const uploadedImages = await Promise.all(uploadPromises);
+
+      // 添加延迟以确保后端处理完成
       await new Promise((resolve) => setTimeout(resolve, 2500));
-      const newImage: FoodImage = {
-        id: `uploaded-${Date.now()}`,
-        src: newBlob.url,
-        alt: altText,
-        prompt: prompt,
-        author: "You",
-      };
-      setImages((prevImages) => [newImage, ...prevImages]);
+
+      // 将所有新图片添加到列表开头
+      setImages((prevImages) => [...uploadedImages, ...prevImages]);
       handleCloseUploadModal();
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.error("Error uploading images:", error);
       if (error instanceof Error) {
         alert(`上传失败: ${error.message}`);
       } else {
