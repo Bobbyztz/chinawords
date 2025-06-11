@@ -151,15 +151,14 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   return (
     <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
       {/* Image container */}
-      <div className="aspect-ratio-container relative w-full overflow-hidden flex-1 min-h-0">
+      <div className="aspect-[4/3] overflow-hidden relative w-full flex-1 min-h-0 image-aspect-container">
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
           priority={priority}
-          className={`transition-opacity duration-50 ${
+          className={`object-cover object-center transition-opacity duration-50 ${
             isFlashing ? "opacity-50" : "opacity-100"
           }`}
         />

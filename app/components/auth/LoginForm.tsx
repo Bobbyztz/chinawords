@@ -75,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none text-gray-700 placeholder:text-gray-500 placeholder:opacity-100"
             placeholder="请输入用户名"
             disabled={isLoading}
           />
@@ -93,7 +93,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none  text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 focus:border-film-red rounded-md focus:outline-none text-gray-700 placeholder:text-gray-500 placeholder:opacity-100"
             placeholder="请输入密码"
             disabled={isLoading}
           />

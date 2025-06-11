@@ -137,11 +137,8 @@ section > div.absolute {
   animation: drawSketch 2s ease-in-out forwards;
 }
 
-/* Form styles - improve placeholder visibility */
-::placeholder {
-  color: #6b7280 !important;
-  opacity: 1 !important;
-}
+/* Form styles - now handled by Tailwind placeholder: classes */
+/* placeholder:text-gray-500 placeholder:opacity-100 provides consistent placeholder styling */
 
 /* Fix autofill background color */
 input:-webkit-autofill,
@@ -160,23 +157,9 @@ input:autofill {
   color: var(--ink-dark) !important;
 }
 
-/* Image display consistency */
-.image-thumbnail .relative,
-.image-card .relative,
-.gallery-grid .relative,
-.aspect-ratio-container {
-  aspect-ratio: 4/3;
-  overflow: hidden;
-}
-
-.image-thumbnail img,
-.image-card img,
-.gallery-grid img,
-.aspect-ratio-container img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
+/* Image display consistency - now handled by Tailwind classes */
+/* aspect-[4/3] overflow-hidden provides aspect ratio and overflow control */
+/* object-cover w-full h-full provides image styling */
 
 /* Toast notification styles */
 .toaster-elevated [data-sonner-toast] {

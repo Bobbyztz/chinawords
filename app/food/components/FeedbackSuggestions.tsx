@@ -176,7 +176,7 @@ const FeedbackSuggestions: React.FC = () => {
                 value={newSuggestion}
                 onChange={(e) => setNewSuggestion(e.target.value)}
                 placeholder="请输入您的建议..."
-                className="w-full p-2 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-jade-green resize-none"
+                className="w-full p-2 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-jade-green resize-none placeholder:text-gray-500 placeholder:opacity-100"
                 rows={3}
               />
               <div className="flex justify-end mt-2 space-x-2">

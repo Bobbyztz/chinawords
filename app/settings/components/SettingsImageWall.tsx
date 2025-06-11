@@ -189,7 +189,7 @@ export function SettingsImageWall({
               <Search className="h-5 w-5 text-[#2e8b57] mr-2" />
               <input
                 type="text"
-                className="outline-none text-sm bg-transparent w-96"
+                className="outline-none text-sm bg-transparent w-96 placeholder:text-gray-500 placeholder:opacity-100"
                 placeholder="搜索..."
               />
             </div>

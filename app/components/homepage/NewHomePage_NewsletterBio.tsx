@@ -36,7 +36,7 @@ const NewHomePage_NewsletterBio: React.FC<NewHomePageNewsletterBioProps> = ({
                     <input
                       type="email"
                       placeholder="您的邮箱地址"
-                      className="w-full px-4 py-2 text-sm rounded border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#2E8B57] focus:border-[#2E8B57] transition-all duration-300"
+                      className="w-full px-4 py-2 text-sm rounded border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#2E8B57] focus:border-[#2E8B57] transition-all duration-300 placeholder:text-gray-500 placeholder:opacity-100"
                       required
                     />
                   </div>

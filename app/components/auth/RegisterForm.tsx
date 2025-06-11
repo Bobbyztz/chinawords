@@ -113,7 +113,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700 placeholder:text-gray-500 placeholder:opacity-100"
             placeholder="请输入用户名（至少3个字符）"
             disabled={isLoading}
           />
@@ -131,7 +131,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700 placeholder:text-gray-500 placeholder:opacity-100"
             placeholder="请输入密码（至少6个字符）"
             disabled={isLoading}
           />
@@ -149,7 +149,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700"
+            className="w-full px-4 py-2 border-b border-gray-300 hover:border-film-red focus:border-film-red rounded-md focus:outline-none text-gray-700 placeholder:text-gray-500 placeholder:opacity-100"
             placeholder="请再次输入密码"
             disabled={isLoading}
           />

@@ -46,16 +46,10 @@ const FoodImageStyles: React.FC = () => {
 
       /* Hover frame effects are defined in app/page.tsx and homepage components */
 
-      .aspect-ratio-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 85%; /* Reduced from 100% to make images shorter */
-        overflow: hidden;
-        flex: 1;
-        min-height: 0; /* Important for flex containers */
-      }
+      /* Note: aspect-ratio and overflow styles now handled by Tailwind classes */
+      /* aspect-[4/3] overflow-hidden class provides: aspect-ratio: 4/3; overflow: hidden; */
 
-      .aspect-ratio-container::after {
+      .image-aspect-container::after {
         content: "";
         position: absolute;
         bottom: 0;
@@ -76,7 +70,7 @@ const FoodImageStyles: React.FC = () => {
         pointer-events: none; /* Ensure overlay doesn't block interactions with elements behind if any */
       }
 
-      .image-card:hover .aspect-ratio-container::after {
+      .image-card:hover .image-aspect-container::after {
         opacity: 1;
         visibility: visible;
       }
