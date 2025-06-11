@@ -43,38 +43,38 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold font-serif-sc text-jade-green">
+                  <h3 className="text-xl font-bold font-serif-sc text-[#2E8B57]">
                     线上活动
                   </h3>
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-start border-l-2 border-jade-green/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#2E8B57]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">
+                      <h4 className="font-medium text-gray-800">
                         中国文化线上讲座
                       </h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         每周四晚8点，专家带你探索中国文化的方方面面。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-jade-green/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#2E8B57]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">
+                      <h4 className="font-medium text-gray-800">
                         内容贡献计划
                       </h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         分享你的知识，成为我们的内容贡献者。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-jade-green/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#2E8B57]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">社区讨论</h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <h4 className="font-medium text-gray-800">社区讨论</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         加入我们的论坛，与志同道合的朋友交流。
                       </p>
                     </div>
@@ -84,7 +84,7 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                 <div className="text-center">
                   <a
                     href="/community"
-                    className="inline-block border border-jade-green text-jade-green hover:bg-jade-green hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
+                    className="inline-block border border-[#2E8B57] text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
                   >
                     参与线上活动
                   </a>
@@ -93,12 +93,12 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
             </div>
 
             {/* 线下活动 - 砖红色主题 */}
-            <div className="border-t-4 border-film-red bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
+            <div className="border-t-4 border-[#9C4A31] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-film-red/10 rounded-full flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-[#9C4A31]/10 rounded-full flex items-center justify-center mr-4">
                     <svg
-                      className="w-6 h-6 text-film-red"
+                      className="w-6 h-6 text-[#9C4A31]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -118,38 +118,38 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold font-serif-sc text-film-red">
+                  <h3 className="text-xl font-bold font-serif-sc text-[#9C4A31]">
                     线下活动
                   </h3>
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-start border-l-2 border-film-red/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#9C4A31]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">
+                      <h4 className="font-medium text-gray-800">
                         文化体验工作坊
                       </h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         每月举办，亲身体验中国传统工艺的魅力。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-film-red/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#9C4A31]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">
+                      <h4 className="font-medium text-gray-800">
                         城市文化探索
                       </h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <p className="text-sm text-gray-600 mt-1">
                         跟随我们的导览，探索城市中的文化宝藏。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-film-red/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#9C4A31]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">社区聚会</h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <h4 className="font-medium text-gray-800">社区聚会</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         与社区成员面对面交流，分享经验。
                       </p>
                     </div>
@@ -159,7 +159,7 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                 <div className="text-center">
                   <a
                     href="/community"
-                    className="inline-block border border-film-red text-film-red hover:bg-film-red hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
+                    className="inline-block border border-[#9C4A31] text-[#9C4A31] hover:bg-[#9C4A31] hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
                   >
                     参与线下活动
                   </a>
@@ -168,12 +168,12 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
             </div>
 
             {/* 特别活动 - 青灰色主题 */}
-            <div className="border-t-4 border-ink-dark bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
+            <div className="border-t-4 border-[#5D6D7E] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-ink-dark/10 rounded-full flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-[#5D6D7E]/10 rounded-full flex items-center justify-center mr-4">
                     <svg
-                      className="w-6 h-6 text-ink-dark"
+                      className="w-6 h-6 text-[#5D6D7E]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -187,34 +187,34 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold font-serif-sc text-ink-dark">
+                  <h3 className="text-xl font-bold font-serif-sc text-[#5D6D7E]">
                     特别活动
                   </h3>
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-start border-l-2 border-ink-dark/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#5D6D7E]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">文化节庆典</h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <h4 className="font-medium text-gray-800">文化节庆典</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         每年定期举办，庆祝传统节日与文化遗产。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-ink-dark/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#5D6D7E]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">艺术展览</h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <h4 className="font-medium text-gray-800">艺术展览</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         展示当代艺术家对传统文化的现代诠释。
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start border-l-2 border-ink-dark/30 pl-4 py-1">
+                  <div className="flex items-start border-l-2 border-[#5D6D7E]/30 pl-4 py-1">
                     <div>
-                      <h4 className="font-medium text-dark-gray">文化沙龙</h4>
-                      <p className="text-sm text-dark-gray mt-1">
+                      <h4 className="font-medium text-gray-800">文化沙龙</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         小型精品活动，深度探讨特定文化主题。
                       </p>
                     </div>
@@ -224,7 +224,7 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
                 <div className="text-center">
                   <a
                     href="/special-events"
-                    className="inline-block border border-ink-dark text-ink-dark hover:bg-ink-dark hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
+                    className="inline-block border border-[#5D6D7E] text-[#5D6D7E] hover:bg-[#5D6D7E] hover:text-white px-6 py-2 rounded-md transition-colors duration-300"
                   >
                     参与特别活动
                   </a>
@@ -235,9 +235,9 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
 
           {/* 活动日历提示 */}
           <div className="mt-10 text-center">
-            <div className="inline-flex items-center justify-center space-x-2 text-dark-gray">
+            <div className="inline-flex items-center justify-center space-x-2 text-gray-600">
               <svg
-                className="w-5 h-5 text-ink-dark"
+                className="w-5 h-5 text-[#5D6D7E]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -253,7 +253,7 @@ const NewHomePage_Activities: React.FC<NewHomePageActivitiesProps> = ({
               <span className="text-sm">查看完整活动日历，请访问</span>
               <a
                 href="/events"
-                className="text-ink-dark hover:text-jade-green font-medium underline"
+                className="text-[#5D6D7E] hover:text-[#2E8B57] font-medium underline"
               >
                 活动页面
               </a>
