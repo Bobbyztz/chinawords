@@ -167,7 +167,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 <Link
                   key={index}
                   href={link.href}
-                  className={`nav-link font-medium font-sans-sc hover:text-film-red relative overflow-hidden group text-sm`}
+                  className={`text-dark-gray relative py-2 px-4 transition-colors duration-medium font-medium font-sans-sc hover:text-film-red overflow-hidden group text-sm whitespace-nowrap`}
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -178,7 +178,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
           {(isHomepage || !isScrolled) && (
             <Link
               href="/progress"
-              className={`nav-link font-medium text-sm hover:text-film-red relative overflow-hidden group `}
+              className={`text-dark-gray relative py-2 px-4 transition-colors duration-medium font-medium text-sm hover:text-film-red overflow-hidden group whitespace-nowrap`}
             >
               项目进度
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
@@ -191,7 +191,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
               <div
                 onClick={toggleUserMenu}
                 onKeyDown={(e) => e.key === "Enter" && toggleUserMenu()}
-                className="nav-link font-medium text-sm hover:!text-[#C20F1E] relative overflow-hidden group cursor-pointer flex items-center gap-1"
+                className="text-dark-gray relative py-2 px-4 transition-colors duration-medium font-medium text-sm hover:!text-[#C20F1E] overflow-hidden group cursor-pointer flex items-center gap-1 whitespace-nowrap"
                 role="button"
                 tabIndex={0}
                 aria-haspopup="true"
@@ -244,7 +244,7 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                   links.find((link) => link.label === "注册/登录")?.href ||
                   "/login"
                 }
-                className={`nav-link font-medium font-sans-sc hover:text-film-red relative text-sm overflow-hidden group`}
+                className={`text-dark-gray relative py-2 px-4 transition-colors duration-medium font-medium font-sans-sc hover:text-film-red text-sm overflow-hidden group whitespace-nowrap`}
               >
                 注册/登录
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>

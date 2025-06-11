@@ -189,23 +189,7 @@ input:autofill {
 
 /* === Consolidated Styles from paper-texture-refined.css === */
 
-.image-card,
-.image-thumbnail {
-  background-color: var(--paper-white);
-  box-shadow: 0 2px 4px var(--shadow-light);
-  padding: 16px;
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.image-card:hover,
-.image-thumbnail:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 8px var(--shadow-medium);
-}
+/* Image cards are now handled by component-specific styles in FoodImageStyles.tsx */
 
 /* === Consolidated Animations from animations.css === */
 
@@ -222,32 +206,6 @@ input:autofill {
   font-family: "Playfair Display", serif;
 }
 
-/* Navigation styles */
-.nav-link {
-  color: var(--color-dark-gray);
-  position: relative;
-  padding: 0.5rem 1rem;
-  transition: color var(--transition-medium);
-  font-family: "Noto Sans SC", sans-serif;
-  white-space: nowrap;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-film-red);
-  transition: width var(--transition-medium), left var(--transition-medium);
-}
-
-.nav-link:hover {
-  color: var(--color-film-red) !important;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-  left: 0;
-}
+/* Navigation styles - converted to Tailwind utilities */
+/* .nav-link styles are now handled by Tailwind classes: */
+/* text-dark-gray relative py-2 px-4 transition-colors duration-medium font-sans-sc whitespace-nowrap */

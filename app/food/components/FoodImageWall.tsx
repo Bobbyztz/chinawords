@@ -303,20 +303,20 @@ const FoodImageWall: React.FC = () => {
               <Search className="h-5 w-5 text-[#2e8b57] mr-2" />
               <input
                 type="text"
-                className="outline-none text-sm bg-transparent w-96"
+                className="outline-none text-sm bg-transparent w-96 placeholder:text-gray-500 placeholder:opacity-70"
                 placeholder="搜索美食..."
               />
             </div>
 
-            <div className="cuisine-filter flex items-center space-x-3 pl-24">
+            <div className="flex items-center space-x-3 pl-24">
               {chineseCuisines.map((cuisine) => (
                 <span
                   key={cuisine.id}
                   onClick={() => setSelectedCuisine(cuisine.id)}
-                  className={`cursor-pointer text-sm py-0 ${
+                  className={`relative cursor-pointer text-sm py-0 ${
                     selectedCuisine === cuisine.id
-                      ? "text-[#2e8b57]"
-                      : "text-gray-700 hover:text-[#2e8b57]"
+                      ? "text-jade-green"
+                      : "text-gray-700 hover:text-jade-green"
                   }`}
                 >
                   {cuisine.name}
@@ -328,7 +328,7 @@ const FoodImageWall: React.FC = () => {
           <div className="ml-auto">
             <button
               onClick={handleOpenUploadModal}
-              className="upload-button flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs"
+              className="text-jade-green bg-transparent flex hover:cursor-pointer font-bold items-center gap-1 py-0.5 px-2 rounded-full text-xs"
             >
               <Plus className="h-3 w-3" />
               <span>上传资料</span>
