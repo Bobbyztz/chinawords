@@ -79,12 +79,6 @@ const PriceComparison = () => {
           </div>
         </div>
       </div>
-      <style jsx>{`
-        .image-container img {
-          display: block;
-          max-width: 100%;
-        }
-      `}</style>
     </div>
   );
 };
@@ -129,12 +123,6 @@ const LanguageAdaptation = () => {
           </p>
         </div>
       </div>
-      <style jsx>{`
-        .image-container img {
-          display: block;
-          max-width: 100%;
-        }
-      `}</style>
     </div>
   );
 };
@@ -183,12 +171,6 @@ const FoodCultureInfo = () => {
           </p>
         </div>
       </div>
-      <style jsx>{`
-        .image-container img {
-          display: block;
-          max-width: 100%;
-        }
-      `}</style>
     </div>
   );
 };
@@ -217,12 +199,6 @@ const ProductListBrowsing = () => {
           </div>
         </div>
       </div>
-      <style jsx>{`
-        .image-container img {
-          display: block;
-          max-width: 100%;
-        }
-      `}</style>
     </div>
   );
 };

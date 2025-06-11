@@ -7,7 +7,7 @@ import Image from "next/image";
 const FoodPlugin: React.FC = () => {
   return (
     <div
-      className="w-full overflow-y-auto plugin-container max-w-6xl mx-auto px-4 py-8 font-sans-sc"
+      className="w-full overflow-y-auto animate-fadeIn max-w-6xl mx-auto px-4 py-8 font-sans-sc"
       style={{ minHeight: "calc(90vh - 100px)" }}
     >
       {/* 标题区域 - 使用中国风设计元素 */}
@@ -47,8 +47,8 @@ const FoodPlugin: React.FC = () => {
       {/* 功能卡片容器 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* 功能卡片 1: 价格比较 */}
-        <div className="feature-card">
-          <div className="card-header">
+        <div className="bg-white rounded-xl shadow-soft p-6 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-medium border border-black/5 h-full flex flex-col">
+          <div className="flex items-center mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-film-red"
@@ -63,7 +63,7 @@ const FoodPlugin: React.FC = () => {
                 d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h3 className="text-xl font-bold text-gray-800">价格比较</h3>
+            <h3 className="text-xl font-bold text-gray-800 ml-3">价格比较</h3>
           </div>
           <p className="text-gray-600 mb-4">
             在 Weee! 和 Yami
@@ -71,8 +71,8 @@ const FoodPlugin: React.FC = () => {
           </p>
 
           {/* 图片展示区 - 使用悬停效果和优雅的过渡 */}
-          <div className="image-showcase">
-            <div className="image-container">
+          <div className="mt-auto">
+            <div className="relative overflow-hidden rounded-lg">
               <Image
                 src="/food/plugin/small_window.png"
                 alt="价格比较弹窗"
@@ -80,9 +80,11 @@ const FoodPlugin: React.FC = () => {
                 height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
-              <div className="image-caption">价格比较弹窗</div>
+              <div className="text-center text-sm text-gray-600 mt-2">
+                价格比较弹窗
+              </div>
             </div>
-            <div className="image-container mt-4">
+            <div className="relative overflow-hidden rounded-lg mt-4">
               <Image
                 src="/food/plugin/big_window.png"
                 alt="详细比较视图"
@@ -90,14 +92,16 @@ const FoodPlugin: React.FC = () => {
                 height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
-              <div className="image-caption">详细比较视图</div>
+              <div className="text-center text-sm text-gray-600 mt-2">
+                详细比较视图
+              </div>
             </div>
           </div>
         </div>
 
         {/* 功能卡片 2: 食品文化信息 */}
-        <div className="feature-card">
-          <div className="card-header">
+        <div className="bg-white rounded-xl shadow-soft p-6 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-medium border border-black/5 h-full flex flex-col">
+          <div className="flex items-center mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-film-red"
@@ -112,15 +116,17 @@ const FoodPlugin: React.FC = () => {
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            <h3 className="text-xl font-bold text-gray-800">食品文化信息</h3>
+            <h3 className="text-xl font-bold text-gray-800 ml-3">
+              食品文化信息
+            </h3>
           </div>
           <p className="text-gray-600 mb-4">
             通过 OpenAI 的 API
             提供食品的历史和文化背景信息，帮助您了解中国食品的丰富文化内涵。
           </p>
 
-          <div className="image-showcase">
-            <div className="image-container">
+          <div className="mt-auto">
+            <div className="relative overflow-hidden rounded-lg">
               <Image
                 src="/food/plugin/detail_map.png"
                 alt="食品文化信息"
@@ -128,14 +134,16 @@ const FoodPlugin: React.FC = () => {
                 height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
-              <div className="image-caption">食品文化信息展示</div>
+              <div className="text-center text-sm text-gray-600 mt-2">
+                食品文化信息展示
+              </div>
             </div>
           </div>
         </div>
 
         {/* 功能卡片 3: 产品列表浏览 */}
-        <div className="feature-card">
-          <div className="card-header">
+        <div className="bg-white rounded-xl shadow-soft p-6 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-medium border border-black/5 h-full flex flex-col">
+          <div className="flex items-center mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-film-red"
@@ -150,14 +158,16 @@ const FoodPlugin: React.FC = () => {
                 d="M4 6h16M4 10h16M4 14h16M4 18h16"
               />
             </svg>
-            <h3 className="text-xl font-bold text-gray-800">产品列表浏览</h3>
+            <h3 className="text-xl font-bold text-gray-800 ml-3">
+              产品列表浏览
+            </h3>
           </div>
           <p className="text-gray-600 mb-4">
             在产品列表页面上直接比较多个产品的价格，提高您的购物效率。
           </p>
 
-          <div className="image-showcase">
-            <div className="image-container">
+          <div className="mt-auto">
+            <div className="relative overflow-hidden rounded-lg">
               <Image
                 src="/food/plugin/listing_page.png"
                 alt="产品列表浏览"
@@ -165,7 +175,9 @@ const FoodPlugin: React.FC = () => {
                 height={300}
                 className="rounded-lg shadow-md w-full transition-transform duration-500 hover:scale-105"
               />
-              <div className="image-caption">产品列表页面比较功能</div>
+              <div className="text-center text-sm text-gray-600 mt-2">
+                产品列表页面比较功能
+              </div>
             </div>
           </div>
         </div>
@@ -198,8 +210,8 @@ const FoodPlugin: React.FC = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div className="privacy-card">
-            <div className="privacy-icon">
+          <div className="bg-white rounded-lg p-5 shadow-sm transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-md h-full border border-black/5">
+            <div className="bg-jade-green/10 text-jade-green w-10 h-10 rounded-full flex items-center justify-center mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -221,8 +233,8 @@ const FoodPlugin: React.FC = () => {
             </p>
           </div>
 
-          <div className="privacy-card">
-            <div className="privacy-icon">
+          <div className="bg-white rounded-lg p-5 shadow-sm transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-md h-full border border-black/5">
+            <div className="bg-jade-green/10 text-jade-green w-10 h-10 rounded-full flex items-center justify-center mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -244,8 +256,8 @@ const FoodPlugin: React.FC = () => {
             </p>
           </div>
 
-          <div className="privacy-card">
-            <div className="privacy-icon">
+          <div className="bg-white rounded-lg p-5 shadow-sm transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-md h-full border border-black/5">
+            <div className="bg-jade-green/10 text-jade-green w-10 h-10 rounded-full flex items-center justify-center mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -257,7 +269,7 @@ const FoodPlugin: React.FC = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.40A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                 />
               </svg>
             </div>
@@ -400,104 +412,6 @@ const FoodPlugin: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        /* 全局样式 */
-        .plugin-container {
-          color: var(--color-text);
-          animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* 功能卡片样式 */
-        .feature-card {
-          background-color: white;
-          border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-          padding: 24px;
-          transition: all 0.3s ease;
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .feature-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-          display: flex;
-          align-items: center;
-          margin-bottom: 16px;
-        }
-
-        .card-header h3 {
-          margin-left: 12px;
-        }
-
-        .image-showcase {
-          margin-top: auto;
-        }
-
-        .image-container {
-          position: relative;
-          overflow: hidden;
-          border-radius: 8px;
-        }
-
-        .image-caption {
-          text-align: center;
-          font-size: 0.875rem;
-          color: #666;
-          margin-top: 8px;
-        }
-
-        /* 隐私卡片样式 */
-        .privacy-card {
-          background-color: white;
-          border-radius: 8px;
-          padding: 20px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-          transition: all 0.3s ease;
-          height: 100%;
-        }
-
-        .privacy-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .privacy-icon {
-          background-color: rgba(46, 139, 87, 0.1);
-          color: var(--color-jade-green);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 12px;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-          .feature-card {
-            margin-bottom: 20px;
-          }
-        }
-      `}</style>
     </div>
   );
 };
