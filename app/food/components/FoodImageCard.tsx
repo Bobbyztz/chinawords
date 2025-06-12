@@ -171,9 +171,9 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   };
 
   return (
-    <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group">
+    <div className="image-card relative rounded-lg overflow-hidden cursor-pointer group aspect-square flex flex-col">
       {/* Image container */}
-      <div className="aspect-[4/3] overflow-hidden relative w-full flex-1 min-h-0 image-aspect-container">
+      <div className="overflow-hidden relative w-full flex-1 min-h-0 image-aspect-container">
         <Image
           src={src}
           alt={alt}
@@ -196,7 +196,7 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
       </div>
 
       {/* Container for Alt Text / Icons BELOW the image */}
-      <div className="image-caption-area relative text-center text-xs md:text-sm lg:text-sm font-medium">
+      <div className="image-caption-area relative text-center text-xs md:text-sm lg:text-sm font-medium ">
         {/* Alt text - visible by default */}
         <span className="alt-text-display">{alt}</span>
 
