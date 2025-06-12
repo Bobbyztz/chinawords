@@ -53,27 +53,27 @@ const NewHomePage_Hero: React.FC<NewHomePageHeroProps> = ({
           </div>
           {/* Inner content taking remaining space */}
           <div className="flex-1 flex items-center justify-center p-6">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold text-film-red mb-6 font-serif-sc">
+            <div className="text-center -mt-6">
+              <h1 className="text-5xl font-semibold text-dark-gray mb-6 font-serif-sc">
                 {heroData.title}
               </h1>
               <p
                 ref={subtitleRef}
-                className="text-xl text-gray-700 mb-8 font-sans-sc"
+                className="text-lg text-dark-gray mb-8 font-sans-sc"
               >
                 {heroData.subtitle}
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <a
                   href={heroData.ctaLink}
-                  className="bg-[#A00D19] hover:bg-red-700 text-white px-8 py-2 rounded-md text-lg font-medium transition-all duration-300"
+                  className="bg-[#A00D19] hover:bg-red-700 text-white px-6 py-2 rounded-md text-lg font-medium transition-all duration-300"
                 >
                   {heroData.ctaText}
                 </a>
                 {heroData.secondaryCtaText && heroData.secondaryCtaLink && (
                   <a
                     href={heroData.secondaryCtaLink}
-                    className="bg-transparent border border-[#A00D19] text-[#A00D19] font-semibold px-8 py-2 rounded-md text-lg"
+                    className="bg-transparent border border-[#A00D19] text-[#A00D19] font-semibold px-6 py-2 rounded-md text-lg"
                   >
                     {heroData.secondaryCtaText}
                   </a>
