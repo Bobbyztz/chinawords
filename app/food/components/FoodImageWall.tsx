@@ -384,7 +384,7 @@ const FoodImageWall: React.FC = () => {
 
       {errorMessage && !isLoading && images.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <AlertCircle className="h-12 w-12 mb-4" />
+          <AlertCircle className="h-12 w-12 mb-2" />
           <p>{errorMessage}</p>
         </div>
       ) : (
