@@ -178,7 +178,7 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 25vw, 20vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 25vw, 25vw"
           priority={priority}
           className={`object-cover object-center transition-opacity duration-50 ${
             isFlashing ? "opacity-50" : "opacity-100"

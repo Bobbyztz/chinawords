@@ -44,7 +44,7 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({
   return (
     <div className="space-y-8 pb-8 h-full">
       <div className="mt-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {images.map((image, index) => (
             <FoodImageCard
               key={image.id}
@@ -52,7 +52,7 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({
               src={image.src}
               alt={image.alt}
               prompt={image.prompt}
-              priority={index < 10 && !image.id.startsWith("uploaded-")}
+              priority={index < 8 && !image.id.startsWith("uploaded-")}
             />
           ))}
         </div>
