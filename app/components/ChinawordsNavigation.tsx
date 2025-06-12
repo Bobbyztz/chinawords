@@ -174,17 +174,6 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                 </Link>
               ))}
 
-          {/* Project Progress Link - only show on homepage or when not scrolled */}
-          {(isHomepage || !isScrolled) && (
-            <Link
-              href="/progress"
-              className={`text-dark-gray relative py-2 px-4 transition-colors duration-medium font-medium text-sm hover:text-film-red overflow-hidden group whitespace-nowrap`}
-            >
-              项目进度
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-film-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </Link>
-          )}
-
           {/* User Menu or Login/Register Link - always visible */}
           {session ? (
             <div className="relative">
@@ -304,17 +293,6 @@ const ChinawordsNavigation: React.FC<ChinawordsNavigationProps> = ({
                     {link.label}
                   </Link>
                 ))}
-
-            {/* Project Progress Link (Mobile) - only show on homepage or when not scrolled */}
-            {(isHomepage || !isScrolled) && (
-              <Link
-                href="/progress"
-                className="py-2 px-4 hover:bg-gray-100 rounded-md text-gray-800 font-sans-sc"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                项目进度
-              </Link>
-            )}
 
             {/* User Menu or Login/Register Link (Mobile) */}
             {session ? (

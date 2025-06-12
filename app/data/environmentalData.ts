@@ -5,6 +5,7 @@ export const navigationLinks = [
   { label: '关于我们', href: '/about' },
   { label: '经典案例', href: '/initiatives' },
   { label: '活动社区', href: '/community' },
+  { label: '项目进度', href: '/progress' }, // Added Project Progress
   { label: '注册/登录', href: '/login' }
 ];
 
