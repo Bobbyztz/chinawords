@@ -59,6 +59,13 @@ const FoodImageWall: React.FC = () => {
   const { data: session } = useSession();
   const { fetchBatchAssetStatus } = useAssetStatus();
 
+  // 使用ref来存储fetchBatchAssetStatus以避免循环依赖
+  const fetchBatchAssetStatusRef = useRef(fetchBatchAssetStatus);
+
+  useEffect(() => {
+    fetchBatchAssetStatusRef.current = fetchBatchAssetStatus;
+  }, [fetchBatchAssetStatus]);
+
   // 滚动容器的ref
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -158,14 +165,38 @@ const FoodImageWall: React.FC = () => {
           setErrorMessage("");
         }
 
-        setImages((prevImages) =>
-          isInitialLoad ? newImages : [...prevImages, ...newImages]
-        );
+        setImages((prevImages) => {
+          if (isInitialLoad) {
+            // 初始加载时直接使用新图片
+            const newIds = new Set(newImages.map((img) => img.id));
+            const updatedIds = new Set([
+              ...loadedImageIdsRef.current,
+              ...newIds,
+            ]);
+            setLoadedImageIds(updatedIds);
+            loadedImageIdsRef.current = updatedIds;
+            return newImages;
+          } else {
+            // 追加加载时需要去重
+            const existingIds = new Set(prevImages.map((img) => img.id));
+            const uniqueNewImages = newImages.filter(
+              (img) => !existingIds.has(img.id)
+            );
 
-        const newIds = new Set(newImages.map((img) => img.id));
-        const updatedIds = new Set([...loadedImageIdsRef.current, ...newIds]);
-        setLoadedImageIds(updatedIds);
-        loadedImageIdsRef.current = updatedIds;
+            if (uniqueNewImages.length > 0) {
+              const newIds = new Set(uniqueNewImages.map((img) => img.id));
+              const updatedIds = new Set([
+                ...loadedImageIdsRef.current,
+                ...newIds,
+              ]);
+              setLoadedImageIds(updatedIds);
+              loadedImageIdsRef.current = updatedIds;
+              return [...prevImages, ...uniqueNewImages];
+            }
+
+            return prevImages;
+          }
+        });
 
         setHasMore(moreAvailable);
         hasMoreRef.current = moreAvailable;
@@ -174,7 +205,7 @@ const FoodImageWall: React.FC = () => {
         if (newImages.length > 0) {
           try {
             const assetIds = newImages.map((img) => img.id);
-            fetchBatchAssetStatus(assetIds).catch((error) => {
+            fetchBatchAssetStatusRef.current(assetIds).catch((error) => {
               console.error("Error preloading asset statuses:", error);
             });
           } catch (error) {
@@ -190,7 +221,7 @@ const FoodImageWall: React.FC = () => {
         setIsLoading(false);
       }
     },
-    [fetchBatchAssetStatus] // 添加fetchBatchAssetStatus依赖
+    [] // 移除依赖，使用ref来访问最新的fetchBatchAssetStatus
   );
 
   // 滚动事件处理
@@ -212,7 +243,7 @@ const FoodImageWall: React.FC = () => {
   // 初始加载
   useEffect(() => {
     fetchMoreImages(true);
-  }, [fetchMoreImages]); // 添加fetchMoreImages依赖
+  }, []); // 移除fetchMoreImages依赖，避免无限循环
 
   // 绑定滚动事件
   useEffect(() => {
