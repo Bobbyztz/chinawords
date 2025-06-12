@@ -43,7 +43,7 @@ const FoodImageGrid: React.FC<FoodImageGridProps> = ({
 
   return (
     <div className="space-y-8 pb-8 h-full">
-      <div className="mt-6">
+      <div className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {images.map((image, index) => (
             <FoodImageCard
