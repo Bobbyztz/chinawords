@@ -6,6 +6,7 @@ import { Search, Plus, AlertCircle } from "lucide-react";
 import FoodImageGrid from "./FoodImageGrid";
 import FoodImageStyles from "./FoodImageStyles";
 import ImageUploadModal from "./ImageUploadModal";
+import { useAssetStatus } from "@/app/contexts/AssetStatusContext";
 
 // Updated FoodImage interface to align better with API response (AssetWithOwner)
 interface FoodImage {
@@ -54,8 +55,9 @@ const FoodImageWall: React.FC = () => {
   const isLoadingRef = useRef<boolean>(false);
   const hasMoreRef = useRef<boolean>(true);
 
-  // 使用useSession
+  // 使用useSession和AssetStatus context
   const { data: session } = useSession();
+  const { fetchBatchAssetStatus } = useAssetStatus();
 
   // 滚动容器的ref
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -167,6 +169,18 @@ const FoodImageWall: React.FC = () => {
 
         setHasMore(moreAvailable);
         hasMoreRef.current = moreAvailable;
+
+        // Batch preload asset statuses for better performance
+        if (newImages.length > 0) {
+          try {
+            const assetIds = newImages.map((img) => img.id);
+            fetchBatchAssetStatus(assetIds).catch((error) => {
+              console.error("Error preloading asset statuses:", error);
+            });
+          } catch (error) {
+            console.error("Error initiating batch status fetch:", error);
+          }
+        }
       } catch (error) {
         console.error("Error fetching images:", error);
         setErrorMessage(
@@ -176,7 +190,7 @@ const FoodImageWall: React.FC = () => {
         setIsLoading(false);
       }
     },
-    [] // 移除所有依赖，使用ref来访问最新状态
+    [fetchBatchAssetStatus] // 添加fetchBatchAssetStatus依赖
   );
 
   // 滚动事件处理
@@ -198,7 +212,7 @@ const FoodImageWall: React.FC = () => {
   // 初始加载
   useEffect(() => {
     fetchMoreImages(true);
-  }, []); // 只在组件挂载时执行一次
+  }, [fetchMoreImages]); // 添加fetchMoreImages依赖
 
   // 绑定滚动事件
   useEffect(() => {
@@ -267,7 +281,7 @@ const FoodImageWall: React.FC = () => {
         });
 
         return {
-          id: `uploaded-${Date.now()}-${index}`,
+          id: `uploaded-${crypto.randomUUID()}-${index}`,
           src: newBlob.url,
           alt: altText,
           prompt: prompt,

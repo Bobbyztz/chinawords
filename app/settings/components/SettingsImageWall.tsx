@@ -5,6 +5,7 @@ import { Search, Plus } from "lucide-react";
 import FoodImageGrid from "../../food/components/FoodImageGrid";
 import FoodImageStyles from "../../food/components/FoodImageStyles";
 import ImageUploadModal from "../../food/components/ImageUploadModal";
+import { useAssetStatus } from "@/app/contexts/AssetStatusContext";
 
 interface FoodImage {
   id: string;
@@ -51,6 +52,9 @@ export function SettingsImageWall({
   });
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
+  // Use AssetStatus context for optimized status management
+  const { fetchBatchAssetStatus } = useAssetStatus();
+
   // 获取当前 tab 名称（通过 window.location.hash 或 props 传递更优，这里假设用 filterOptions[0].name 作为 tab 名）
   // 你可以根据实际 tab 传递方式调整 getApiByTab 的参数
   // const [tabName, setTabName] = useState<string>("");
@@ -94,6 +98,18 @@ export function SettingsImageWall({
           prompt: item.prompt,
         }));
         setImages(mapped);
+
+        // Batch preload asset statuses for better performance
+        if (mapped.length > 0) {
+          try {
+            const assetIds = mapped.map((img) => img.id);
+            fetchBatchAssetStatus(assetIds).catch((error) => {
+              console.error("Error preloading asset statuses:", error);
+            });
+          } catch (error) {
+            console.error("Error initiating batch status fetch:", error);
+          }
+        }
       } catch (error) {
         console.error("[SettingsImageWall] Error in fetchImages:", error);
         setImages([]);
@@ -105,7 +121,7 @@ export function SettingsImageWall({
     return () => {
       ignore = true;
     };
-  }, [mainCategory, selectedFilter]);
+  }, [mainCategory, selectedFilter, fetchBatchAssetStatus]);
 
   const handleOpenUploadModal = () => setIsUploadModalOpen(true);
   const handleCloseUploadModal = () => setIsUploadModalOpen(false);
@@ -139,7 +155,7 @@ export function SettingsImageWall({
         });
 
         return {
-          id: `uploaded-${Date.now()}-${index}`,
+          id: `uploaded-${crypto.randomUUID()}-${index}`,
           src: newBlob.url,
           alt: altText,
           prompt: prompt,

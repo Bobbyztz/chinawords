@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Heart, Star, Copy, Download } from "lucide-react";
 import { toast } from "sonner";
+import { useAssetStatus } from "@/app/contexts/AssetStatusContext";
 
 interface FoodImageProps {
   id: string;
@@ -25,24 +26,35 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
   const [isCollected, setIsCollected] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
+  // Use AssetStatus context for optimized status management
+  const { getAssetStatus, fetchAssetStatus, updateAssetStatus } =
+    useAssetStatus();
+
   useEffect(() => {
-    // Fetch the current status when component mounts
-    const fetchAssetStatus = async () => {
+    // Check cache first, then fetch if needed
+    const loadAssetStatus = async () => {
       try {
-        const response = await fetch(`/api/assets/status?assetId=${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setIsLiked(data.isLiked);
-          setIsCollected(data.isCollected);
-          setIsAuthenticated(data.isAuthenticated);
+        // Try to get from cache first
+        const cachedStatus = getAssetStatus(id);
+        if (cachedStatus) {
+          setIsLiked(cachedStatus.isLiked);
+          setIsCollected(cachedStatus.isCollected);
+          setIsAuthenticated(cachedStatus.isAuthenticated);
+          return;
         }
+
+        // If not in cache, fetch (but this should be rare due to batch preloading)
+        const status = await fetchAssetStatus(id);
+        setIsLiked(status.isLiked);
+        setIsCollected(status.isCollected);
+        setIsAuthenticated(status.isAuthenticated);
       } catch (error) {
-        console.error("Error fetching asset status:", error);
+        console.error("Error loading asset status:", error);
       }
     };
 
-    fetchAssetStatus();
-  }, [id]);
+    loadAssetStatus();
+  }, [id, getAssetStatus, fetchAssetStatus]);
 
   const handleLike = async () => {
     if (!isAuthenticated) {
@@ -61,7 +73,12 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
 
       if (response.ok) {
         const result = await response.json();
-        setIsLiked(result.action === "liked");
+        const newLikedState = result.action === "liked";
+        setIsLiked(newLikedState);
+
+        // Update the context cache
+        updateAssetStatus(id, { isLiked: newLikedState });
+
         toast.success(
           result.action === "liked" ? "已添加到喜欢" : "已取消喜欢"
         );
@@ -92,7 +109,12 @@ const FoodImageCard: React.FC<FoodImageProps> = ({
 
       if (response.ok) {
         const result = await response.json();
-        setIsCollected(result.action === "collected");
+        const newCollectedState = result.action === "collected";
+        setIsCollected(newCollectedState);
+
+        // Update the context cache
+        updateAssetStatus(id, { isCollected: newCollectedState });
+
         toast.success(
           result.action === "collected" ? "已加入收藏" : "已取消收藏"
         );
