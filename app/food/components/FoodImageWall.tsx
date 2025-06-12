@@ -341,7 +341,7 @@ const FoodImageWall: React.FC = () => {
       className="w-full overflow-y-auto h-full"
       style={{ minHeight: "calc(90vh - 100px)" }}
     >
-      <div className="mb-4 backdrop-blur-sm py-2 sticky top-0 z-10 w-auto">
+      <div className="mb-2 backdrop-blur-sm py-2 sticky top-0 z-10 w-auto">
         <div className="flex items-center justify-between px-4 w-full">
           <div className="flex items-center space-x-8">
             <div className="inline-flex items-center border-b-2 border-[#2e8b57] pb-0">
